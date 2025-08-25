@@ -22,7 +22,7 @@ Just open the link in your browser!
 
 ## Deployment (GitHub Pages)
 
-This repository is named `edu-2de.github.io`, so any changes pushed to the main branch are automatically published at:  
+This repository is named `Edu-2de.github.io`, so any changes pushed to the main branch are automatically published at:  
 https://edu-2de.github.io
 
 ## License
