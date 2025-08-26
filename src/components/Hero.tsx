@@ -8,6 +8,27 @@ export default function Hero() {
   const controls = useAnimation();
   const nameRef = useRef<HTMLDivElement>(null);
   const [nameHover, setNameHover] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    let rafId: number;
+    
+    const updateMousePosition = (e: MouseEvent) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setMousePosition({
+          x: e.clientX,
+          y: e.clientY,
+        });
+      });
+    };
+
+    window.addEventListener('mousemove', updateMousePosition, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', updateMousePosition);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   useEffect(() => {
     if (!nameRef.current) return;
@@ -16,17 +37,21 @@ export default function Hero() {
     let particles: HTMLDivElement[] = [];
 
     const createParticle = (x: number, y: number) => {
+      if (particles.length > 20) return; // Limit particles
+
       const particle = document.createElement('div');
-      particle.style.position = 'absolute';
-      particle.style.width = '2px';
-      particle.style.height = '2px';
-      particle.style.backgroundColor = 'rgba(255,255,255,0.8)';
-      particle.style.borderRadius = '50%';
-      particle.style.left = x + 'px';
-      particle.style.top = y + 'px';
-      particle.style.pointerEvents = 'none';
-      particle.style.boxShadow = '0 0 6px rgba(255,255,255,0.5)';
-      particle.style.zIndex = '10';
+      particle.style.cssText = `
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255,255,255,0.8);
+        border-radius: 50%;
+        left: ${x}px;
+        top: ${y}px;
+        pointer-events: none;
+        box-shadow: 0 0 6px rgba(255,255,255,0.5);
+        z-index: 10;
+      `;
 
       nameContainer.appendChild(particle);
       particles.push(particle);
@@ -36,9 +61,9 @@ export default function Hero() {
       let yPos = y;
 
       const animate = () => {
-        opacity -= 0.02;
-        scale *= 0.98;
-        yPos -= 1;
+        opacity -= 0.03;
+        scale *= 0.97;
+        yPos -= 1.5;
 
         particle.style.opacity = opacity.toString();
         particle.style.transform = `scale(${scale})`;
@@ -56,18 +81,16 @@ export default function Hero() {
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!nameHover) return;
+      if (!nameHover || Math.random() > 0.8) return;
 
       const rect = nameContainer.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      if (Math.random() > 0.7) {
-        createParticle(x, y);
-      }
+      createParticle(x, y);
     };
 
-    nameContainer.addEventListener('mousemove', handleMouseMove);
+    nameContainer.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
       nameContainer.removeEventListener('mousemove', handleMouseMove);
@@ -92,10 +115,7 @@ export default function Hero() {
   };
 
   const textVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-    },
+    hidden: { opacity: 0, y: 50 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
@@ -108,11 +128,7 @@ export default function Hero() {
   };
 
   const nameVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 100,
-      scale: 0.8,
-    },
+    hidden: { opacity: 0, y: 100, scale: 0.8 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
@@ -135,7 +151,7 @@ export default function Hero() {
 
   useEffect(() => {
     const currentText = texts[currentTextIndex];
-    let timeout: string | number | NodeJS.Timeout | undefined;
+    let timeout: NodeJS.Timeout;
 
     if (!isDeleting && displayText === currentText) {
       timeout = setTimeout(() => setIsDeleting(true), 2000);
@@ -163,55 +179,148 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-gray-800 select-none"
+      className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-950 to-slate-900 select-none"
     >
       <div className="absolute inset-0">
+        {/* Nebulosa central */}
         <motion.div
           animate={{
-            x: [-100, 100, -100],
-            y: [-50, 50, -50],
+            scale: [0.8, 1.2, 0.8],
+            rotate: [0, 180, 360],
+            opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 20,
+            duration: 40,
             repeat: Infinity,
             ease: 'linear',
           }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/8 to-gray-300/12 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{
-            x: [150, -150, 150],
-            y: [75, -75, 75],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-gray-400/8 to-white/8 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-r from-blue-500/15 via-purple-400/20 to-cyan-300/12 rounded-full blur-[150px]"
         />
 
-        <motion.div
-          animate={{
-            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute inset-0 opacity-10"
+        {/* Estrelas de fundo - reduzidas */}
+        <div className="absolute inset-0 opacity-15">
+          {[...Array(80)].map((_, i) => {
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const duration = Math.random() * 10 + 8;
+            const delay = Math.random() * 8;
+            const size = Math.random() * 2 + 1;
+            
+            return (
+              <motion.div
+                key={`bg-star-${i}`}
+                initial={{ opacity: 0 }}
+                animate={{
+                  x: [0, Math.random() * 30 - 15, 0],
+                  y: [0, Math.random() * 30 - 15, 0],
+                  opacity: [0, 0.8, 0],
+                  scale: [0.3, 1, 0.3],
+                }}
+                transition={{
+                  duration: duration,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: delay,
+                }}
+                className={`absolute rounded-full will-change-transform ${
+                  Math.random() > 0.7 ? 'bg-blue-300' : 
+                  Math.random() > 0.5 ? 'bg-purple-200' : 
+                  Math.random() > 0.3 ? 'bg-cyan-300' : 'bg-white'
+                }`}
+                style={{
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  filter: 'blur(0.5px)',
+                  boxShadow: `0 0 ${Math.random() * 6 + 3}px rgba(147, 197, 253, 0.4)`,
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Grid pattern */}
+        <div 
+          className="absolute inset-0 opacity-3"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '60px 60px',
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(147, 197, 253, 0.2) 1px, transparent 0)`,
+            backgroundSize: '80px 80px',
           }}
         />
+
+        {/* Mouse light effect */}
+        <div
+          className="absolute inset-0 pointer-events-none z-20 will-change-transform"
+          style={{
+            background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, 
+              rgba(147, 197, 253, 0.12) 0%, 
+              rgba(147, 197, 253, 0.06) 40%, 
+              transparent 80%)`,
+            mixBlendMode: 'screen',
+          }}
+        />
+
+        {/* Revealed stars - muito reduzidas */}
+        <div 
+          className="absolute inset-0 z-15 will-change-transform"
+          style={{
+            mask: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, 
+              rgba(255,255,255,1) 0%, 
+              rgba(255,255,255,0.6) 40%, 
+              transparent 100%)`,
+            WebkitMask: `radial-gradient(300px circle at ${mousePosition.x}px ${mousePosition.y}px, 
+              rgba(255,255,255,1) 0%, 
+              rgba(255,255,255,0.6) 40%, 
+              transparent 100%)`,
+          }}
+        >
+          {[...Array(50)].map((_, i) => {
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const duration = Math.random() * 8 + 6;
+            const delay = Math.random() * 4;
+            const size = Math.random() * 3 + 1;
+            
+            return (
+              <motion.div
+                key={`reveal-star-${i}`}
+                initial={{ opacity: 0.2 }}
+                animate={{
+                  x: [0, Math.random() * 15 - 7.5, 0],
+                  y: [0, Math.random() * 15 - 7.5, 0],
+                  opacity: [0.2, 1, 0.2],
+                  scale: [0.6, 1.3, 0.6],
+                }}
+                transition={{
+                  duration: duration,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: delay,
+                }}
+                className={`absolute rounded-full will-change-transform ${
+                  Math.random() > 0.6 ? 'bg-blue-400' : 
+                  Math.random() > 0.4 ? 'bg-purple-300' : 
+                  Math.random() > 0.2 ? 'bg-cyan-400' : 'bg-white'
+                }`}
+                style={{
+                  left: `${x}%`,
+                  top: `${y}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  filter: 'blur(0.3px)',
+                  boxShadow: `0 0 ${Math.random() * 8 + 4}px rgba(147, 197, 253, 0.7)`,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={controls}
-        className="max-w-4xl mx-auto px-8 text-center relative z-10 flex flex-col justify-center items-center gap-8"
+        className="max-w-4xl mx-auto px-8 text-center relative z-30 flex flex-col justify-center items-center gap-6"
       >
         <motion.div
           ref={nameRef}
@@ -221,14 +330,14 @@ export default function Hero() {
           onMouseEnter={() => setNameHover(true)}
           onMouseLeave={() => setNameHover(false)}
         >
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-6 relative z-10">
             <motion.h1
               custom={0}
               variants={nameVariants}
-              className={`text-5xl md:text-7xl lg:text-8xl font-extralight text-white tracking-tight leading-none transition-all duration-500 cursor-default ${
+              className={`text-4xl md:text-6xl lg:text-7xl font-extralight text-white tracking-tight leading-none transition-all duration-500 cursor-default ${
                 nameHover
-                  ? 'drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] brightness-110'
-                  : 'drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]'
+                  ? 'drop-shadow-[0_0_25px_rgba(147,197,253,0.4)] brightness-110'
+                  : 'drop-shadow-[0_0_15px_rgba(147,197,253,0.1)]'
               }`}
             >
               Eduardo
@@ -237,10 +346,10 @@ export default function Hero() {
             <motion.h1
               custom={1}
               variants={nameVariants}
-              className={`text-5xl md:text-7xl lg:text-8xl font-light leading-none transition-all duration-500 cursor-default ${
+              className={`text-4xl md:text-6xl lg:text-7xl font-light leading-none transition-all duration-500 cursor-default ${
                 nameHover
-                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-300 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] brightness-110'
-                  : 'text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]'
+                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 drop-shadow-[0_0_25px_rgba(147,197,253,0.4)] brightness-110'
+                  : 'text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-purple-200 to-cyan-200 drop-shadow-[0_0_15px_rgba(147,197,253,0.1)]'
               }`}
             >
               Paim
@@ -249,7 +358,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
-          <div className="text-xl md:text-2xl text-gray-400 font-mono flex items-center justify-center gap-3">
+          <div className="text-lg md:text-xl text-gray-400 font-mono flex items-center justify-center gap-3">
             <motion.div
               animate={{
                 rotate: [0, 360],
@@ -260,14 +369,14 @@ export default function Hero() {
                 scale: { repeat: Infinity, duration: 2, ease: 'easeInOut' },
               }}
             >
-              <Code size={24} className="text-gray-500" />
+              <Code size={20} className="text-gray-500" />
             </motion.div>
             <span className="text-gray-300">
               {displayText}
               <motion.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ repeat: Infinity, duration: 0.8 }}
-                className="ml-1 text-white"
+                className="ml-1 text-blue-300"
               >
                 |
               </motion.span>
@@ -275,8 +384,32 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        <motion.div custom={3} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
+          <motion.div
+            whileHover={{
+              scale: 1.02,
+              filter: 'brightness(1.1)',
+              transition: {
+                type: 'spring',
+                stiffness: 300,
+                damping: 20,
+                duration: 0.3,
+              },
+            }}
+            className="relative group cursor-default max-w-2xl mx-auto"
+          >
+            <p className="text-base md:text-lg text-gray-500 leading-relaxed tracking-wide font-light relative z-10 group-hover:text-gray-400 transition-colors duration-500">
+              Building modern web experiences with{' '}
+              <span className="text-gray-400 font-normal group-hover:text-gray-300 transition-colors duration-500">
+                clean code
+              </span>{' '}
+              and innovative solutions.
+            </p>
+          </motion.div>
+        </motion.div>
+
         <motion.div custom={4} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
-          <div className="flex justify-center space-x-10 gap-4">
+          <div className="flex justify-center space-x-8 gap-3">
             {[
               { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },
               { icon: Linkedin, href: '#', label: 'LinkedIn' },
@@ -291,10 +424,10 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   whileHover={{
                     scale: 1.15,
-                    y: -10,
-                    backgroundColor: 'rgba(255,255,255,0.15)',
-                    borderColor: 'rgba(255,255,255,0.6)',
-                    boxShadow: '0 10px 30px rgba(255,255,255,0.2)',
+                    y: -8,
+                    backgroundColor: 'rgba(147,197,253,0.15)',
+                    borderColor: 'rgba(147,197,253,0.6)',
+                    boxShadow: '0 8px 25px rgba(147,197,253,0.2)',
                     transition: {
                       type: 'spring',
                       stiffness: 400,
@@ -302,15 +435,7 @@ export default function Hero() {
                       duration: 0.2,
                     },
                   }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 400,
-                      damping: 10,
-                      duration: 0.1,
-                    },
-                  }}
+                  whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: 1,
@@ -322,10 +447,7 @@ export default function Hero() {
                       damping: 10,
                     },
                   }}
-                  className="w-16 h-16 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-400 transition-all duration-300 backdrop-blur-sm cursor-pointer group"
-                  style={{
-                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                  }}
+                  className="w-14 h-14 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-400 transition-all duration-300 backdrop-blur-sm cursor-pointer group"
                 >
                   <motion.div
                     whileHover={{
@@ -338,7 +460,7 @@ export default function Hero() {
                       },
                     }}
                   >
-                    <Icon size={22} className="group-hover:text-white transition-colors duration-300" />
+                    <Icon size={20} className="group-hover:text-blue-300 transition-colors duration-300" />
                   </motion.div>
                 </motion.a>
               );
@@ -357,43 +479,19 @@ export default function Hero() {
         >
           <motion.button
             onClick={scrollToNext}
-            whileHover={{
-              scale: 1.1,
-              transition: {
-                type: 'spring',
-                stiffness: 400,
-                damping: 10,
-                duration: 0.2,
-              },
-            }}
-            whileTap={{
-              scale: 0.95,
-              transition: {
-                type: 'spring',
-                stiffness: 400,
-                damping: 10,
-                duration: 0.1,
-              },
-            }}
-            className="text-gray-500 hover:text-white transition-colors duration-300 group flex flex-col items-center cursor-pointer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-gray-500 hover:text-blue-300 transition-colors duration-300 group flex flex-col items-center cursor-pointer"
           >
-            <span className="text-sm mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
+            <span className="text-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
               Explore More
             </span>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
+              animate={{ y: [0, 6, 0] }}
               transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-              whileHover={{
-                scale: 1.2,
-                transition: {
-                  type: 'spring',
-                  stiffness: 400,
-                  damping: 10,
-                  duration: 0.2,
-                },
-              }}
+              whileHover={{ scale: 1.2 }}
             >
-              <ArrowDown size={24} className="group-hover:text-gray-300 transition-colors" />
+              <ArrowDown size={20} className="group-hover:text-blue-300 transition-colors" />
             </motion.div>
           </motion.button>
         </motion.div>
