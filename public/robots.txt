@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Host
+Host: https://edu-2de.github.io
+
+# Sitemaps
+Sitemap: https://edu-2de.github.io/sitemap.xml

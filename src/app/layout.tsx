@@ -18,9 +18,15 @@ export const metadata: Metadata = {
     'Portfólio pessoal de Eduardo Silva - Desenvolvedor Full Stack especializado em React, Next.js, Node.js e tecnologias modernas.',
   keywords: 'Eduardo Silva, Desenvolvedor, Full Stack, React, Next.js, TypeScript, JavaScript',
   authors: [{ name: 'Eduardo Silva' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
 };
+
+export function generateViewport() {
+  return {
+    width: 'device-width',
+    initialScale: 1,
+  };
+}
 
 export default function RootLayout({
   children,
@@ -29,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased bg-gray-950 text-white min-h-screen`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         {children}
       </body>
     </html>
