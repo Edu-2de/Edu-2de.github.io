@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useAnimation, Variants } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Code, Coffee } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Code } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
 
 export default function Hero() {
