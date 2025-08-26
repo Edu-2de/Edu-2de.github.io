@@ -1,9 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MessageCircle, Github, Linkedin, Twitter } from 'lucide-react';
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -11,279 +10,151 @@ export default function Contact() {
     triggerOnce: true,
   });
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simular envio do formulário
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
-    alert('Mensagem enviada com sucesso!');
-  };
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email',
-      value: 'contato@eduardosilva.dev',
-      link: 'mailto:contato@eduardosilva.dev',
-    },
-    {
-      icon: Phone,
-      title: 'Telefone',
-      value: '+55 (11) 99999-9999',
-      link: 'tel:+5511999999999',
-    },
-    {
-      icon: MapPin,
-      title: 'Localização',
-      value: 'São Paulo, SP - Brasil',
-      link: '#',
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: Github,
-      name: 'GitHub',
-      href: 'https://github.com/Edu-2de',
-      color: 'hover:text-gray-400',
-    },
-    {
-      icon: Linkedin,
-      name: 'LinkedIn',
-      href: '#',
-      color: 'hover:text-blue-400',
-    },
-    {
-      icon: Twitter,
-      name: 'Twitter',
-      href: '#',
-      color: 'hover:text-sky-400',
-    },
-  ];
-
   return (
-    <section id="contact" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+    <section id="contact" className="py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-6" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Vamos <span className="text-gradient">Conversar</span>
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+            Let&apos;s Connect
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Tem um projeto em mente? Quer discutir uma oportunidade? Ou apenas quer dizer oi? Ficarei feliz em conversar
-            com você!
+          <div className="w-20 h-px bg-gray-300 mx-auto mb-8"></div>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Ready to bring your ideas to life? I&apos;m always interested in discussing new projects and opportunities.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">Informações de Contato</h3>
+              <h3 className="text-2xl font-light text-gray-900 mb-6">Get in Touch</h3>
+              <p className="text-gray-600 leading-relaxed mb-8">
+                Whether you have a project in mind, want to collaborate, or just want to say hello, 
+                I&apos;d love to hear from you. Let&apos;s create something amazing together.
+              </p>
+            </div>
 
-              <div className="space-y-4">
-                {contactInfo.map((info, index) => {
-                  const Icon = info.icon;
-                  return (
-                    <motion.a
-                      key={info.title}
-                      href={info.link}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={inView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                      whileHover={{ x: 10 }}
-                      className="flex items-center space-x-4 p-4 glass-effect rounded-xl hover:bg-white/10 transition-all duration-300 group"
-                    >
-                      <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-all duration-300">
-                        <Icon size={20} className="text-blue-400" />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-semibold">{info.title}</h4>
-                        <p className="text-gray-300 text-sm">{info.value}</p>
-                      </div>
-                    </motion.a>
-                  );
-                })}
-              </div>
+            {/* Contact Methods */}
+            <div className="space-y-4">
+              <motion.a
+                href="mailto:contato@eduardosilva.dev"
+                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200 group"
+              >
+                <div className="flex-shrink-0">
+                  <Mail className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-200" />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500">Email</div>
+                  <div className="text-gray-900 font-medium">contato@eduardosilva.dev</div>
+                </div>
+              </motion.a>
+
+              <motion.a
+                href="https://wa.me/5511999999999"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200 group"
+              >
+                <div className="flex-shrink-0">
+                  <MessageCircle className="w-5 h-5 text-gray-600 group-hover:text-green-600 transition-colors duration-200" />
+                </div>
+                <div>
+                  <div className="text-sm text-gray-500">WhatsApp</div>
+                  <div className="text-gray-900 font-medium">+55 11 99999-9999</div>
+                </div>
+              </motion.a>
             </div>
 
             {/* Social Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <h3 className="text-xl font-bold text-white mb-4">Me siga nas redes</h3>
-              <div className="flex space-x-4">
-                {socialLinks.map(social => {
-                  const Icon = social.icon;
-                  return (
-                    <motion.a
-                      key={social.name}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
-                      className={`w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center text-gray-300 ${social.color} transition-all duration-300`}
-                    >
-                      <Icon size={20} />
-                    </motion.a>
-                  );
-                })}
+            <div className="pt-8">
+              <h4 className="text-lg font-medium text-gray-900 mb-4">Find me online</h4>
+              <div className="flex gap-4">
+                {[
+                  { icon: Github, href: "https://github.com", label: "GitHub" },
+                  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                  { icon: Twitter, href: "https://twitter.com", label: "Twitter" }
+                ].map(({ icon: Icon, href, label }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
+                    aria-label={label}
+                  >
+                    <Icon size={20} />
+                  </motion.a>
+                ))}
               </div>
-            </motion.div>
-
-            {/* Availability */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="glass-effect p-6 rounded-xl"
-            >
-              <h3 className="text-lg font-semibold text-white mb-3">💼 Status de Disponibilidade</h3>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-green-400 font-medium">Disponível para novos projetos</span>
-              </div>
-              <p className="text-gray-300 text-sm mt-2">
-                Atualmente aceitando projetos freelance e oportunidades de trabalho remoto.
-              </p>
-            </motion.div>
+            </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* CTA Section */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
+            className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex flex-col justify-center"
           >
-            <form onSubmit={handleSubmit} className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold text-white mb-6">Envie uma mensagem</h3>
-
-              <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="name" className="block text-gray-300 text-sm font-medium mb-2">
-                      Nome *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300"
-                      placeholder="Seu nome"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-gray-300 text-sm font-medium mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300"
-                      placeholder="seu.email@exemplo.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-gray-300 text-sm font-medium mb-2">
-                    Assunto *
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300"
-                    placeholder="Assunto da mensagem"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-gray-300 text-sm font-medium mb-2">
-                    Mensagem *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 bg-white/10 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:bg-white/20 transition-all duration-300 resize-none"
-                    placeholder="Conte-me sobre seu projeto ou como posso ajudá-lo..."
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all duration-300 flex items-center justify-center space-x-2 ${
-                    isSubmitting
-                      ? 'bg-gray-600 cursor-not-allowed'
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
-                  }`}
+            <div className="text-center">
+              <h3 className="text-2xl font-light text-gray-900 mb-6">
+                Ready to start your project?
+              </h3>
+              <p className="text-gray-600 mb-8 leading-relaxed">
+                Let&apos;s discuss your ideas and see how we can bring them to life. 
+                I&apos;m available for freelance projects and full-time opportunities.
+              </p>
+              
+              <div className="space-y-4">
+                <motion.a
+                  href="mailto:contato@eduardosilva.dev?subject=New Project Inquiry"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="block w-full bg-gray-900 text-white py-4 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span>Enviando...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send size={20} />
-                      <span>Enviar Mensagem</span>
-                    </>
-                  )}
-                </motion.button>
+                  Start a Conversation
+                </motion.a>
+                
+                <motion.a
+                  href="https://calendly.com/eduardosilva"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="block w-full border border-gray-300 text-gray-700 py-4 px-6 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200"
+                >
+                  Schedule a Call
+                </motion.a>
               </div>
-            </form>
+            </div>
           </motion.div>
         </div>
+
+        {/* Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="text-center mt-24 pt-12 border-t border-gray-200"
+        >
+          <p className="text-gray-500 text-sm">
+            © 2024 Eduardo Silva. Built with Next.js and hosted on GitHub Pages.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

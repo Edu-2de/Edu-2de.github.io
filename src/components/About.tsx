@@ -2,47 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Code2, Palette, Zap, Globe } from 'lucide-react';
 
 const skills = [
-  {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    category: 'Backend',
-    items: ['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'GraphQL'],
-    color: 'from-green-500 to-emerald-500',
-  },
-  {
-    category: 'Tools & Others',
-    items: ['Git', 'Docker', 'AWS', 'Jest', 'Figma'],
-    color: 'from-purple-500 to-pink-500',
-  },
-];
-
-const qualities = [
-  {
-    icon: Code2,
-    title: 'Código Limpo',
-    description: 'Escrevo código maintível, bem estruturado e seguindo as melhores práticas.',
-  },
-  {
-    icon: Palette,
-    title: 'Design & UX',
-    description: 'Combino funcionalidade com design para criar experiências incríveis.',
-  },
-  {
-    icon: Zap,
-    title: 'Performance',
-    description: 'Otimizo aplicações para máxima velocidade e eficiência.',
-  },
-  {
-    icon: Globe,
-    title: 'Full Stack',
-    description: 'Domino tanto o frontend quanto o backend para soluções completas.',
-  },
+  'React', 'Next.js', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL'
 ];
 
 export default function About() {
@@ -52,117 +14,73 @@ export default function About() {
   });
 
   return (
-    <section id="about" className="py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
+    <section id="about" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-6" ref={ref}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Sobre <span className="text-gradient">Mim</span>
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+            About Me
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Desenvolvedor full stack com paixão por criar experiências digitais que fazem a diferença. Sempre em busca
-            de novas tecnologias e desafios.
-          </p>
+          <div className="w-20 h-px bg-gray-300 mx-auto"></div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* About Text */}
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="glass-effect p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold text-white mb-4">Minha História</h3>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                Começei minha jornada na programação há mais de 3 anos, e desde então me apaixonei pela possibilidade de
-                criar soluções que impactem positivamente a vida das pessoas.
-              </p>
-              <p className="text-gray-300 leading-relaxed mb-4">
-                Especializo-me em desenvolvimento full stack, com foco em tecnologias modernas como React, Next.js e
-                Node.js. Adoro trabalhar tanto no frontend quanto no backend, criando experiências completas.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                Quando não estou codando, gosto de estudar novas tecnologias, contribuir para projetos open source e
-                compartilhar conhecimento com a comunidade dev.
-              </p>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              I&apos;m a passionate full-stack developer with over 3 years of experience creating
+              digital solutions that make a difference. I specialize in modern web technologies
+              and love turning complex problems into simple, elegant solutions.
+            </p>
+            
+            <p className="text-lg text-gray-600 leading-relaxed">
+              When I&apos;m not coding, you&apos;ll find me exploring new technologies, contributing
+              to open-source projects, or sharing knowledge with the developer community.
+            </p>
+
+            <div className="pt-4">
+              <motion.a
+                href="mailto:contato@eduardosilva.dev"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-block bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200"
+              >
+                Let&apos;s Work Together
+              </motion.a>
             </div>
           </motion.div>
 
-          {/* Skills */}
+          {/* Skills Grid */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
           >
-            <h3 className="text-2xl font-bold text-white mb-6">Habilidades Técnicas</h3>
-
-            {skills.map((skillCategory, index) => (
-              <motion.div
-                key={skillCategory.category}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                className="glass-effect p-6 rounded-xl"
-              >
-                <h4
-                  className={`text-lg font-semibold mb-3 bg-gradient-to-r ${skillCategory.color} bg-clip-text text-transparent`}
+            <h3 className="text-xl font-medium text-gray-900 mb-8">Technologies I work with</h3>
+            <div className="grid grid-cols-2 gap-4">
+              {skills.map((skill, index) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                  className="bg-gray-50 p-4 rounded-lg text-center hover:bg-gray-100 transition-colors duration-200"
                 >
-                  {skillCategory.category}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {skillCategory.items.map(skill => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm hover:bg-white/20 transition-all duration-300"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                  <span className="text-gray-700 font-medium">{skill}</span>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
-
-        {/* Qualities */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <h3 className="text-3xl font-bold text-white text-center mb-12">
-            O que me <span className="text-gradient">diferencia</span>
-          </h3>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {qualities.map((quality, index) => {
-              const Icon = quality.icon;
-              return (
-                <motion.div
-                  key={quality.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                  whileHover={{ y: -10, scale: 1.02 }}
-                  className="glass-effect p-6 rounded-xl text-center hover-lift group"
-                >
-                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Icon size={24} className="text-white" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-white mb-2">{quality.title}</h4>
-                  <p className="text-gray-300 text-sm">{quality.description}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

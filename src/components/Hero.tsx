@@ -1,161 +1,364 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail, Download, Code } from 'lucide-react';
+import { motion, useAnimation, Variants } from 'framer-motion';
+import { ArrowDown, Github, Linkedin, Mail, Code, Coffee } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function Hero() {
-  const [currentRole, setCurrentRole] = useState(0);
+  const controls = useAnimation();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const nameRef = useRef<HTMLDivElement>(null);
+  const [nameHover, setNameHover] = useState(false);
 
-  const roles = ['Full Stack Developer', 'React Specialist', 'Node.js Expert', 'UI/UX Enthusiast'];
-
+  // Efeito de mouse paralax corrigido
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentRole(prev => (prev + 1) % roles.length);
-    }, 3000);
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 100;
+      const y = (e.clientY / window.innerHeight - 0.5) * 100;
+      setMousePosition({ x, y });
+    };
 
-    return () => clearInterval(interval);
-  }, [roles.length]);
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Efeito de partículas no hover do nome
+  useEffect(() => {
+    if (!nameRef.current) return;
+
+    const nameContainer = nameRef.current;
+    let particles: HTMLDivElement[] = [];
+
+    const createParticle = (x: number, y: number) => {
+      const particle = document.createElement('div');
+      particle.style.position = 'absolute';
+      particle.style.width = '2px';
+      particle.style.height = '2px';
+      particle.style.backgroundColor = 'rgba(255,255,255,0.8)';
+      particle.style.borderRadius = '50%';
+      particle.style.left = x + 'px';
+      particle.style.top = y + 'px';
+      particle.style.pointerEvents = 'none';
+      particle.style.boxShadow = '0 0 6px rgba(255,255,255,0.5)';
+      particle.style.zIndex = '10';
+
+      nameContainer.appendChild(particle);
+      particles.push(particle);
+
+      // Animação da partícula
+      let opacity = 0.8;
+      let scale = 1;
+      let yPos = y;
+
+      const animate = () => {
+        opacity -= 0.02;
+        scale *= 0.98;
+        yPos -= 1;
+
+        particle.style.opacity = opacity.toString();
+        particle.style.transform = `scale(${scale})`;
+        particle.style.top = yPos + 'px';
+
+        if (opacity > 0) {
+          requestAnimationFrame(animate);
+        } else {
+          particle.remove();
+          particles = particles.filter(p => p !== particle);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!nameHover) return;
+
+      const rect = nameContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Cria partículas ocasionalmente
+      if (Math.random() > 0.7) {
+        createParticle(x, y);
+      }
+    };
+
+    nameContainer.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      nameContainer.removeEventListener('mousemove', handleMouseMove);
+      particles.forEach(particle => particle.remove());
+    };
+  }, [nameHover]);
+
+  // Animação de entrada
+  useEffect(() => {
+    const sequence = async () => {
+      await controls.start({
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 1.2, ease: 'easeOut' },
+      });
+    };
+    sequence();
+  }, [controls]);
 
   const scrollToNext = () => {
     const nextSection = document.getElementById('about');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Animações de texto corrigidas
+  const textVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.3,
+        duration: 0.8,
+        ease: 'easeOut',
+      },
+    }),
+  };
+
+  // Variante especial para o nome
+  const nameVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 100,
+      scale: 0.8,
+    },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: i * 0.2,
+        duration: 1.2,
+        ease: [0.6, -0.05, 0.01, 0.99],
+        type: 'spring',
+        stiffness: 100,
+      },
+    }),
+  };
+
+  // Efeito de typing com múltiplas frases
+  const [displayText, setDisplayText] = useState('');
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const texts = ['Full Stack Developer', 'Problem Solver', 'Clean Code Advocate', 'Tech Enthusiast'];
+
+  useEffect(() => {
+    const currentText = texts[currentTextIndex];
+    let timeout: string | number | NodeJS.Timeout | undefined;
+
+    if (!isDeleting && displayText === currentText) {
+      timeout = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && displayText === '') {
+      setIsDeleting(false);
+      setCurrentTextIndex(prev => (prev + 1) % texts.length);
+    } else {
+      timeout = setTimeout(
+        () => {
+          setDisplayText(current => {
+            if (isDeleting) {
+              return current.slice(0, -1);
+            } else {
+              return currentText.slice(0, current.length + 1);
+            }
+          });
+        },
+        isDeleting ? 50 : 100
+      );
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, currentTextIndex, texts]);
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Animation */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-teal-600/20 animate-pulse"></div>
-        {/* Floating particles */}
-        {typeof window !== 'undefined' &&
-          [...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-              }}
-              animate={{
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                repeatType: 'reverse',
-              }}
-              className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-30"
-            />
-          ))}
+    <section
+      id="home"
+      className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-gray-800"
+    >
+      {/* Background Effects com efeito de mouse melhorado */}
+      <div className="absolute inset-0">
+        <motion.div
+          animate={{
+            x: mousePosition.x * 0.5,
+            y: mousePosition.y * 0.5,
+          }}
+          transition={{ type: 'spring', stiffness: 100, damping: 30 }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/8 to-gray-300/12 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            x: mousePosition.x * -0.3,
+            y: mousePosition.y * -0.3,
+          }}
+          transition={{ type: 'spring', stiffness: 80, damping: 25 }}
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-gray-400/8 to-white/8 rounded-full blur-3xl"
+        />
+
+        <motion.div
+          animate={{
+            x: mousePosition.x * 0.1,
+            y: mousePosition.y * 0.1,
+          }}
+          transition={{ type: 'spring', stiffness: 200 }}
+          className="absolute inset-0 opacity-15"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+            backgroundSize: '50px 50px',
+          }}
+        />
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
-          >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="text-white">Olá, eu sou</span>
-              <br />
-              <span className="text-gradient">Eduardo Silva</span>
-            </h1>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={controls}
+        className="max-w-4xl mx-auto px-8 text-center relative z-10 flex flex-col justify-center items-center gap-8"
+      >
+        {/* Main Title Section - Nome com efeito clean */}
+        <motion.div
+          ref={nameRef}
+          initial="hidden"
+          animate="visible"
+          className="flex-shrink-0 relative"
+          onMouseEnter={() => setNameHover(true)}
+          onMouseLeave={() => setNameHover(false)}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 relative z-10">
+            <motion.h1
+              custom={0}
+              variants={nameVariants}
+              className={`text-5xl md:text-7xl lg:text-8xl font-extralight text-white tracking-tight leading-none transition-all duration-500 cursor-default ${
+                nameHover
+                  ? 'drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] brightness-110'
+                  : 'drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]'
+              }`}
+            >
+              Eduardo
+            </motion.h1>
 
-            <div className="h-12 flex items-center justify-center">
-              <motion.h2
-                key={currentRole}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="text-2xl md:text-3xl text-blue-400 font-mono"
+            <motion.h1
+              custom={1}
+              variants={nameVariants}
+              className={`text-5xl md:text-7xl lg:text-8xl font-light leading-none transition-all duration-500 cursor-default ${
+                nameHover
+                  ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-300 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] brightness-110'
+                  : 'text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]'
+              }`}
+            >
+              Paim
+            </motion.h1>
+          </div>
+        </motion.div>
+
+       
+
+        {/* Typing Effect - div separada */}
+        <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
+          <div className="text-xl md:text-2xl text-gray-400 font-mono flex items-center justify-center gap-3">
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                rotate: { repeat: Infinity, duration: 8, ease: 'linear' },
+                scale: { repeat: Infinity, duration: 2, ease: 'easeInOut' },
+              }}
+            >
+              <Code size={24} className="text-gray-500" />
+            </motion.div>
+            <span className="text-gray-300">
+              {displayText}
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ repeat: Infinity, duration: 0.8 }}
+                className="ml-1 text-white"
               >
-                {roles[currentRole]}
-              </motion.h2>
-            </div>
-          </motion.div>
+                |
+              </motion.span>
+            </span>
+          </div>
+        </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
-          >
-            Desenvolvedor apaixonado por criar experiências digitais incríveis e soluções inovadoras. Transformo ideias
-            em realidade através de código limpo e design intuitivo.
-          </motion.p>
+        {/* Subtitle */}
+        <motion.div custom={3} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Crafting digital experiences with clean code and innovative solutions.
+            <br className="hidden md:block" />
+            Passionate about creating something meaningful.
+          </p>
+        </motion.div>
 
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center space-x-2 hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
-            >
-              <span>Ver Projetos</span>
-              <Code className="w-5 h-5" />
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-blue-400 text-blue-400 px-8 py-4 rounded-lg font-semibold text-lg flex items-center space-x-2 hover:bg-blue-400 hover:text-gray-900 transition-all duration-300"
-            >
-              <span>Download CV</span>
-              <Download className="w-5 h-5" />
-            </motion.button>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-6 mb-16"
-          >
+        {/* Social Links */}
+        <motion.div custom={4} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
+          <div className="flex justify-center space-x-10 gap-4">
             {[
               { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },
               { icon: Linkedin, href: '#', label: 'LinkedIn' },
               { icon: Mail, href: 'mailto:contato@eduardosilva.dev', label: 'Email' },
-            ].map(social => {
+            ].map((social, index) => {
               const Icon = social.icon;
               return (
                 <motion.a
                   key={social.label}
                   href={social.href}
-                  target="_blank"
+                  target={social.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1, y: -5 }}
+                  whileHover={{
+                    scale: 1.2,
+                    y: -8,
+                    backgroundColor: 'rgba(255,255,255,0.1)',
+                  }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center text-white hover:bg-blue-500/20 hover:text-blue-400 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { delay: 2 + index * 0.1 },
+                  }}
+                  className="w-16 h-16 border-2 border-gray-700 hover:border-gray-500 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 backdrop-blur-sm"
                 >
-                  <Icon size={24} />
+                  <Icon size={22} />
                 </motion.a>
               );
             })}
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Scroll Indicator */}
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 2.5 },
+          }}
+          className="flex-shrink-0"
+        >
           <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
             onClick={scrollToNext}
-            className="animate-bounce"
+            className="text-gray-500 hover:text-white transition-colors duration-300 group flex flex-col items-center"
           >
-            <ChevronDown size={32} className="text-blue-400" />
+            <span className="text-sm mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
+              Explore More
+            </span>
+            <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
+              <ArrowDown size={24} className="group-hover:text-gray-300 transition-colors" />
+            </motion.div>
           </motion.button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
