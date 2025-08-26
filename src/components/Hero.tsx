@@ -184,7 +184,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-gray-800"
+      className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-gray-800 select-none"
     >
       {/* Background Effects com efeito de mouse melhorado */}
       <div className="absolute inset-0">
@@ -261,8 +261,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-       
-
         {/* Typing Effect - div separada */}
         <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
           <div className="text-xl md:text-2xl text-gray-400 font-mono flex items-center justify-center gap-3">
@@ -292,15 +290,9 @@ export default function Hero() {
         </motion.div>
 
         {/* Subtitle */}
-        <motion.div custom={3} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            Crafting digital experiences with clean code and innovative solutions.
-            <br className="hidden md:block" />
-            Passionate about creating something meaningful.
-          </p>
-        </motion.div>
+       
 
-        {/* Social Links */}
+        {/* Social Links com animações melhoradas */}
         <motion.div custom={4} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
           <div className="flex justify-center space-x-10 gap-4">
             {[
@@ -316,27 +308,63 @@ export default function Hero() {
                   target={social.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   whileHover={{
-                    scale: 1.2,
-                    y: -8,
-                    backgroundColor: 'rgba(255,255,255,0.1)',
+                    scale: 1.15,
+                    y: -10,
+                    backgroundColor: 'rgba(255,255,255,0.15)',
+                    borderColor: 'rgba(255,255,255,0.6)',
+                    boxShadow: '0 10px 30px rgba(255,255,255,0.2)',
+                    transition: {
+                      type: 'spring',
+                      stiffness: 400,
+                      damping: 10,
+                      duration: 0.2,
+                    },
                   }}
-                  whileTap={{ scale: 0.9 }}
+                  whileTap={{
+                    scale: 0.95,
+                    transition: {
+                      type: 'spring',
+                      stiffness: 400,
+                      damping: 10,
+                      duration: 0.1,
+                    },
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: 1,
                     y: 0,
-                    transition: { delay: 2 + index * 0.1 },
+                    transition: {
+                      delay: 2 + index * 0.1,
+                      type: 'spring',
+                      stiffness: 100,
+                      damping: 10,
+                    },
                   }}
-                  className="w-16 h-16 border-2 border-gray-700 hover:border-gray-500 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 backdrop-blur-sm"
+                  className="w-16 h-16 border-2 border-gray-700 rounded-full flex items-center justify-center text-gray-400 transition-all duration-300 backdrop-blur-sm cursor-pointer group"
+                  style={{
+                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                  }}
                 >
-                  <Icon size={22} />
+                  <motion.div
+                    whileHover={{
+                      rotate: 360,
+                      transition: {
+                        type: 'spring',
+                        stiffness: 200,
+                        damping: 10,
+                        duration: 0.6,
+                      },
+                    }}
+                  >
+                    <Icon size={22} className="group-hover:text-white transition-colors duration-300" />
+                  </motion.div>
                 </motion.a>
               );
             })}
           </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator com cursor pointer */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{
@@ -348,12 +376,42 @@ export default function Hero() {
         >
           <motion.button
             onClick={scrollToNext}
-            className="text-gray-500 hover:text-white transition-colors duration-300 group flex flex-col items-center"
+            whileHover={{
+              scale: 1.1,
+              transition: {
+                type: 'spring',
+                stiffness: 400,
+                damping: 10,
+                duration: 0.2,
+              },
+            }}
+            whileTap={{
+              scale: 0.95,
+              transition: {
+                type: 'spring',
+                stiffness: 400,
+                damping: 10,
+                duration: 0.1,
+              },
+            }}
+            className="text-gray-500 hover:text-white transition-colors duration-300 group flex flex-col items-center cursor-pointer"
           >
             <span className="text-sm mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
               Explore More
             </span>
-            <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+              whileHover={{
+                scale: 1.2,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 10,
+                  duration: 0.2,
+                },
+              }}
+            >
               <ArrowDown size={24} className="group-hover:text-gray-300 transition-colors" />
             </motion.div>
           </motion.button>
