@@ -6,23 +6,9 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function Hero() {
   const controls = useAnimation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const nameRef = useRef<HTMLDivElement>(null);
   const [nameHover, setNameHover] = useState(false);
 
-  // Efeito de mouse paralax corrigido
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 100;
-      const y = (e.clientY / window.innerHeight - 0.5) * 100;
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Efeito de partículas no hover do nome
   useEffect(() => {
     if (!nameRef.current) return;
 
@@ -45,7 +31,6 @@ export default function Hero() {
       nameContainer.appendChild(particle);
       particles.push(particle);
 
-      // Animação da partícula
       let opacity = 0.8;
       let scale = 1;
       let yPos = y;
@@ -77,7 +62,6 @@ export default function Hero() {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Cria partículas ocasionalmente
       if (Math.random() > 0.7) {
         createParticle(x, y);
       }
@@ -91,7 +75,6 @@ export default function Hero() {
     };
   }, [nameHover]);
 
-  // Animação de entrada
   useEffect(() => {
     const sequence = async () => {
       await controls.start({
@@ -108,7 +91,6 @@ export default function Hero() {
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Animações de texto corrigidas
   const textVariants: Variants = {
     hidden: {
       opacity: 0,
@@ -125,7 +107,6 @@ export default function Hero() {
     }),
   };
 
-  // Variante especial para o nome
   const nameVariants: Variants = {
     hidden: {
       opacity: 0,
@@ -146,12 +127,10 @@ export default function Hero() {
     }),
   };
 
-  // Efeito de typing com múltiplas frases
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const texts = ['Full Stack Developer', 'Problem Solver', 'Clean Code Advocate', 'Tech Enthusiast'];
 
   useEffect(() => {
@@ -186,46 +165,90 @@ export default function Hero() {
       id="home"
       className="h-[100vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-gray-800 select-none"
     >
-      {/* Background Effects com efeito de mouse melhorado */}
       <div className="absolute inset-0">
         <motion.div
           animate={{
-            x: mousePosition.x * 0.5,
-            y: mousePosition.y * 0.5,
+            x: [-100, 100, -100],
+            y: [-50, 50, -50],
           }}
-          transition={{ type: 'spring', stiffness: 100, damping: 30 }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/8 to-gray-300/12 rounded-full blur-3xl"
         />
         <motion.div
           animate={{
-            x: mousePosition.x * -0.3,
-            y: mousePosition.y * -0.3,
+            x: [150, -150, 150],
+            y: [75, -75, 75],
           }}
-          transition={{ type: 'spring', stiffness: 80, damping: 25 }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
           className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-gray-400/8 to-white/8 rounded-full blur-3xl"
         />
 
+        {[...Array(50)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+              opacity: Math.random() * 0.5 + 0.1,
+            }}
+            animate={{
+              x: [
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerWidth,
+              ],
+              y: [
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+                Math.random() * window.innerHeight,
+              ],
+              opacity: [0.1, 0.8, 0.1],
+              scale: [0.5, 1.5, 0.5],
+            }}
+            transition={{
+              duration: Math.random() * 15 + 10,
+              repeat: Infinity,
+              ease: 'linear',
+              delay: Math.random() * 5,
+            }}
+            className="absolute w-1 h-1 bg-white rounded-full"
+            style={{
+              filter: 'blur(0.5px)',
+              boxShadow: '0 0 4px rgba(255,255,255,0.6)',
+            }}
+          />
+        ))}
+
         <motion.div
           animate={{
-            x: mousePosition.x * 0.1,
-            y: mousePosition.y * 0.1,
+            backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
           }}
-          transition={{ type: 'spring', stiffness: 200 }}
-          className="absolute inset-0 opacity-15"
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+          className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '50px 50px',
+            backgroundSize: '60px 60px',
           }}
         />
       </div>
 
-      {/* Content */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={controls}
         className="max-w-4xl mx-auto px-8 text-center relative z-10 flex flex-col justify-center items-center gap-8"
       >
-        {/* Main Title Section - Nome com efeito clean */}
         <motion.div
           ref={nameRef}
           initial="hidden"
@@ -261,7 +284,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Typing Effect - div separada */}
         <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
           <div className="text-xl md:text-2xl text-gray-400 font-mono flex items-center justify-center gap-3">
             <motion.div
@@ -289,10 +311,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Subtitle */}
-       
-
-        {/* Social Links com animações melhoradas */}
         <motion.div custom={4} initial="hidden" animate="visible" variants={textVariants} className="flex-shrink-0">
           <div className="flex justify-center space-x-10 gap-4">
             {[
@@ -364,7 +382,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Scroll Indicator com cursor pointer */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{
