@@ -191,42 +191,6 @@ export default function Hero() {
           className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-gray-400/8 to-white/8 rounded-full blur-3xl"
         />
 
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-              opacity: Math.random() * 0.5 + 0.1,
-            }}
-            animate={{
-              x: [
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerWidth,
-              ],
-              y: [
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-                Math.random() * window.innerHeight,
-              ],
-              opacity: [0.1, 0.8, 0.1],
-              scale: [0.5, 1.5, 0.5],
-            }}
-            transition={{
-              duration: Math.random() * 15 + 10,
-              repeat: Infinity,
-              ease: 'linear',
-              delay: Math.random() * 5,
-            }}
-            className="absolute w-1 h-1 bg-white rounded-full"
-            style={{
-              filter: 'blur(0.5px)',
-              boxShadow: '0 0 4px rgba(255,255,255,0.6)',
-            }}
-          />
-        ))}
-
         <motion.div
           animate={{
             backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
