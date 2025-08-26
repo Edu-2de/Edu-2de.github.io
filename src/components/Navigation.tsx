@@ -20,7 +20,7 @@ export default function Navigation() {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setScrolled(scrollPosition > 50);
-      
+
       // Detectar seção ativa
       const sections = ['home', 'about', 'projects', 'contact'];
       const currentSection = sections.find(section => {
@@ -31,7 +31,7 @@ export default function Navigation() {
         }
         return false;
       });
-      
+
       if (currentSection) {
         setActiveSection(currentSection);
       }
@@ -53,19 +53,13 @@ export default function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-gray-900/95 backdrop-blur-md shadow-2xl' 
-          : 'bg-transparent'
+        scrolled ? 'bg-gray-900/95 backdrop-blur-md shadow-2xl' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center space-x-2"
-          >
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">E</span>
             </div>
@@ -74,10 +68,10 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => {
+            {navItems.map(item => {
               const Icon = item.icon;
               const isActive = activeSection === item.href.substring(1);
-              
+
               return (
                 <motion.button
                   key={item.name}
@@ -85,9 +79,7 @@ export default function Navigation() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection(item.href)}
                   className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                    isActive
-                      ? 'bg-blue-500/20 text-blue-400'
-                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    isActive ? 'bg-blue-500/20 text-blue-400' : 'text-gray-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   <Icon size={18} />
@@ -120,10 +112,10 @@ export default function Navigation() {
             className="md:hidden bg-gray-900/95 backdrop-blur-md"
           >
             <div className="px-4 py-4 space-y-2">
-              {navItems.map((item) => {
+              {navItems.map(item => {
                 const Icon = item.icon;
                 const isActive = activeSection === item.href.substring(1);
-                
+
                 return (
                   <motion.button
                     key={item.name}
@@ -131,9 +123,7 @@ export default function Navigation() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => scrollToSection(item.href)}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
-                      isActive
-                        ? 'bg-blue-500/20 text-blue-400'
-                        : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      isActive ? 'bg-blue-500/20 text-blue-400' : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     <Icon size={20} />

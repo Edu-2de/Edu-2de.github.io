@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+
 # Personal Portfolio
 
 This repository contains my personal portfolio website, built to showcase my projects, skills, and contact information.
@@ -28,42 +29,128 @@ https://Edu-2de.github.io
 
 ## License
 
-MIT
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MIT
 
-## Getting Started
+# 🚀 Portfolio Eduardo Silva
 
-First, run the development server:
+Portfólio pessoal moderno e interativo desenvolvido com Next.js, TypeScript, Tailwind CSS e Framer Motion.
+
+## ✨ Características
+
+- **Design Moderno**: Interface elegante com gradientes animados e efeitos glassmorphism
+- **Totalmente Responsivo**: Otimizado para todos os dispositivos
+- **Animações Fluídas**: Animações suaves com Framer Motion
+- **Interatividade Rica**: Efeitos hover, parallax e transições cativantes
+- **Performance Otimizada**: Carregamento rápido e SEO-friendly
+- **TypeScript**: Código type-safe e maintível
+- **GitHub Pages**: Deploy automático via GitHub Actions
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Framework**: Next.js 15
+- **Linguagem**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animações**: Framer Motion
+- **Ícones**: Lucide React
+- **3D Elements**: Three.js (React Three Fiber)
+- **Deployment**: GitHub Pages
+
+## 🎨 Seções
+
+1. **Hero**: Apresentação principal com animações dinâmicas
+2. **Sobre**: Informações pessoais e habilidades técnicas
+3. **Projetos**: Showcase de projetos com previews e links
+4. **Contato**: Formulário de contato e informações
+
+## 🚀 Como Executar Localmente
 
 ```bash
+# Clone o repositório
+git clone https://github.com/Edu-2de/edu-2de.github.io.git
+
+# Entre no diretório
+cd edu-2de.github.io
+
+# Instale as dependências
+npm install
+
+# Execute o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Abra http://localhost:3000 no seu navegador
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📦 Build e Deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Build para produção
+npm run build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Deploy automático via GitHub Actions
+# Apenas faça push para a branch main
+git push origin main
+```
 
-## Learn More
+## 🎯 Funcionalidades Interativas
 
-To learn more about Next.js, take a look at the following resources:
+- **Navegação Suave**: Scroll suave entre seções
+- **Animações de Entrada**: Elementos animados ao entrar na viewport
+- **Efeitos Hover**: Interações visuais em botões e cards
+- **Tema Dark**: Design dark mode por padrão
+- **Menu Mobile**: Navegação responsiva para dispositivos móveis
+- **Particles Background**: Partículas animadas no background
+- **Typing Effect**: Efeito de digitação no hero
+- **Glass Morphism**: Efeitos de vidro nos cards
+- **Gradient Animations**: Gradientes animados
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Customização
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Para personalizar o portfólio para você:
 
-## Deploy on Vercel
+1. **Informações Pessoais**: Edite os dados em cada componente
+2. **Projetos**: Atualize o array de projetos em `components/Projects.tsx`
+3. **Cores**: Modifique o tema no `tailwind.config.js`
+4. **Conteúdo**: Personalize textos e links nos componentes
+5. **Imagens**: Substitua as imagens dos projetos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📱 Responsividade
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 8f6aea23fe2836df694ddf728ca9d8350a9b30c2
+O portfólio é totalmente responsivo e otimizado para:
+
+- 📱 Mobile (320px+)
+- 📱 Tablet (768px+)
+- 💻 Desktop (1024px+)
+- 🖥️ Large Desktop (1440px+)
+
+## ⚡ Performance
+
+- **Core Web Vitals**: Otimizado para métricas do Google
+- **Image Optimization**: Imagens otimizadas automaticamente
+- **Code Splitting**: Bundle otimizado
+- **Static Generation**: Geração estática para melhor performance
+
+## 📄 Licença
+
+Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se livre para:
+
+- Reportar bugs
+- Sugerir melhorias
+- Enviar pull requests
+
+## 📞 Contato
+
+- **Email**: contato@eduardosilva.dev
+- **GitHub**: [@Edu-2de](https://github.com/Edu-2de)
+- **LinkedIn**: [Eduardo Silva](https://linkedin.com/in/eduardo-silva)
+
+---
+
+⭐ Se este projeto te ajudou, considere dar uma estrela no repositório!
+
+Desenvolvido com ❤️ por Eduardo Silva
+
+> > > > > > > 8f6aea23fe2836df694ddf728ca9d8350a9b30c2

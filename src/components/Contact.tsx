@@ -30,10 +30,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simular envio do formulário
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     // Reset form
     setFormData({ name: '', email: '', subject: '', message: '' });
     setIsSubmitting(false);
@@ -95,8 +95,8 @@ export default function Contact() {
             Vamos <span className="text-gradient">Conversar</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Tem um projeto em mente? Quer discutir uma oportunidade? 
-            Ou apenas quer dizer oi? Ficarei feliz em conversar com você!
+            Tem um projeto em mente? Quer discutir uma oportunidade? Ou apenas quer dizer oi? Ficarei feliz em conversar
+            com você!
           </p>
         </motion.div>
 
@@ -109,10 +109,8 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-bold text-white mb-6">
-                Informações de Contato
-              </h3>
-              
+              <h3 className="text-2xl font-bold text-white mb-6">Informações de Contato</h3>
+
               <div className="space-y-4">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
@@ -147,7 +145,7 @@ export default function Contact() {
             >
               <h3 className="text-xl font-bold text-white mb-4">Me siga nas redes</h3>
               <div className="flex space-x-4">
-                {socialLinks.map((social) => {
+                {socialLinks.map(social => {
                   const Icon = social.icon;
                   return (
                     <motion.a
@@ -173,9 +171,7 @@ export default function Contact() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="glass-effect p-6 rounded-xl"
             >
-              <h3 className="text-lg font-semibold text-white mb-3">
-                💼 Status de Disponibilidade
-              </h3>
+              <h3 className="text-lg font-semibold text-white mb-3">💼 Status de Disponibilidade</h3>
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-green-400 font-medium">Disponível para novos projetos</span>
@@ -194,7 +190,7 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} className="glass-effect p-8 rounded-2xl">
               <h3 className="text-2xl font-bold text-white mb-6">Envie uma mensagem</h3>
-              
+
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>

@@ -87,8 +87,8 @@ export default function Projects() {
             Meus <span className="text-gradient">Projetos</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Aqui estão alguns dos projetos que desenvolvi, desde aplicações web 
-            completas até ferramentas e utilitários inovadores.
+            Aqui estão alguns dos projetos que desenvolvi, desde aplicações web completas até ferramentas e utilitários
+            inovadores.
           </p>
         </motion.div>
 
@@ -110,8 +110,10 @@ export default function Projects() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-20 group-hover:opacity-40 transition-opacity duration-300`} />
-                
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-20 group-hover:opacity-40 transition-opacity duration-300`}
+                />
+
                 {/* Overlay buttons */}
                 <div className="absolute inset-0 flex items-center justify-center space-x-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
                   <motion.a
@@ -142,13 +144,11 @@ export default function Projects() {
                 <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
                   {project.title}
                 </h3>
-                <p className="text-gray-300 text-sm mb-4 line-clamp-3">
-                  {project.description}
-                </p>
+                <p className="text-gray-300 text-sm mb-4 line-clamp-3">{project.description}</p>
 
                 {/* Technologies */}
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.slice(0, 3).map((tech) => (
+                  {project.technologies.slice(0, 3).map(tech => (
                     <span
                       key={tech}
                       className="px-2 py-1 bg-white/10 text-gray-300 rounded text-xs hover:bg-white/20 transition-all duration-300"
@@ -199,9 +199,7 @@ export default function Projects() {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="text-center mt-16"
         >
-          <p className="text-gray-300 mb-6">
-            Gostou dos projetos? Vamos conversar sobre seu próximo projeto!
-          </p>
+          <p className="text-gray-300 mb-6">Gostou dos projetos? Vamos conversar sobre seu próximo projeto!</p>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

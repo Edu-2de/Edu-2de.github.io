@@ -64,8 +64,8 @@ export default function About() {
             Sobre <span className="text-gradient">Mim</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Desenvolvedor full stack com paixão por criar experiências digitais 
-            que fazem a diferença. Sempre em busca de novas tecnologias e desafios.
+            Desenvolvedor full stack com paixão por criar experiências digitais que fazem a diferença. Sempre em busca
+            de novas tecnologias e desafios.
           </p>
         </motion.div>
 
@@ -80,19 +80,16 @@ export default function About() {
             <div className="glass-effect p-8 rounded-2xl">
               <h3 className="text-2xl font-bold text-white mb-4">Minha História</h3>
               <p className="text-gray-300 leading-relaxed mb-4">
-                Começei minha jornada na programação há mais de 3 anos, e desde então 
-                me apaixonei pela possibilidade de criar soluções que impactem 
-                positivamente a vida das pessoas.
+                Começei minha jornada na programação há mais de 3 anos, e desde então me apaixonei pela possibilidade de
+                criar soluções que impactem positivamente a vida das pessoas.
               </p>
               <p className="text-gray-300 leading-relaxed mb-4">
-                Especializo-me em desenvolvimento full stack, com foco em tecnologias 
-                modernas como React, Next.js e Node.js. Adoro trabalhar tanto no 
-                frontend quanto no backend, criando experiências completas.
+                Especializo-me em desenvolvimento full stack, com foco em tecnologias modernas como React, Next.js e
+                Node.js. Adoro trabalhar tanto no frontend quanto no backend, criando experiências completas.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                Quando não estou codando, gosto de estudar novas tecnologias, 
-                contribuir para projetos open source e compartilhar conhecimento 
-                com a comunidade dev.
+                Quando não estou codando, gosto de estudar novas tecnologias, contribuir para projetos open source e
+                compartilhar conhecimento com a comunidade dev.
               </p>
             </div>
           </motion.div>
@@ -105,7 +102,7 @@ export default function About() {
             className="space-y-6"
           >
             <h3 className="text-2xl font-bold text-white mb-6">Habilidades Técnicas</h3>
-            
+
             {skills.map((skillCategory, index) => (
               <motion.div
                 key={skillCategory.category}
@@ -114,11 +111,13 @@ export default function About() {
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
                 className="glass-effect p-6 rounded-xl"
               >
-                <h4 className={`text-lg font-semibold mb-3 bg-gradient-to-r ${skillCategory.color} bg-clip-text text-transparent`}>
+                <h4
+                  className={`text-lg font-semibold mb-3 bg-gradient-to-r ${skillCategory.color} bg-clip-text text-transparent`}
+                >
                   {skillCategory.category}
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {skillCategory.items.map((skill) => (
+                  {skillCategory.items.map(skill => (
                     <span
                       key={skill}
                       className="px-3 py-1 bg-white/10 text-gray-300 rounded-full text-sm hover:bg-white/20 transition-all duration-300"
@@ -141,7 +140,7 @@ export default function About() {
           <h3 className="text-3xl font-bold text-white text-center mb-12">
             O que me <span className="text-gradient">diferencia</span>
           </h3>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {qualities.map((quality, index) => {
               const Icon = quality.icon;
@@ -157,12 +156,8 @@ export default function About() {
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <Icon size={24} className="text-white" />
                   </div>
-                  <h4 className="text-xl font-semibold text-white mb-2">
-                    {quality.title}
-                  </h4>
-                  <p className="text-gray-300 text-sm">
-                    {quality.description}
-                  </p>
+                  <h4 className="text-xl font-semibold text-white mb-2">{quality.title}</h4>
+                  <p className="text-gray-300 text-sm">{quality.description}</p>
                 </motion.div>
               );
             })}

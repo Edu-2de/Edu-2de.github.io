@@ -1,12 +1,13 @@
 {
-  "name": "portfolio-temp",
-  "version": "0.1.0",
+  "name": "edu-portfolio",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "export": "next build && next export"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.4",

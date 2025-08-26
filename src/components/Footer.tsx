@@ -42,11 +42,13 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-wrap justify-center gap-6 text-sm"
           >
-            {['Início', 'Sobre', 'Projetos', 'Contato'].map((item) => (
+            {['Início', 'Sobre', 'Projetos', 'Contato'].map(item => (
               <button
                 key={item}
                 onClick={() => {
-                  const element = document.getElementById(item.toLowerCase() === 'início' ? 'home' : item.toLowerCase());
+                  const element = document.getElementById(
+                    item.toLowerCase() === 'início' ? 'home' : item.toLowerCase()
+                  );
                   element?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="text-gray-400 hover:text-white transition-colors duration-300"
@@ -80,11 +82,8 @@ export default function Footer() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-wrap justify-center gap-2 text-xs"
           >
-            {['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'].map((tech) => (
-              <span
-                key={tech}
-                className="px-2 py-1 bg-white/5 text-gray-400 rounded border border-gray-800"
-              >
+            {['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'].map(tech => (
+              <span key={tech} className="px-2 py-1 bg-white/5 text-gray-400 rounded border border-gray-800">
                 {tech}
               </span>
             ))}

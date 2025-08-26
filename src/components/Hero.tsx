@@ -6,19 +6,14 @@ import { ChevronDown, Github, Linkedin, Mail, Download, Code } from 'lucide-reac
 
 export default function Hero() {
   const [currentRole, setCurrentRole] = useState(0);
-  
-  const roles = [
-    'Full Stack Developer',
-    'React Specialist',
-    'Node.js Expert',
-    'UI/UX Enthusiast'
-  ];
+
+  const roles = ['Full Stack Developer', 'React Specialist', 'Node.js Expert', 'UI/UX Enthusiast'];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentRole((prev) => (prev + 1) % roles.length);
+      setCurrentRole(prev => (prev + 1) % roles.length);
     }, 3000);
-    
+
     return () => clearInterval(interval);
   }, [roles.length]);
 
@@ -47,7 +42,7 @@ export default function Hero() {
             transition={{
               duration: Math.random() * 10 + 10,
               repeat: Infinity,
-              repeatType: "reverse",
+              repeatType: 'reverse',
             }}
             className="absolute w-2 h-2 bg-blue-400 rounded-full opacity-30"
           />
@@ -68,7 +63,7 @@ export default function Hero() {
               <br />
               <span className="text-gradient">Eduardo Silva</span>
             </h1>
-            
+
             <div className="h-12 flex items-center justify-center">
               <motion.h2
                 key={currentRole}
@@ -89,9 +84,8 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            Desenvolvedor apaixonado por criar experiências digitais incríveis e 
-            soluções inovadoras. Transformo ideias em realidade através de código 
-            limpo e design intuitivo.
+            Desenvolvedor apaixonado por criar experiências digitais incríveis e soluções inovadoras. Transformo ideias
+            em realidade através de código limpo e design intuitivo.
           </motion.p>
 
           {/* Action Buttons */}
@@ -102,14 +96,14 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
           >
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
+              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)' }}
               whileTap={{ scale: 0.95 }}
               className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold text-lg flex items-center space-x-2 hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
             >
               <span>Ver Projetos</span>
               <Code className="w-5 h-5" />
             </motion.button>
-            
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -131,7 +125,7 @@ export default function Hero() {
               { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },
               { icon: Linkedin, href: '#', label: 'LinkedIn' },
               { icon: Mail, href: 'mailto:contato@eduardosilva.dev', label: 'Email' },
-            ].map((social) => {
+            ].map(social => {
               const Icon = social.icon;
               return (
                 <motion.a
