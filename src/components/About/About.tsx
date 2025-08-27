@@ -10,16 +10,15 @@ const PLANETS = [
     texture: '/textures/venusmap.jpg',
     items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'CSS', 'Tailwind'],
     description:
-      'My skills are the foundation of my journey. I build interactive interfaces with React and TypeScript, connect systems with Node.js APIs, and design modern layouts using CSS and Tailwind. Always exploring new technologies and improving my craft.',
+      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, and beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
     facts: [
-      'TypeScript for clarity and safety.',
-      'React for dynamic user interfaces.',
-      'Currently learning Next.js.',
-      'Open source contributor.',
-      'Experience in frontend and backend.',
+      'Favorite language: TypeScript',
+      'Most used: React',
+      'Learning: Next.js',
+      'Open Source contributor',
+      'Frontend & Backend experience',
     ],
     link: 'https://github.com/edu-2de',
-    linkLabel: 'Explore my GitHub',
   },
   {
     name: 'Planet Hobbies',
@@ -27,16 +26,15 @@ const PLANETS = [
     texture: '/textures/neptunemap.jpg',
     items: ['Music', 'Gaming', 'Travel', 'Photography', 'Cooking'],
     description:
-      'Creativity and adventure drive my hobbies. I play guitar, enjoy immersive games, travel to new places, capture moments with photography, and experiment with cooking. Always seeking inspiration and new experiences.',
+      'My passions orbit around music, games, travel, photography, and cooking. Always searching for new adventures and creative inspiration!',
     facts: [
-      'Favorite game: Zelda.',
-      'Instrument: Guitar.',
-      'Dream trip: Japan.',
-      'Passionate about photography.',
-      'Enjoy cooking and trying new recipes.',
+      'Favorite game: Zelda',
+      'Instrument: Guitar',
+      'Dream trip: Japan',
+      'Photography lover',
+      'Home chef',
     ],
     link: 'https://instagram.com/',
-    linkLabel: 'See my creative side',
   },
   {
     name: 'Planet Tools',
@@ -44,16 +42,15 @@ const PLANETS = [
     texture: '/textures/mars_1k_color.jpg',
     items: ['VS Code', 'GitHub', 'Figma', 'Notion', 'Framer Motion'],
     description:
-      'My toolkit keeps my workflow efficient. I code in VS Code, collaborate on GitHub, design in Figma, organize with Notion, and animate with Framer Motion. These tools help me create and deliver quality projects.',
+      'My toolkit: coding in VS Code, collaborating on GitHub, designing in Figma, organizing with Notion, and animating with Framer Motion.',
     facts: [
-      'Figma for design systems.',
-      'Notion for notes and organization.',
-      'VS Code for coding.',
-      'Framer Motion for UI animations.',
-      'GitHub for version control.',
+      'Design: Figma',
+      'Docs: Notion',
+      'Code: VS Code',
+      'Animations: Framer Motion',
+      'Version control: GitHub',
     ],
     link: 'https://figma.com/',
-    linkLabel: 'Visit my design station',
   },
   {
     name: 'Planet Dreams',
@@ -61,16 +58,15 @@ const PLANETS = [
     texture: '/textures/plutomap1k.jpg',
     items: ['Space Travel', 'Remote Work', 'Open Source', 'AI Projects'],
     description:
-      'My dreams reach beyond boundaries. I aim to work remotely, contribute to open source, explore artificial intelligence, and one day, travel through space. Always looking for new challenges and opportunities.',
+      'Dreaming big: working remotely, contributing to open source, exploring AI, and maybe one day, traveling through space!',
     facts: [
-      'Goal: Make an impact in open source.',
-      'Dream: Visit Mars.',
-      'Interest: Artificial Intelligence.',
-      'Advocate for remote work.',
-      'Space enthusiast.',
+      'Goal: Contribute to open source',
+      'Dream: Visit Mars',
+      'Interest: Artificial Intelligence',
+      'Remote work advocate',
+      'Space enthusiast',
     ],
     link: 'https://openai.com/',
-    linkLabel: 'Discover my vision',
   },
 ];
 
@@ -217,7 +213,7 @@ export default function About() {
           transition={{ duration: 1, delay: 0.4 }}
         >
           <motion.h2
-            className="text-5xl md:text-6xl font-extrabold text-white mb-2"
+            className="text-6xl md:text-7xl font-extrabold text-white mb-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -228,52 +224,36 @@ export default function About() {
           >
             {planet.name}
           </motion.h2>
-
-          <div className="mb-6">
-            <span className="block text-lg text-blue-200 font-semibold mb-2 tracking-wide">
-              {selected === 0 && "Tech Stack"}
-              {selected === 1 && "Creative Universe"}
-              {selected === 2 && "Daily Tools"}
-              {selected === 3 && "Space Dreams"}
-            </span>
-            <motion.p
-              className="text-lg text-slate-200 mb-2"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.9 }}
-              style={{
-                fontWeight: 500,
-                lineHeight: '1.6',
-              }}
-            >
-              {planet.description}
-            </motion.p>
+          <motion.p
+            className="text-xl text-slate-200 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.9 }}
+            style={{
+              fontWeight: 500,
+              lineHeight: '1.5',
+            }}
+          >
+            {planet.description}
+          </motion.p>
+          <div className="mb-4 flex flex-wrap gap-2">
+            {planet.items.map(item => (
+              <span
+                key={item}
+                className="bg-gradient-to-r from-white/10 to-white/20 text-white px-4 py-2 rounded-lg text-base font-semibold shadow hover:scale-105 hover:from-white/20 transition-all duration-200"
+              >
+                {item}
+              </span>
+            ))}
           </div>
-
           <div className="mb-6">
-            <span className="block text-base text-purple-300 font-semibold mb-2">Main Elements</span>
-            <div className="flex flex-wrap gap-2 mb-2">
-              {planet.items.map(item => (
-                <span
-                  key={item}
-                  className="bg-gradient-to-r from-white/10 to-white/20 text-white px-4 py-2 rounded-lg text-base font-semibold shadow hover:scale-105 hover:from-white/20 transition-all duration-200 cursor-pointer"
-                  title={`Learn more about ${item}`}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6">
-            <span className="block text-base text-cyan-300 font-semibold mb-2">Highlights</span>
-            <ul className="ml-2 list-disc text-slate-300 text-base space-y-1">
+            <span className="text-white/80 font-semibold">Curiosities:</span>
+            <ul className="mt-2 ml-2 list-disc text-slate-300 text-lg space-y-1">
               {planet.facts.map(fact => (
-                <li key={fact}>{fact}</li>
+                <li key={fact} className="">{fact}</li>
               ))}
             </ul>
           </div>
-
           <a
             href={planet.link}
             target="_blank"
