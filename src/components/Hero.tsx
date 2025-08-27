@@ -187,6 +187,19 @@ export default function Hero() {
     }),
   };
 
+  const planetVariants: Variants = {
+    hidden: { opacity: 0, scale: 0 },
+    visible: (delay: number) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay,
+        duration: 1.5,
+        ease: 'easeOut',
+      },
+    }),
+  };
+
   const [displayText, setDisplayText] = useState('');
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -227,20 +240,6 @@ export default function Hero() {
     >
       {/* Background Effects */}
       <div className="absolute inset-0">
-        {/* Nebulosa sutil */}
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 60,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-slate-700/20 rounded-full blur-[100px]"
-        />
-
         {/* Estrelas passando */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(10)].map((_, i) => (
@@ -305,87 +304,160 @@ export default function Hero() {
         />
       </div>
 
-      {/* Content */}
+      {/* Planetas de fundo */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        {/* Planeta esquerdo - Azul/Roxo */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={0.3}
+          variants={planetVariants}
+          className="absolute top-70 left-[3%] transform -translate-y-1/2"
+        >
+          <motion.div
+            animate={{
+              rotate: [0, 360],
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              rotate: { duration: 60, repeat: Infinity, ease: 'linear' },
+              scale: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            className="w-96 h-96 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] rounded-full opacity-80"
+            style={{
+              background: 'radial-gradient(circle at 30% 30%, #3b82f6, #8b5cf6, #1e293b)',
+              boxShadow: '0 0 100px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(0, 0, 0, 0.3)',
+              filter: 'blur(1px)',
+              
+            }}
+          />
+        </motion.div>
+
+        {/* Planeta direito - Laranja/Rosa */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          custom={0.6}
+          variants={planetVariants}
+          className="absolute top-30 right-[66%] transform -translate-y-1/2"
+        >
+          <motion.div
+            animate={{
+              rotate: [360, 0],
+              scale: [1, 1.08, 1],
+            }}
+            transition={{
+              rotate: { duration: 80, repeat: Infinity, ease: 'linear' },
+              scale: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
+            }}
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-36 lg:h-36 rounded-full opacity-75"
+            style={{
+              background: 'radial-gradient(circle at 70% 20%, #f97316, #ec4899, #7c2d12)',
+              boxShadow: '0 0 80px rgba(249, 115, 22, 0.4), inset 0 0 80px rgba(0, 0, 0, 0.4)',
+              filter: 'blur(0.5px)',
+            }}
+          />
+        </motion.div>
+
+        {/* Órbitas decorativas */}
+        <motion.div
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          className="absolute top-1/2 left-[20%] transform -translate-x-1/2 -translate-y-1/2"
+        >
+          <div className="w-[32rem] h-[32rem] border border-slate-400/10 rounded-full" />
+        </motion.div>
+
+        <motion.div
+          animate={{ rotate: [360, 0] }}
+          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+          className="absolute top-1/2 right-[15%] transform translate-x-1/-translatete-y-1/2"
+        >
+          <div className="w-[28rem] h-[28rem] border border-slate-400/10 rounded-full" />
+        </motion.div>
+      </div>
+
+      {/* Typing Effect no fundo superior */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.08 }}
+        transition={{ delay: 1.5, duration: 2 }}
+        className="absolute top-16 left-1/2 transform -translate-x-1/2 pointer-events-none z-20 select-none"
+      >
+        <div className="text-2xl md:text-3xl lg:text-4xl font-mono text-white/60 text-center">
+          {displayText}
+          <motion.span
+            animate={{ opacity: [0.6, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="ml-1 text-white/40"
+          >
+            |
+          </motion.span>
+        </div>
+      </motion.div>
+
+      {/* Conteúdo Principal */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={controls}
-        className="max-w-4xl mx-auto px-8 text-center relative z-30 flex flex-col items-center gap-8"
+        className="relative z-30 flex flex-col items-center text-center px-8"
       >
-        {/* Hello + Nome */}
+        {/* Nome Principal no Centro */}
         <motion.div
           ref={nameRef}
           initial="hidden"
           animate="visible"
-          className="relative"
+          className="relative mb-12"
           onMouseEnter={() => setNameHover(true)}
           onMouseLeave={() => setNameHover(false)}
         >
-          {/* Hello, I am */}
-          <motion.p
+          <motion.h1
             custom={0}
             variants={nameVariants}
-            className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wide text-slate-400 opacity-70 mb-4"
+            className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-4 ${
+              nameHover
+                ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]'
+                : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
+            }`}
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
           >
-            Hello, I am
-          </motion.p>
+            EDUARDO
+          </motion.h1>
 
-          {/* Nome */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-            <motion.h1
-              custom={1}
-              variants={nameVariants}
-              className={`text-4xl md:text-5xl lg:text-6xl font-light tracking-wide text-white transition-all duration-300 cursor-default ${
-                nameHover
-                  ? 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
-                  : 'drop-shadow-[0_0_10px_rgba(148,163,184,0.2)]'
-              }`}
-            >
-              Eduardo
-            </motion.h1>
-
-            <motion.h1
-              custom={2}
-              variants={nameVariants}
-              className={`text-4xl md:text-5xl lg:text-6xl font-extralight tracking-wide text-white transition-all duration-300 cursor-default ${
-                nameHover
-                  ? 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
-                  : 'drop-shadow-[0_0_10px_rgba(148,163,184,0.2)]'
-              }`}
-            >
-              Paim
-            </motion.h1>
-          </div>
-        </motion.div>
-
-        {/* Subtitle */}
-        <motion.div custom={3} initial="hidden" animate="visible" variants={textVariants}>
-          <div className="text-xl text-slate-400 font-mono flex items-center justify-center gap-3">
-            <motion.div animate={{ rotate: [0, 360] }} transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}>
-              <Code size={20} className="text-slate-500" />
-            </motion.div>
-            <span>
-              {displayText}
-              <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ repeat: Infinity, duration: 1 }}
-                className="ml-1 text-slate-500"
-              >
-                |
-              </motion.span>
-            </span>
-          </div>
+          <motion.h2
+            custom={0}
+            variants={nameVariants}
+            className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-4 ${
+              nameHover
+                ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]'
+                : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
+            }`}
+            style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            PAIM
+          </motion.h2>
         </motion.div>
 
         {/* Description */}
-        <motion.div custom={4} initial="hidden" animate="visible" variants={textVariants}>
-          <p className="text-slate-500 text-lg max-w-2xl leading-relaxed">
-            Crafting digital experiences in the <span className="text-slate-400 font-medium">cosmic web</span> of modern
+        <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="mb-12">
+          <p className="text-slate-400 text-xl md:text-2xl max-w-3xl leading-relaxed font-light">
+            Crafting digital experiences in the <span className="text-slate-300 font-medium">cosmic web</span> of modern
             technology.
           </p>
         </motion.div>
 
-        {/* Social Links - Botões maiores */}
-        <motion.div custom={5} initial="hidden" animate="visible" variants={textVariants}>
+        {/* Social Links */}
+        <motion.div custom={3} initial="hidden" animate="visible" variants={textVariants} className="mb-16">
           <div className="flex justify-center gap-8">
             {[
               { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },
@@ -408,7 +480,7 @@ export default function Hero() {
                     animate={{
                       opacity: 1,
                       y: 0,
-                      transition: { delay: 1.8 + index * 0.1 },
+                      transition: { delay: 2 + index * 0.1 },
                     }}
                     className="w-16 h-16 border-2 border-slate-700 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-all duration-200 backdrop-blur-sm hover:bg-slate-800/30"
                   >
@@ -429,7 +501,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Scroll Arrow */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.3 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.5 }}>
           <motion.button
             onClick={scrollToNext}
             whileHover={{ scale: 1.1 }}
