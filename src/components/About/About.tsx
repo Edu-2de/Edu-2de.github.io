@@ -10,7 +10,7 @@ const PLANETS = [
     texture: '/textures/venusmap.jpg',
     items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'CSS', 'Tailwind'],
     description:
-      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, and beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
+      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, e beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
     facts: [
       'Favorite language: TypeScript',
       'Most used: React',
@@ -19,6 +19,7 @@ const PLANETS = [
       'Frontend & Backend experience',
     ],
     link: 'https://github.com/edu-2de',
+    linkLabel: 'Meu GitHub', // <-- Adicione aqui
   },
   {
     name: 'Planet Hobbies',
@@ -35,6 +36,7 @@ const PLANETS = [
       'Home chef',
     ],
     link: 'https://instagram.com/',
+    linkLabel: 'Meu Instagram', // <-- Adicione aqui
   },
   {
     name: 'Planet Tools',
@@ -51,6 +53,7 @@ const PLANETS = [
       'Version control: GitHub',
     ],
     link: 'https://figma.com/',
+    linkLabel: 'Meu Figma', // <-- Adicione aqui
   },
   {
     name: 'Planet Dreams',
@@ -67,6 +70,7 @@ const PLANETS = [
       'Space enthusiast',
     ],
     link: 'https://openai.com/',
+    linkLabel: 'OpenAI', // <-- Adicione aqui
   },
 ];
 
