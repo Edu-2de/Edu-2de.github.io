@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
+type ShootingStar = {
+  id: number;
+  y: string;
+  duration: number;
+  delay: number;
+};
+
 export default function HeroStars() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [stars, setStars] = useState<
@@ -14,6 +21,7 @@ export default function HeroStars() {
       opacity: number;
     }>
   >([]);
+  const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
 
   useEffect(() => {
     const initialStars = Array.from({ length: 30 }, (_, i) => ({
@@ -26,6 +34,14 @@ export default function HeroStars() {
       opacity: Math.random() * 0.5 + 0.3,
     }));
     setStars(initialStars);
+
+    const shooting = Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      y: `${Math.random() * 100}%`,
+      duration: 20 + Math.random() * 10,
+      delay: i * 4,
+    }));
+    setShootingStars(shooting);
   }, []);
 
   useEffect(() => {
@@ -71,12 +87,12 @@ export default function HeroStars() {
   return (
     <div className="absolute inset-0">
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(10)].map((_, i) => (
+        {shootingStars.map(star => (
           <motion.div
-            key={`shooting-star-${i}`}
+            key={`shooting-star-${star.id}`}
             initial={{
               x: -10,
-              y: `${Math.random() * 100}%`,
+              y: star.y,
               opacity: 0,
             }}
             animate={{
@@ -84,8 +100,8 @@ export default function HeroStars() {
               opacity: [0, 0.6, 0],
             }}
             transition={{
-              duration: 20 + Math.random() * 10,
-              delay: i * 4,
+              duration: star.duration,
+              delay: star.delay,
               repeat: Infinity,
               ease: 'linear',
             }}
