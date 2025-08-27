@@ -12,26 +12,37 @@ const navItems = [
 
 export default function Navigation() {
   const [navStars, setNavStars] = useState<Array<{ left: number; top: number; id: number }>>([]);
+  const [hoverParticles, setHoverParticles] = useState<
+    Array<Array<{ left: number; top: number; id: number }>>
+  >([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 100], [0, -10]);
 
   useEffect(() => {
-    // Só roda no cliente!
     const arr = Array.from({ length: 10 }, (_, i) => ({
       id: i,
       left: 20 + Math.random() * 60,
       top: 10 + Math.random() * 80,
     }));
     setNavStars(arr);
+
+
+    const particles = navItems.map(() =>
+      Array.from({ length: 2 }, (_, i) => ({
+        id: i,
+        left: 20 + Math.random() * 60,
+        top: 20 + Math.random() * 60,
+      }))
+    );
+    setHoverParticles(particles);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Detectar seção ativa
       const sections = ['home', 'about', 'projects', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
@@ -46,8 +57,6 @@ export default function Navigation() {
         }
       }
     };
-
-   
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -65,7 +74,6 @@ export default function Navigation() {
             : 'bg-black/10 backdrop-blur-xl border border-white/5 shadow-xl rounded-3xl'
         }`}
     >
-      {/* Glow espacial */}
       <div className="absolute inset-0 pointer-events-none rounded-3xl z-0">
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -80,7 +88,6 @@ export default function Navigation() {
         />
       </div>
 
-      {/* Estrelas de fundo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-3xl z-0">
         {navStars.map(star => (
           <motion.div
@@ -109,7 +116,7 @@ export default function Navigation() {
         ))}
       </div>
 
-      {/* Navigation Links - vertical, centralizados */}
+
       <div className="flex flex-col items-center gap-10 mt-8 mb-8 relative z-10">
         {navItems.map((item, index) => {
           const isActive =
@@ -167,7 +174,7 @@ export default function Navigation() {
             >
               {item.name}
 
-              {/* Indicador ativo - glow orbital clean */}
+  
               {isActive && (
                 <motion.div
                   layoutId="activeIndicator"
@@ -198,7 +205,6 @@ export default function Navigation() {
                 </motion.div>
               )}
 
-              {/* Linha de hover */}
               <motion.div
                 className="absolute left-0 right-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent"
                 initial={{ scaleX: 0, opacity: 0 }}
@@ -209,11 +215,10 @@ export default function Navigation() {
                 }}
               />
 
-              {/* Efeito de partículas no hover - mais sutil */}
               <div className="absolute inset-0 pointer-events-none">
-                {[...Array(2)].map((_, i) => (
+                {hoverParticles[index]?.map((particle) => (
                   <motion.div
-                    key={i}
+                    key={particle.id}
                     initial={{ opacity: 0, scale: 0 }}
                     whileHover={{
                       opacity: [0, 0.4, 0],
@@ -223,13 +228,13 @@ export default function Navigation() {
                     }}
                     transition={{
                       duration: 1.2,
-                      delay: i * 0.15,
+                      delay: particle.id * 0.15,
                       ease: 'easeOut',
                     }}
                     className="absolute w-1 h-1 bg-indigo-300 rounded-full"
                     style={{
-                      left: `${20 + Math.random() * 60}%`,
-                      top: `${20 + Math.random() * 60}%`,
+                      left: `${particle.left}%`,
+                      top: `${particle.top}%`,
                       filter: 'blur(0.5px)',
                       boxShadow: '0 0 6px #6366f1',
                     }}
@@ -241,7 +246,6 @@ export default function Navigation() {
         })}
       </div>
 
-      {/* Linha vertical de energia */}
       <motion.div
         initial={{ scaleY: 0, opacity: 0 }}
         animate={{
