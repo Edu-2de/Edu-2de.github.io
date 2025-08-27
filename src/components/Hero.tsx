@@ -8,35 +8,47 @@ import { useEffect, useState, useRef } from 'react';
 const ORBIT_PLANETS = [
   {
     name: 'Aurelia',
-    color: 'linear-gradient(135deg, #fbbf24 0%, #f59e42 100%)',
-    shadow: 'rgba(251,191,36,0.5)',
+    // Amarelo solar com brilho suave e transparência
+    color: 'radial-gradient(circle at 60% 40%, #fffbe7 0%, #fbbf24 60%, #f59e42 100%)',
+    shadow: 'rgba(251,191,36,0.3)',
     size: 54,
     orbit: 220,
-    speed: 0.0008,
+    speed: 0.0088,
+    opacity: 0.55,
+    border: '2px solid #fffbe7',
   },
   {
     name: 'Nebula',
-    color: 'linear-gradient(135deg, #6366f1 0%, #38bdf8 100%)',
-    shadow: 'rgba(99,102,241,0.5)',
+    // Azul etéreo com centro claro e borda azul escuro
+    color: 'radial-gradient(circle at 40% 60%, #a7f3f3 0%, #38bdf8 60%, #6366f1 100%)',
+    shadow: 'rgba(99,102,241,0.3)',
     size: 44,
     orbit: 300,
-    speed: 0.0005,
+    speed: 0.0055,
+    opacity: 0.5,
+    border: '2px solid #38bdf8',
   },
   {
     name: 'Pyra',
-    color: 'linear-gradient(135deg, #f97316 0%, #ec4899 100%)',
-    shadow: 'rgba(249,115,22,0.5)',
+    // Laranja/rosa com centro quente e transparência
+    color: 'radial-gradient(circle at 50% 50%, #fbb6ce 0%, #f97316 60%, #ec4899 100%)',
+    shadow: 'rgba(249,115,22,0.3)',
     size: 38,
     orbit: 380,
-    speed: 0.0003,
+    speed: 0.0033,
+    opacity: 0.45,
+    border: '2px solid #ec4899',
   },
   {
     name: 'Verdan',
-    color: 'linear-gradient(135deg, #22d3ee 0%, #a7f3d0 100%)',
-    shadow: 'rgba(34,211,238,0.5)',
+    // Verde/azul com centro claro e transparência
+    color: 'radial-gradient(circle at 60% 40%, #a7f3d0 0%, #22d3ee 60%, #0ea5e9 100%)',
+    shadow: 'rgba(34,211,238,0.3)',
     size: 42,
     orbit: 460,
-    speed: 0.0002,
+    speed: 0.0022,
+    opacity: 0.4,
+    border: '2px solid #22d3ee',
   },
 ];
 
@@ -373,7 +385,7 @@ export default function Hero() {
                   borderRadius: '50%',
                   background: planet.color,
                   boxShadow: `0 0 30px ${planet.shadow}`,
-                  opacity: 0.98,
+                  opacity: planet.opacity, 
                   filter: 'blur(0.2px)',
                   border: planet.name === 'Aurelia' ? '2px solid #fffbe7' : undefined,
                 }}
