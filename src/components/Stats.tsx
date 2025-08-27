@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Code, Coffee, Users, Trophy } from 'lucide-react';
 
 interface StatProps {
-  icon: React.ElementType;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
   value: number;
   label: string;
   suffix?: string;
