@@ -233,6 +233,51 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, currentTextIndex, texts]);
 
+  // --- Função para orbitar o planeta laranja ---
+  const [orangeAngle, setOrangeAngle] = useState(0);
+
+  useEffect(() => {
+    let raf: number;
+    const animate = () => {
+      setOrangeAngle(prev => (prev + 1) % 360);
+      raf = requestAnimationFrame(animate);
+    };
+    animate();
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // Calcula a posição do planeta roxo (fixo)
+  const purpleRef = useRef<HTMLDivElement>(null);
+
+  // Calcula a posição do planeta laranja orbitando o roxo
+  const getOrangePosition = () => {
+    // Pega a posição do planeta roxo fixo
+    const purple = purpleRef.current;
+    if (!purple) return { x: 0, y: 0, zIndex: 11 };
+
+    const purpleRect = purple.getBoundingClientRect();
+    const centerX = purpleRect.left + purpleRect.width / 2;
+    const centerY = purpleRect.top + purpleRect.height / 2;
+
+    const radius = purpleRect.width * 0.7; // raio da órbita
+    const rad = (orangeAngle * Math.PI) / 180;
+    const x = centerX + radius * Math.cos(rad) - purpleRect.width / 2;
+    const y = centerY + radius * Math.sin(rad) - purpleRect.height / 2;
+
+    // Se o ângulo está entre 90 e 270, está atrás do roxo
+    const zIndex = orangeAngle > 90 && orangeAngle < 270 ? 9 : 11;
+    return { x, y, zIndex };
+  };
+
+  // Só calcula a posição depois do mount
+  const [orangePos, setOrangePos] = useState({ x: 0, y: 0, zIndex: 11 });
+  useEffect(() => {
+    if (purpleRef.current) {
+      setOrangePos(getOrangePosition());
+    }
+    // eslint-disable-next-line
+  }, [orangeAngle, purpleRef.current]);
+
   return (
     <section
       id="home"
@@ -312,7 +357,8 @@ export default function Hero() {
           animate="visible"
           custom={0.3}
           variants={planetVariants}
-          className="absolute top-70 left-[3%] transform -translate-y-1/2"
+          className="absolute top-0 left-[0%] transform -translate-y-1/2"
+          ref={purpleRef}
         >
           <motion.div
             animate={{
@@ -328,18 +374,22 @@ export default function Hero() {
               background: 'radial-gradient(circle at 30% 30%, #3b82f6, #8b5cf6, #1e293b)',
               boxShadow: '0 0 100px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(0, 0, 0, 0.3)',
               filter: 'blur(1px)',
-              
             }}
           />
         </motion.div>
 
-        {/* Planeta direito - Laranja/Rosa */}
+        {/* Planeta direito - Laranja/Rosa orbitando */}
         <motion.div
           initial="hidden"
           animate="visible"
           custom={0.6}
           variants={planetVariants}
-          className="absolute top-30 right-[66%] transform -translate-y-1/2"
+          className="absolute"
+          style={{
+            top: orangePos.y,
+            left: orangePos.x,
+            zIndex: orangePos.zIndex,
+          }}
         >
           <motion.div
             animate={{
