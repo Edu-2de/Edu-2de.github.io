@@ -8,7 +8,6 @@ import { useEffect, useState, useRef } from 'react';
 const ORBIT_PLANETS = [
   {
     name: 'Aurelia',
-    // Amarelo solar com brilho suave e transparência
     color: 'radial-gradient(circle at 60% 40%, #fffbe7 0%, #fbbf24 60%, #f59e42 100%)',
     shadow: 'rgba(251,191,36,0.3)',
     size: 54,
@@ -19,7 +18,6 @@ const ORBIT_PLANETS = [
   },
   {
     name: 'Nebula',
-    // Azul etéreo com centro claro e borda azul escuro
     color: 'radial-gradient(circle at 40% 60%, #a7f3f3 0%, #38bdf8 60%, #6366f1 100%)',
     shadow: 'rgba(99,102,241,0.3)',
     size: 44,
@@ -41,7 +39,6 @@ const ORBIT_PLANETS = [
   },
   {
     name: 'Verdan',
-    // Verde/azul com centro claro e transparência
     color: 'radial-gradient(circle at 60% 40%, #a7f3d0 0%, #22d3ee 60%, #0ea5e9 100%)',
     shadow: 'rgba(34,211,238,0.3)',
     size: 42,
@@ -52,7 +49,7 @@ const ORBIT_PLANETS = [
   },
 ];
 
-// Typing Effect Component
+// Typing Effect Component corrigido
 function TypingEffect() {
   const phrases = [
     "Front-end Developer & Space UI Explorer",
@@ -104,8 +101,6 @@ function TypingEffect() {
     </span>
   );
 }
-
-
 
 export default function Hero() {
   const controls = useAnimation();
@@ -427,11 +422,14 @@ export default function Hero() {
                 left: x,
                 zIndex: 8,
                 pointerEvents: 'none',
+                width: planet.size,
+                height: planet.size,
               }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: i * 0.2 }}
             >
+              {/* Planeta */}
               <div
                 style={{
                   width: planet.size,
@@ -442,8 +440,46 @@ export default function Hero() {
                   opacity: planet.opacity,
                   filter: 'blur(0.2px)',
                   border: planet.border,
+                  position: 'relative',
                 }}
               />
+              {/* Anéis para Pyra */}
+              {planet.name === 'Pyra' && (
+                <svg
+                  width={planet.size * 2.2}
+                  height={planet.size * 2.2}
+                  style={{
+                    position: 'absolute',
+                    left: `-${planet.size * 0.6}px`,
+                    top: `-${planet.size * 0.6}px`,
+                    pointerEvents: 'none',
+                    zIndex: 1,
+                  }}
+                >
+                  <ellipse
+                    cx={planet.size * 1.1}
+                    cy={planet.size * 1.1}
+                    rx={planet.size * 1.05}
+                    ry={planet.size * 0.38}
+                    fill="none"
+                    stroke="#fbbf24"
+                    strokeWidth="2"
+                    opacity="0.45"
+                    style={{ filter: 'blur(0.5px)' }}
+                  />
+                  <ellipse
+                    cx={planet.size * 1.1}
+                    cy={planet.size * 1.1}
+                    rx={planet.size * 0.85}
+                    ry={planet.size * 0.28}
+                    fill="none"
+                    stroke="#ec4899"
+                    strokeWidth="1.2"
+                    opacity="0.32"
+                    style={{ filter: 'blur(0.7px)' }}
+                  />
+                </svg>
+              )}
             </motion.div>
           );
         })}
