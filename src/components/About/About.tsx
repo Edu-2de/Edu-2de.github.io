@@ -7,70 +7,70 @@ const PLANETS = [
   {
     name: 'Planet Skills',
     color: '#fbbf24',
-    texture: '/textures/earth_atmos_2048.jpg',
+    texture: '/textures/venusmap.jpg',
     items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'CSS', 'Tailwind'],
     description:
-      "🚀 My skills are the fuel for my cosmic journey! I build interactive interfaces with React & TypeScript, connect galaxies with Node.js APIs, and design stellar visuals using CSS & Tailwind. Always exploring new tech constellations.",
+      'My skills are the foundation of my journey. I build interactive interfaces with React and TypeScript, connect systems with Node.js APIs, and design modern layouts using CSS and Tailwind. Always exploring new technologies and improving my craft.',
     facts: [
-      '🌟 TypeScript is my favorite language for clarity and safety.',
-      '🪐 React is my daily spaceship for UI adventures.',
-      '🔭 Currently learning Next.js for faster launches.',
-      '🛰️ Contributor to open source missions.',
-      '🌌 Fullstack explorer: frontend & backend.',
+      'TypeScript for clarity and safety.',
+      'React for dynamic user interfaces.',
+      'Currently learning Next.js.',
+      'Open source contributor.',
+      'Experience in frontend and backend.',
     ],
     link: 'https://github.com/edu-2de',
-    linkLabel: 'Explore my GitHub Universe',
+    linkLabel: 'Explore my GitHub',
   },
   {
     name: 'Planet Hobbies',
     color: '#38bdf8',
-    texture: '/textures/earth_lights_2048.png',
+    texture: '/textures/neptunemap.jpg',
     items: ['Music', 'Gaming', 'Travel', 'Photography', 'Cooking'],
     description:
-      "🎶 My hobbies orbit around creativity and adventure! I compose melodies on my guitar, embark on epic gaming quests, capture cosmic moments with photography, and experiment with flavors in my kitchen. Always seeking new worlds to discover.",
+      'Creativity and adventure drive my hobbies. I play guitar, enjoy immersive games, travel to new places, capture moments with photography, and experiment with cooking. Always seeking inspiration and new experiences.',
     facts: [
-      '🎮 Favorite game: Zelda – for legendary journeys.',
-      '🎸 Guitar is my instrument for harmony.',
-      '✈️ Dream trip: Japan, land of innovation.',
-      '📸 Passionate about capturing the universe.',
-      '👨‍🍳 Home chef, always trying new recipes.',
+      'Favorite game: Zelda.',
+      'Instrument: Guitar.',
+      'Dream trip: Japan.',
+      'Passionate about photography.',
+      'Enjoy cooking and trying new recipes.',
     ],
     link: 'https://instagram.com/',
-    linkLabel: 'See My Creative Galaxy',
+    linkLabel: 'See my creative side',
   },
   {
     name: 'Planet Tools',
     color: '#ec4899',
-    texture: '/textures/earth_lights_2048.png',
+    texture: '/textures/mars_1k_color.jpg',
     items: ['VS Code', 'GitHub', 'Figma', 'Notion', 'Framer Motion'],
     description:
-      "🛠️ My toolkit is ready for any mission! I code in VS Code, collaborate on GitHub, design in Figma, organize with Notion, and animate with Framer Motion. These tools keep my workflow in orbit.",
+      'My toolkit keeps my workflow efficient. I code in VS Code, collaborate on GitHub, design in Figma, organize with Notion, and animate with Framer Motion. These tools help me create and deliver quality projects.',
     facts: [
-      '🎨 Figma for stellar design systems.',
-      '📚 Notion for mission control and notes.',
-      '💻 VS Code for fast coding launches.',
-      '✨ Framer Motion for smooth UI animations.',
-      '🔗 GitHub for version control and teamwork.',
+      'Figma for design systems.',
+      'Notion for notes and organization.',
+      'VS Code for coding.',
+      'Framer Motion for UI animations.',
+      'GitHub for version control.',
     ],
     link: 'https://figma.com/',
-    linkLabel: 'Visit My Design Station',
+    linkLabel: 'Visit my design station',
   },
   {
     name: 'Planet Dreams',
     color: '#22d3ee',
-    texture: '/textures/earth_lights_2048.png',
+    texture: '/textures/plutomap1k.jpg',
     items: ['Space Travel', 'Remote Work', 'Open Source', 'AI Projects'],
     description:
-      "🌠 My dreams reach beyond the stars! I aim to work remotely from anywhere in the universe, contribute to open source, explore AI frontiers, and maybe one day, travel through space itself.",
+      'My dreams reach beyond boundaries. I aim to work remotely, contribute to open source, explore artificial intelligence, and one day, travel through space. Always looking for new challenges and opportunities.',
     facts: [
-      '🚀 Goal: Make a real impact in open source.',
-      '🪐 Dream: Visit Mars and beyond.',
-      '🤖 Fascinated by Artificial Intelligence.',
-      '🌍 Advocate for remote work freedom.',
-      '✨ Space enthusiast, always looking up.',
+      'Goal: Make an impact in open source.',
+      'Dream: Visit Mars.',
+      'Interest: Artificial Intelligence.',
+      'Advocate for remote work.',
+      'Space enthusiast.',
     ],
     link: 'https://openai.com/',
-    linkLabel: 'Discover My Space Vision',
+    linkLabel: 'Discover my vision',
   },
 ];
 
@@ -217,7 +217,7 @@ export default function About() {
           transition={{ duration: 1, delay: 0.4 }}
         >
           <motion.h2
-            className="text-6xl md:text-7xl font-extrabold text-white mb-4"
+            className="text-5xl md:text-6xl font-extrabold text-white mb-2"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -228,36 +228,52 @@ export default function About() {
           >
             {planet.name}
           </motion.h2>
-          <motion.p
-            className="text-xl text-slate-200 mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9 }}
-            style={{
-              fontWeight: 500,
-              lineHeight: '1.5',
-            }}
-          >
-            {planet.description}
-          </motion.p>
-          <div className="mb-4 flex flex-wrap gap-2">
-            {planet.items.map(item => (
-              <span
-                key={item}
-                className="bg-gradient-to-r from-white/10 to-white/20 text-white px-4 py-2 rounded-lg text-base font-semibold shadow hover:scale-105 hover:from-white/20 transition-all duration-200"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
+
           <div className="mb-6">
-            <span className="text-white/80 font-semibold">Curiosities:</span>
-            <ul className="mt-2 ml-2 list-disc text-slate-300 text-lg space-y-1">
+            <span className="block text-lg text-blue-200 font-semibold mb-2 tracking-wide">
+              {selected === 0 && "Tech Stack"}
+              {selected === 1 && "Creative Universe"}
+              {selected === 2 && "Daily Tools"}
+              {selected === 3 && "Space Dreams"}
+            </span>
+            <motion.p
+              className="text-lg text-slate-200 mb-2"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.9 }}
+              style={{
+                fontWeight: 500,
+                lineHeight: '1.6',
+              }}
+            >
+              {planet.description}
+            </motion.p>
+          </div>
+
+          <div className="mb-6">
+            <span className="block text-base text-purple-300 font-semibold mb-2">Main Elements</span>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {planet.items.map(item => (
+                <span
+                  key={item}
+                  className="bg-gradient-to-r from-white/10 to-white/20 text-white px-4 py-2 rounded-lg text-base font-semibold shadow hover:scale-105 hover:from-white/20 transition-all duration-200 cursor-pointer"
+                  title={`Learn more about ${item}`}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-6">
+            <span className="block text-base text-cyan-300 font-semibold mb-2">Highlights</span>
+            <ul className="ml-2 list-disc text-slate-300 text-base space-y-1">
               {planet.facts.map(fact => (
-                <li key={fact} className="">{fact}</li>
+                <li key={fact}>{fact}</li>
               ))}
             </ul>
           </div>
+
           <a
             href={planet.link}
             target="_blank"
