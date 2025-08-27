@@ -11,10 +11,21 @@ const navItems = [
 ];
 
 export default function Navigation() {
+  const [navStars, setNavStars] = useState<Array<{ left: number; top: number; id: number }>>([]);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 100], [0, -10]);
+
+  useEffect(() => {
+    // Só roda no cliente!
+    const arr = Array.from({ length: 10 }, (_, i) => ({
+      id: i,
+      left: 20 + Math.random() * 60,
+      top: 10 + Math.random() * 80,
+    }));
+    setNavStars(arr);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +47,8 @@ export default function Navigation() {
       }
     };
 
+   
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -45,10 +58,11 @@ export default function Navigation() {
       initial={{ x: -100, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       style={{ y }}
-      className={`fixed top-1/2 left-12 -translate-y-1/2 z-50 flex flex-col items-center py-12 px-6 transition-all duration-500 select-none
-        ${isScrolled
-          ? 'bg-black/30 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl'
-          : 'bg-black/10 backdrop-blur-xl border border-white/5 shadow-xl rounded-3xl'
+      className={`fixed top-1/2 left-12 -translate-y-1/2 z-50 flex flex-col items-center py-12 px-6 transition-all duration-500 select-none  
+        ${
+          isScrolled
+            ? 'bg-black/30 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl'
+            : 'bg-black/10 backdrop-blur-xl border border-white/5 shadow-xl rounded-3xl'
         }`}
     >
       {/* Glow espacial */}
@@ -68,9 +82,9 @@ export default function Navigation() {
 
       {/* Estrelas de fundo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-3xl z-0">
-        {[...Array(10)].map((_, i) => (
+        {navStars.map(star => (
           <motion.div
-            key={i}
+            key={star.id}
             initial={{ opacity: 0 }}
             animate={{
               opacity: [0.09, 0.18, 0.09],
@@ -81,13 +95,13 @@ export default function Navigation() {
             transition={{
               duration: 8 + Math.random() * 2,
               repeat: Infinity,
-              delay: i * 0.7,
+              delay: star.id * 0.7,
               ease: 'easeInOut',
             }}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
-              left: `${20 + Math.random() * 60}%`,
-              top: `${10 + Math.random() * 80}%`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
               filter: 'blur(0.8px)',
               boxShadow: '0 0 6px rgba(255,255,255,0.3)',
             }}
@@ -116,8 +130,8 @@ export default function Navigation() {
                   delay: 0.15 * index + 0.3,
                   type: 'spring',
                   stiffness: 100,
-                  damping: 10
-                }
+                  damping: 10,
+                },
               }}
               whileHover={{
                 x: 8,
@@ -127,8 +141,8 @@ export default function Navigation() {
                   type: 'spring',
                   stiffness: 400,
                   damping: 12,
-                  duration: 0.2
-                }
+                  duration: 0.2,
+                },
               }}
               whileTap={{
                 scale: 0.97,
@@ -136,12 +150,13 @@ export default function Navigation() {
                   type: 'spring',
                   stiffness: 400,
                   damping: 12,
-                }
+                },
               }}
               className={`relative group cursor-pointer text-xl font-light tracking-wider transition-all duration-300 px-6 py-3 rounded-xl
-                ${isActive
-                  ? 'text-white bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-900 shadow-lg'
-                  : 'text-gray-300 hover:text-white hover:bg-indigo-900/30'
+                ${
+                  isActive
+                    ? 'text-white bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-900 shadow-lg'
+                    : 'text-gray-300 hover:text-white hover:bg-indigo-900/30'
                 }`}
               style={{
                 textShadow: isActive ? '0 0 16px #6366f1' : '0 0 6px #6366f1',
@@ -190,7 +205,7 @@ export default function Navigation() {
                 whileHover={{
                   scaleX: 1,
                   opacity: 1,
-                  transition: { duration: 0.3, ease: 'easeOut' }
+                  transition: { duration: 0.3, ease: 'easeOut' },
                 }}
               />
 
@@ -236,7 +251,7 @@ export default function Navigation() {
         transition={{
           delay: 0.8,
           duration: 2,
-          ease: 'easeOut'
+          ease: 'easeOut',
         }}
         className="absolute left-1/2 -translate-x-1/2 bottom-0 top-0 w-px bg-gradient-to-b from-transparent via-indigo-400/20 to-transparent rounded-2xl"
       />
