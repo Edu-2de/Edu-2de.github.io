@@ -1,5 +1,5 @@
 'use client';
-
+import { useState as useStateReact, useEffect as useEffectReact } from 'react';
 import { motion, useAnimation, Variants } from 'framer-motion';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
@@ -51,6 +51,61 @@ const ORBIT_PLANETS = [
     border: '2px solid #22d3ee',
   },
 ];
+
+// Typing Effect Component
+function TypingEffect() {
+  const phrases = [
+    "Front-end Developer & Space UI Explorer",
+    "Full Stack Astronaut",
+    "Advocate of Clean Code",
+    "Cosmic Interface Designer",
+    "React Nebula Navigator",
+    "Galactic UX Enthusiast",
+    "TypeScript Star Mapper"
+  ];
+  const [displayed, setDisplayed] = useStateReact('');
+  const [phraseIdx, setPhraseIdx] = useStateReact(0);
+  const [charIdx, setCharIdx] = useStateReact(0);
+  const [deleting, setDeleting] = useStateReact(false);
+
+  useEffectReact(() => {
+    const currentPhrase = phrases[phraseIdx];
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!deleting && charIdx < currentPhrase.length) {
+      timeout = setTimeout(() => {
+        setDisplayed(currentPhrase.slice(0, charIdx + 1));
+        setCharIdx(charIdx + 1);
+      }, 55);
+    } else if (!deleting && charIdx === currentPhrase.length) {
+      timeout = setTimeout(() => setDeleting(true), 1200);
+    } else if (deleting && charIdx > 0) {
+      timeout = setTimeout(() => {
+        setDisplayed(currentPhrase.slice(0, charIdx - 1));
+        setCharIdx(charIdx - 1);
+      }, 35);
+    } else if (deleting && charIdx === 0) {
+      timeout = setTimeout(() => {
+        setDeleting(false);
+        setPhraseIdx((phraseIdx + 1) % phrases.length);
+      }, 400);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [charIdx, deleting, phraseIdx]);
+
+  return (
+    <span
+      className="block text-xl md:text-2xl font-mono text-indigo-300 mt-2"
+      style={{ letterSpacing: '0.04em', minHeight: '2.5rem' }}
+    >
+      {displayed}
+      <span className="animate-pulse text-indigo-400">|</span>
+    </span>
+  );
+}
+
+
 
 export default function Hero() {
   const controls = useAnimation();
@@ -222,9 +277,7 @@ export default function Hero() {
     const animate = (now: number) => {
       const delta = now - lastTime;
       lastTime = now;
-      setPlanetAngles(prev =>
-        prev.map((angle, i) => (angle + ORBIT_PLANETS[i].speed * delta) % 360)
-      );
+      setPlanetAngles(prev => prev.map((angle, i) => (angle + ORBIT_PLANETS[i].speed * delta) % 360));
       raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
@@ -329,7 +382,8 @@ export default function Hero() {
       </div>
 
       {/* Órbitas dos planetas */}
-      {centerPos.x !== 0 && centerPos.y !== 0 &&
+      {centerPos.x !== 0 &&
+        centerPos.y !== 0 &&
         ORBIT_PLANETS.map((planet, i) => (
           <div
             key={`orbit-${i}`}
@@ -355,13 +409,13 @@ export default function Hero() {
               />
             </svg>
           </div>
-        ))
-      }
+        ))}
 
       {/* Planetas orbitando o centro */}
-      {centerPos.x !== 0 && centerPos.y !== 0 &&
+      {centerPos.x !== 0 &&
+        centerPos.y !== 0 &&
         ORBIT_PLANETS.map((planet, i) => {
-          const rad = planetAngles[i] * Math.PI / 180;
+          const rad = (planetAngles[i] * Math.PI) / 180;
           const x = centerPos.x + planet.orbit * Math.cos(rad) - planet.size / 2;
           const y = centerPos.y + planet.orbit * Math.sin(rad) - planet.size / 2;
           return (
@@ -385,15 +439,14 @@ export default function Hero() {
                   borderRadius: '50%',
                   background: planet.color,
                   boxShadow: `0 0 30px ${planet.shadow}`,
-                  opacity: planet.opacity, 
+                  opacity: planet.opacity,
                   filter: 'blur(0.2px)',
-                  border: planet.name === 'Aurelia' ? '2px solid #fffbe7' : undefined,
+                  border: planet.border,
                 }}
               />
             </motion.div>
           );
-        })
-      }
+        })}
 
       {/* Conteúdo Principal (centro da órbita) */}
       <motion.div
@@ -407,7 +460,7 @@ export default function Hero() {
           ref={nameRef}
           initial="hidden"
           animate="visible"
-          className="relative mb-12"
+          className="relative mb-4"
           onMouseEnter={() => setNameHover(true)}
           onMouseLeave={() => setNameHover(false)}
         >
@@ -432,7 +485,7 @@ export default function Hero() {
           <motion.h2
             custom={0}
             variants={nameVariants}
-            className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-4 ${
+            className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-2 ${
               nameHover
                 ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]'
                 : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
@@ -446,6 +499,9 @@ export default function Hero() {
           >
             PAIM
           </motion.h2>
+
+          {/* Typing Effect logo abaixo do nome */}
+          <TypingEffect />
         </motion.div>
 
         {/* Description */}
@@ -497,18 +553,6 @@ export default function Hero() {
                 </motion.div>
               );
             })}
-          </div>
-        </motion.div>
-
-        {/* Typing Effect no fundo superior */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.08 }}
-          transition={{ delay: 1.5, duration: 2 }}
-          className="absolute top-[-4rem] left-1/2 transform -translate-x-1/2 pointer-events-none z-20 select-none"
-        >
-          <div className="text-2xl md:text-3xl lg:text-4xl font-mono text-white/60 text-center">
-            {/* ...typing effect... */}
           </div>
         </motion.div>
 

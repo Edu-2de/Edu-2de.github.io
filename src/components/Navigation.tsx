@@ -42,187 +42,203 @@ export default function Navigation() {
 
   return (
     <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      initial={{ x: -100, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
       style={{ y }}
-      className={`fixed top-6 left-0 right-0 z-50 transition-all duration-500 select-none ${
-        isScrolled
-          ? 'bg-black/20 backdrop-blur-2xl border border-white/5 shadow-2xl rounded-2xl mx-8'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-1/2 left-12 -translate-y-1/2 z-50 flex flex-col items-center py-12 px-6 transition-all duration-500 select-none
+        ${isScrolled
+          ? 'bg-black/30 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl'
+          : 'bg-black/10 backdrop-blur-xl border border-white/5 shadow-xl rounded-3xl'
+        }`}
     >
-      {/* Partículas de fundo sutis */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-2xl">
-        {[...Array(4)].map((_, i) => (
+      {/* Glow espacial */}
+      <div className="absolute inset-0 pointer-events-none rounded-3xl z-0">
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: '180px',
+            height: '180px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%)',
+            filter: 'blur(8px)',
+            zIndex: 0,
+          }}
+        />
+      </div>
+
+      {/* Estrelas de fundo */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-3xl z-0">
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0 }}
             animate={{
-              opacity: [0.05, 0.15, 0.05],
+              opacity: [0.09, 0.18, 0.09],
               scale: [0.8, 1.2, 0.8],
-              x: [0, Math.random() * 60 - 30, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              y: [0, Math.random() * 40 - 20, 0],
             }}
             transition={{
-              duration: 5 + Math.random() * 2,
+              duration: 8 + Math.random() * 2,
               repeat: Infinity,
-              delay: i * 1.2,
+              delay: i * 0.7,
               ease: 'easeInOut',
             }}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
               left: `${20 + Math.random() * 60}%`,
-              top: `${30 + Math.random() * 40}%`,
-              filter: 'blur(0.5px)',
-              boxShadow: '0 0 3px rgba(255,255,255,0.3)',
+              top: `${10 + Math.random() * 80}%`,
+              filter: 'blur(0.8px)',
+              boxShadow: '0 0 6px rgba(255,255,255,0.3)',
             }}
           />
         ))}
       </div>
 
-      {/* Container principal - largura total */}
-      <div className="w-full px-8 py-12">
-        {/* Navigation Links - centralizados no meio da tela com gap */}
-        <div className="flex items-center justify-center">
-          <div className="flex items-center gap-24">
-            {navItems.map((item, index) => {
-              const isActive = 
-                (item.href === '#home' && activeSection === 'home') ||
-                (item.href === '#about' && activeSection === 'about') ||
-                (item.href === '#projects' && activeSection === 'projects') ||
-                (item.href === '#contact' && activeSection === 'contact');
+      {/* Navigation Links - vertical, centralizados */}
+      <div className="flex flex-col items-center gap-10 mt-8 mb-8 relative z-10">
+        {navItems.map((item, index) => {
+          const isActive =
+            (item.href === '#home' && activeSection === 'home') ||
+            (item.href === '#about' && activeSection === 'about') ||
+            (item.href === '#projects' && activeSection === 'projects') ||
+            (item.href === '#contact' && activeSection === 'contact');
 
-              return (
-                <motion.a
-                  key={item.name}
-                  href={item.href}
-                  initial={{ opacity: 0, y: -30 }}
-                  animate={{ 
-                    opacity: 1, 
-                    y: 0,
-                    transition: { 
-                      delay: 0.15 * index + 0.3,
-                      type: 'spring',
-                      stiffness: 100,
-                      damping: 10
-                    }
-                  }}
-                  whileHover={{
-                    y: -4,
-                    scale: 1.15,
-                    filter: 'brightness(1.3)',
-                    transition: {
-                      type: 'spring',
-                      stiffness: 400,
-                      damping: 12,
-                      duration: 0.2
-                    }
-                  }}
-                  whileTap={{
-                    scale: 0.95,
-                    transition: {
-                      type: 'spring',
-                      stiffness: 400,
-                      damping: 12,
-                    }
-                  }}
-                  className={`relative group cursor-pointer text-lg font-light tracking-wider transition-all duration-300 ${
-                    isActive 
-                      ? 'text-white' 
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                  style={{
-                    textShadow: isActive ? '0 0 12px rgba(255,255,255,0.4)' : 'none',
+          return (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                transition: {
+                  delay: 0.15 * index + 0.3,
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 10
+                }
+              }}
+              whileHover={{
+                x: 8,
+                scale: 1.14,
+                filter: 'brightness(1.4) drop-shadow(0 0 8px #6366f1)',
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 12,
+                  duration: 0.2
+                }
+              }}
+              whileTap={{
+                scale: 0.97,
+                transition: {
+                  type: 'spring',
+                  stiffness: 400,
+                  damping: 12,
+                }
+              }}
+              className={`relative group cursor-pointer text-xl font-light tracking-wider transition-all duration-300 px-6 py-3 rounded-xl
+                ${isActive
+                  ? 'text-white bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-900 shadow-lg'
+                  : 'text-gray-300 hover:text-white hover:bg-indigo-900/30'
+                }`}
+              style={{
+                textShadow: isActive ? '0 0 16px #6366f1' : '0 0 6px #6366f1',
+                backdropFilter: isActive ? 'blur(2px)' : undefined,
+                letterSpacing: '0.08em',
+                position: 'relative',
+              }}
+            >
+              {item.name}
+
+              {/* Indicador ativo - glow orbital clean */}
+              {isActive && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="absolute left-1/2 -translate-x-1/2 bottom-[-14px]"
+                  transition={{
+                    type: 'spring',
+                    stiffness: 380,
+                    damping: 30,
                   }}
                 >
-                  {item.name}
-                  
-                  {/* Indicador ativo */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeIndicator"
-                      className="absolute -bottom-4 left-1/2 transform -translate-x-1/2"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 380,
-                        damping: 30,
-                      }}
-                    >
-                      <motion.div
-                        animate={{
-                          opacity: [0.7, 1, 0.7],
-                          scale: [1, 1.3, 1],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                        className="w-2 h-2 bg-white rounded-full"
-                        style={{
-                          boxShadow: '0 0 15px rgba(255,255,255,0.9)',
-                        }}
-                      />
-                    </motion.div>
-                  )}
-
-                  {/* Linha de hover */}
                   <motion.div
-                    className="absolute -bottom-2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    whileHover={{ 
-                      scaleX: 1, 
-                      opacity: 1,
-                      transition: { duration: 0.3, ease: 'easeOut' }
+                    animate={{
+                      opacity: [0.7, 1, 0.7],
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                    }}
+                    className="w-6 h-2 rounded-full"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent 0%, #6366f1 50%, transparent 100%)',
+                      boxShadow: '0 0 16px 4px #6366f1',
+                      opacity: 0.7,
                     }}
                   />
+                </motion.div>
+              )}
 
-                  {/* Efeito de partículas no hover - mais sutil */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    {[...Array(2)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileHover={{
-                          opacity: [0, 0.4, 0],
-                          scale: [0, 1, 0],
-                          x: [0, (Math.random() - 0.5) * 18, 0],
-                          y: [0, (Math.random() - 0.5) * 18, 0],
-                        }}
-                        transition={{
-                          duration: 1.2,
-                          delay: i * 0.15,
-                          ease: 'easeOut',
-                        }}
-                        className="absolute w-0.5 h-0.5 bg-white rounded-full"
-                        style={{
-                          left: `${20 + Math.random() * 60}%`,
-                          top: `${20 + Math.random() * 60}%`,
-                          filter: 'blur(0.3px)',
-                          boxShadow: '0 0 3px rgba(255,255,255,0.5)',
-                        }}
-                      />
-                    ))}
-                  </div>
-                </motion.a>
-              );
-            })}
-          </div>
-        </div>
+              {/* Linha de hover */}
+              <motion.div
+                className="absolute left-0 right-0 -bottom-1 h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent"
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileHover={{
+                  scaleX: 1,
+                  opacity: 1,
+                  transition: { duration: 0.3, ease: 'easeOut' }
+                }}
+              />
+
+              {/* Efeito de partículas no hover - mais sutil */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(2)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileHover={{
+                      opacity: [0, 0.4, 0],
+                      scale: [0, 1, 0],
+                      x: [0, (Math.random() - 0.5) * 18, 0],
+                      y: [0, (Math.random() - 0.5) * 18, 0],
+                    }}
+                    transition={{
+                      duration: 1.2,
+                      delay: i * 0.15,
+                      ease: 'easeOut',
+                    }}
+                    className="absolute w-1 h-1 bg-indigo-300 rounded-full"
+                    style={{
+                      left: `${20 + Math.random() * 60}%`,
+                      top: `${20 + Math.random() * 60}%`,
+                      filter: 'blur(0.5px)',
+                      boxShadow: '0 0 6px #6366f1',
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.a>
+          );
+        })}
       </div>
 
-      {/* Linha inferior de energia */}
+      {/* Linha vertical de energia */}
       <motion.div
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ 
-          scaleX: 1, 
+        initial={{ scaleY: 0, opacity: 0 }}
+        animate={{
+          scaleY: 1,
           opacity: 1,
         }}
-        transition={{ 
-          delay: 0.8, 
+        transition={{
+          delay: 0.8,
           duration: 2,
           ease: 'easeOut'
         }}
-        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent rounded-b-2xl"
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 top-0 w-px bg-gradient-to-b from-transparent via-indigo-400/20 to-transparent rounded-2xl"
       />
     </motion.nav>
   );
