@@ -239,7 +239,7 @@ export default function Hero() {
   useEffect(() => {
     let raf: number;
     const animate = () => {
-      setOrangeAngle(prev => (prev + 1) % 360);
+      setOrangeAngle(prev => (prev + 0.2) % 360); // Mais devagar
       raf = requestAnimationFrame(animate);
     };
     animate();
@@ -251,15 +251,15 @@ export default function Hero() {
 
   // Calcula a posição do planeta laranja orbitando o roxo
   const getOrangePosition = () => {
-    // Pega a posição do planeta roxo fixo
     const purple = purpleRef.current;
     if (!purple) return { x: 0, y: 0, zIndex: 11 };
 
     const purpleRect = purple.getBoundingClientRect();
     const centerX = purpleRect.left + purpleRect.width / 2;
-    const centerY = purpleRect.top + purpleRect.height / 2;
+    // Move os planetas mais para baixo
+    const centerY = purpleRect.top + purpleRect.height / 2 + 120;
 
-    const radius = purpleRect.width * 0.7; // raio da órbita
+    const radius = purpleRect.width * 0.9; // Mais visível (maior raio)
     const rad = (orangeAngle * Math.PI) / 180;
     const x = centerX + radius * Math.cos(rad) - purpleRect.width / 2;
     const y = centerY + radius * Math.sin(rad) - purpleRect.height / 2;
@@ -269,7 +269,6 @@ export default function Hero() {
     return { x, y, zIndex };
   };
 
-  // Só calcula a posição depois do mount
   const [orangePos, setOrangePos] = useState({ x: 0, y: 0, zIndex: 11 });
   useEffect(() => {
     if (purpleRef.current) {
@@ -357,7 +356,7 @@ export default function Hero() {
           animate="visible"
           custom={0.3}
           variants={planetVariants}
-          className="absolute top-0 left-[0%] transform -translate-y-1/2"
+          className="absolute top-[1%] left-[-10%] transform -translate-y-1/2"
           ref={purpleRef}
         >
           <motion.div
@@ -369,7 +368,7 @@ export default function Hero() {
               rotate: { duration: 60, repeat: Infinity, ease: 'linear' },
               scale: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
             }}
-            className="w-96 h-96 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] rounded-full opacity-80"
+            className="w-96 h-96 md:w-96 md:h-96 lg:w-[50rem] lg:h-[50rem] rounded-full opacity-80"
             style={{
               background: 'radial-gradient(circle at 30% 30%, #3b82f6, #8b5cf6, #1e293b)',
               boxShadow: '0 0 100px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(0, 0, 0, 0.3)',
@@ -400,16 +399,43 @@ export default function Hero() {
               rotate: { duration: 80, repeat: Infinity, ease: 'linear' },
               scale: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
             }}
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-36 lg:h-36 rounded-full opacity-75"
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-36 lg:h-36 rounded-full opacity-90"
             style={{
               background: 'radial-gradient(circle at 70% 20%, #f97316, #ec4899, #7c2d12)',
-              boxShadow: '0 0 80px rgba(249, 115, 22, 0.4), inset 0 0 80px rgba(0, 0, 0, 0.4)',
+              boxShadow: '0 0 80px 20px rgba(249, 115, 22, 0.6), inset 0 0 80px rgba(0, 0, 0, 0.4)',
               filter: 'blur(0.5px)',
             }}
           />
         </motion.div>
 
-        {/* Órbitas decorativas */}
+        {/* Órbita do planeta laranja mais visível */}
+        {purpleRef.current && (
+          <motion.div
+            animate={{ rotate: [0, 400] }}
+            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+            className="absolute"
+            style={{
+              top: purpleRef.current.getBoundingClientRect().top + purpleRef.current.getBoundingClientRect().height / 2 + 120 - purpleRef.current.getBoundingClientRect().width * 0.9,
+              left: purpleRef.current.getBoundingClientRect().left + purpleRef.current.getBoundingClientRect().width / 2 - purpleRef.current.getBoundingClientRect().width * 0.9,
+              pointerEvents: 'none',
+              zIndex: 8,
+            }}
+          >
+            <div
+              style={{
+                width: `${purpleRef.current.getBoundingClientRect().width * 0.4}px`,
+                height: `${purpleRef.current.getBoundingClientRect().width * 0.4}px`,
+                borderRadius: '50%',
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                border: "2px solid orange",
+              }}
+            />
+          </motion.div>
+        )}
+
+        {/* Órbitas decorativas fixas */}
         <motion.div
           animate={{ rotate: [0, 360] }}
           transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
