@@ -1,8 +1,44 @@
 'use client';
 
 import { motion, useAnimation, Variants } from 'framer-motion';
-import { ArrowDown, Github, Linkedin, Mail, Code } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
+
+// Planetas fictícios, degradê, órbitas e velocidades diferentes (bem lentos e maiores)
+const ORBIT_PLANETS = [
+  {
+    name: 'Aurelia',
+    color: 'linear-gradient(135deg, #fbbf24 0%, #f59e42 100%)',
+    shadow: 'rgba(251,191,36,0.5)',
+    size: 54,
+    orbit: 220,
+    speed: 0.0008,
+  },
+  {
+    name: 'Nebula',
+    color: 'linear-gradient(135deg, #6366f1 0%, #38bdf8 100%)',
+    shadow: 'rgba(99,102,241,0.5)',
+    size: 44,
+    orbit: 300,
+    speed: 0.0005,
+  },
+  {
+    name: 'Pyra',
+    color: 'linear-gradient(135deg, #f97316 0%, #ec4899 100%)',
+    shadow: 'rgba(249,115,22,0.5)',
+    size: 38,
+    orbit: 380,
+    speed: 0.0003,
+  },
+  {
+    name: 'Verdan',
+    color: 'linear-gradient(135deg, #22d3ee 0%, #a7f3d0 100%)',
+    shadow: 'rgba(34,211,238,0.5)',
+    size: 42,
+    orbit: 460,
+    speed: 0.0002,
+  },
+];
 
 export default function Hero() {
   const controls = useAnimation();
@@ -21,7 +57,7 @@ export default function Hero() {
     }>
   >([]);
 
-  // Inicializar estrelas
+  // Estrelas
   useEffect(() => {
     const initialStars = Array.from({ length: 30 }, (_, i) => ({
       id: i,
@@ -35,29 +71,23 @@ export default function Hero() {
     setStars(initialStars);
   }, []);
 
-  // Mouse tracking otimizado
   useEffect(() => {
     let rafId: number;
-
     const updateMousePosition = (e: MouseEvent) => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
         const newMousePos = { x: e.clientX, y: e.clientY };
         setMousePosition(newMousePos);
-
-        // Empurrar estrelas
         setStars(prevStars =>
           prevStars.map(star => {
             const dx = star.x - newMousePos.x;
             const dy = star.y - newMousePos.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             const maxDistance = 100;
-
             if (distance < maxDistance && distance > 0) {
               const force = (maxDistance - distance) / maxDistance;
               const pushX = (dx / distance) * force * 50;
               const pushY = (dy / distance) * force * 50;
-
               return {
                 ...star,
                 x: Math.max(0, Math.min(window.innerWidth, star.originalX + pushX)),
@@ -74,7 +104,6 @@ export default function Hero() {
         );
       });
     };
-
     window.addEventListener('mousemove', updateMousePosition, { passive: true });
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
@@ -85,13 +114,10 @@ export default function Hero() {
   // Partículas do nome
   useEffect(() => {
     if (!nameRef.current) return;
-
     const nameContainer = nameRef.current;
     let particles: HTMLDivElement[] = [];
-
     const createParticle = (x: number, y: number) => {
       if (particles.length > 8) return;
-
       const particle = document.createElement('div');
       particle.style.cssText = `
         position: absolute;
@@ -105,20 +131,15 @@ export default function Hero() {
         box-shadow: 0 0 4px rgba(148, 163, 184, 0.4);
         z-index: 10;
       `;
-
       nameContainer.appendChild(particle);
       particles.push(particle);
-
       let opacity = 0.8;
       let yPos = y;
-
       const animate = () => {
         opacity -= 0.04;
         yPos -= 2;
-
         particle.style.opacity = opacity.toString();
         particle.style.top = yPos + 'px';
-
         if (opacity > 0) {
           requestAnimationFrame(animate);
         } else {
@@ -126,22 +147,16 @@ export default function Hero() {
           particles = particles.filter(p => p !== particle);
         }
       };
-
       requestAnimationFrame(animate);
     };
-
     const handleMouseMove = (e: MouseEvent) => {
       if (!nameHover || Math.random() > 0.85) return;
-
       const rect = nameContainer.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       createParticle(x, y);
     };
-
     nameContainer.addEventListener('mousemove', handleMouseMove, { passive: true });
-
     return () => {
       nameContainer.removeEventListener('mousemove', handleMouseMove);
       particles.forEach(particle => particle.remove());
@@ -187,95 +202,48 @@ export default function Hero() {
     }),
   };
 
-  const planetVariants: Variants = {
-    hidden: { opacity: 0, scale: 0 },
-    visible: (delay: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay,
-        duration: 1.5,
-        ease: 'easeOut',
-      },
-    }),
-  };
-
-  const [displayText, setDisplayText] = useState('');
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const texts = ['Full Stack Developer', 'Problem Solver', 'Clean Code Advocate', 'Tech Enthusiast'];
-
+  // --- Ângulos dos planetas (animação fluida e extremamente lenta) ---
+  const [planetAngles, setPlanetAngles] = useState(ORBIT_PLANETS.map(() => 0));
   useEffect(() => {
-    const currentText = texts[currentTextIndex];
-    let timeout: NodeJS.Timeout;
-
-    if (!isDeleting && displayText === currentText) {
-      timeout = setTimeout(() => setIsDeleting(true), 2000);
-    } else if (isDeleting && displayText === '') {
-      setIsDeleting(false);
-      setCurrentTextIndex(prev => (prev + 1) % texts.length);
-    } else {
-      timeout = setTimeout(
-        () => {
-          setDisplayText(current => {
-            if (isDeleting) {
-              return current.slice(0, -1);
-            } else {
-              return currentText.slice(0, current.length + 1);
-            }
-          });
-        },
-        isDeleting ? 50 : 100
-      );
-    }
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentTextIndex, texts]);
-
-  // --- Função para orbitar o planeta laranja ---
-  const [orangeAngle, setOrangeAngle] = useState(0);
-
-  useEffect(() => {
+    let lastTime = performance.now();
     let raf: number;
-    const animate = () => {
-      setOrangeAngle(prev => (prev + 0.2) % 360); // Mais devagar
+    const animate = (now: number) => {
+      const delta = now - lastTime;
+      lastTime = now;
+      setPlanetAngles(prev =>
+        prev.map((angle, i) => (angle + ORBIT_PLANETS[i].speed * delta) % 360)
+      );
       raf = requestAnimationFrame(animate);
     };
-    animate();
+    raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Calcula a posição do planeta roxo (fixo)
-  const purpleRef = useRef<HTMLDivElement>(null);
-
-  // Calcula a posição do planeta laranja orbitando o roxo
-  const getOrangePosition = () => {
-    const purple = purpleRef.current;
-    if (!purple) return { x: 0, y: 0, zIndex: 11 };
-
-    const purpleRect = purple.getBoundingClientRect();
-    const centerX = purpleRect.left + purpleRect.width / 2;
-    // Move os planetas mais para baixo
-    const centerY = purpleRect.top + purpleRect.height / 2 + 120;
-
-    const radius = purpleRect.width * 0.9; // Mais visível (maior raio)
-    const rad = (orangeAngle * Math.PI) / 180;
-    const x = centerX + radius * Math.cos(rad) - purpleRect.width / 2;
-    const y = centerY + radius * Math.sin(rad) - purpleRect.height / 2;
-
-    // Se o ângulo está entre 90 e 270, está atrás do roxo
-    const zIndex = orangeAngle > 90 && orangeAngle < 270 ? 9 : 11;
-    return { x, y, zIndex };
-  };
-
-  const [orangePos, setOrangePos] = useState({ x: 0, y: 0, zIndex: 11 });
+  // Posição do centro (nome/texto/botões)
+  const centerRef = useRef<HTMLDivElement>(null);
+  const [centerPos, setCenterPos] = useState({ x: 0, y: 0 });
   useEffect(() => {
-    if (purpleRef.current) {
-      setOrangePos(getOrangePosition());
+    if (centerRef.current) {
+      const rect = centerRef.current.getBoundingClientRect();
+      setCenterPos({
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      });
     }
-    // eslint-disable-next-line
-  }, [orangeAngle, purpleRef.current]);
+  }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      if (centerRef.current) {
+        const rect = centerRef.current.getBoundingClientRect();
+        setCenterPos({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        });
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <section
@@ -348,132 +316,76 @@ export default function Hero() {
         />
       </div>
 
-      {/* Planetas de fundo */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        {/* Planeta esquerdo - Azul/Roxo */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          custom={0.3}
-          variants={planetVariants}
-          className="absolute top-[1%] left-[-10%] transform -translate-y-1/2"
-          ref={purpleRef}
-        >
-          <motion.div
-            animate={{
-              rotate: [0, 360],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              rotate: { duration: 60, repeat: Infinity, ease: 'linear' },
-              scale: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
-            }}
-            className="w-96 h-96 md:w-96 md:h-96 lg:w-[50rem] lg:h-[50rem] rounded-full opacity-80"
-            style={{
-              background: 'radial-gradient(circle at 30% 30%, #3b82f6, #8b5cf6, #1e293b)',
-              boxShadow: '0 0 100px rgba(59, 130, 246, 0.3), inset 0 0 100px rgba(0, 0, 0, 0.3)',
-              filter: 'blur(1px)',
-            }}
-          />
-        </motion.div>
-
-        {/* Planeta direito - Laranja/Rosa orbitando */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          custom={0.6}
-          variants={planetVariants}
-          className="absolute"
-          style={{
-            top: orangePos.y,
-            left: orangePos.x,
-            zIndex: orangePos.zIndex,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotate: [360, 0],
-              scale: [1, 1.08, 1],
-            }}
-            transition={{
-              rotate: { duration: 80, repeat: Infinity, ease: 'linear' },
-              scale: { duration: 12, repeat: Infinity, ease: 'easeInOut' },
-            }}
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-36 lg:h-36 rounded-full opacity-90"
-            style={{
-              background: 'radial-gradient(circle at 70% 20%, #f97316, #ec4899, #7c2d12)',
-              boxShadow: '0 0 80px 20px rgba(249, 115, 22, 0.6), inset 0 0 80px rgba(0, 0, 0, 0.4)',
-              filter: 'blur(0.5px)',
-            }}
-          />
-        </motion.div>
-
-        {/* Órbita do planeta laranja mais visível */}
-        {purpleRef.current && (
-          <motion.div
-            animate={{ rotate: [0, 400] }}
-            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+      {/* Órbitas dos planetas */}
+      {centerPos.x !== 0 && centerPos.y !== 0 &&
+        ORBIT_PLANETS.map((planet, i) => (
+          <div
+            key={`orbit-${i}`}
             className="absolute"
             style={{
-              top: purpleRef.current.getBoundingClientRect().top + purpleRef.current.getBoundingClientRect().height / 2 + 120 - purpleRef.current.getBoundingClientRect().width * 0.9,
-              left: purpleRef.current.getBoundingClientRect().left + purpleRef.current.getBoundingClientRect().width / 2 - purpleRef.current.getBoundingClientRect().width * 0.9,
+              left: centerPos.x - planet.orbit,
+              top: centerPos.y - planet.orbit,
+              width: planet.orbit * 2,
+              height: planet.orbit * 2,
               pointerEvents: 'none',
-              zIndex: 8,
+              zIndex: 7,
             }}
           >
-            <div
+            <svg width={planet.orbit * 2} height={planet.orbit * 2}>
+              <circle
+                cx={planet.orbit}
+                cy={planet.orbit}
+                r={planet.orbit}
+                stroke="rgba(255,255,255,0.13)"
+                strokeWidth="1.5"
+                fill="none"
+                style={{ filter: 'blur(0.5px)' }}
+              />
+            </svg>
+          </div>
+        ))
+      }
+
+      {/* Planetas orbitando o centro */}
+      {centerPos.x !== 0 && centerPos.y !== 0 &&
+        ORBIT_PLANETS.map((planet, i) => {
+          const rad = planetAngles[i] * Math.PI / 180;
+          const x = centerPos.x + planet.orbit * Math.cos(rad) - planet.size / 2;
+          const y = centerPos.y + planet.orbit * Math.sin(rad) - planet.size / 2;
+          return (
+            <motion.div
+              key={planet.name}
+              className="absolute"
               style={{
-                width: `${purpleRef.current.getBoundingClientRect().width * 0.4}px`,
-                height: `${purpleRef.current.getBoundingClientRect().width * 0.4}px`,
-                borderRadius: '50%',
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                border: "2px solid orange",
+                top: y,
+                left: x,
+                zIndex: 8,
+                pointerEvents: 'none',
               }}
-            />
-          </motion.div>
-        )}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: i * 0.2 }}
+            >
+              <div
+                style={{
+                  width: planet.size,
+                  height: planet.size,
+                  borderRadius: '50%',
+                  background: planet.color,
+                  boxShadow: `0 0 30px ${planet.shadow}`,
+                  opacity: 0.98,
+                  filter: 'blur(0.2px)',
+                  border: planet.name === 'Aurelia' ? '2px solid #fffbe7' : undefined,
+                }}
+              />
+            </motion.div>
+          );
+        })
+      }
 
-        {/* Órbitas decorativas fixas */}
-        <motion.div
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-1/2 left-[20%] transform -translate-x-1/2 -translate-y-1/2"
-        >
-          <div className="w-[32rem] h-[32rem] border border-slate-400/10 rounded-full" />
-        </motion.div>
-
-        <motion.div
-          animate={{ rotate: [360, 0] }}
-          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-1/2 right-[15%] transform translate-x-1/-translatete-y-1/2"
-        >
-          <div className="w-[28rem] h-[28rem] border border-slate-400/10 rounded-full" />
-        </motion.div>
-      </div>
-
-      {/* Typing Effect no fundo superior */}
+      {/* Conteúdo Principal (centro da órbita) */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.08 }}
-        transition={{ delay: 1.5, duration: 2 }}
-        className="absolute top-16 left-1/2 transform -translate-x-1/2 pointer-events-none z-20 select-none"
-      >
-        <div className="text-2xl md:text-3xl lg:text-4xl font-mono text-white/60 text-center">
-          {displayText}
-          <motion.span
-            animate={{ opacity: [0.6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="ml-1 text-white/40"
-          >
-            |
-          </motion.span>
-        </div>
-      </motion.div>
-
-      {/* Conteúdo Principal */}
-      <motion.div
+        ref={centerRef}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={controls}
         className="relative z-30 flex flex-col items-center text-center px-8"
@@ -573,6 +485,18 @@ export default function Hero() {
                 </motion.div>
               );
             })}
+          </div>
+        </motion.div>
+
+        {/* Typing Effect no fundo superior */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.08 }}
+          transition={{ delay: 1.5, duration: 2 }}
+          className="absolute top-[-4rem] left-1/2 transform -translate-x-1/2 pointer-events-none z-20 select-none"
+        >
+          <div className="text-2xl md:text-3xl lg:text-4xl font-mono text-white/60 text-center">
+            {/* ...typing effect... */}
           </div>
         </motion.div>
 
