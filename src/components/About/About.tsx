@@ -10,7 +10,7 @@ const PLANETS = [
     texture: '/textures/venusmap.jpg',
     items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'CSS', 'Tailwind'],
     description:
-      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, e beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
+      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, and beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
     facts: [
       'Favorite language: TypeScript',
       'Most used: React',
@@ -19,7 +19,7 @@ const PLANETS = [
       'Frontend & Backend experience',
     ],
     link: 'https://github.com/edu-2de',
-    linkLabel: 'Meu GitHub', // <-- Adicione aqui
+    linkLabel: 'View GitHub',
   },
   {
     name: 'Planet Hobbies',
@@ -28,15 +28,9 @@ const PLANETS = [
     items: ['Music', 'Gaming', 'Travel', 'Photography', 'Cooking'],
     description:
       'My passions orbit around music, games, travel, photography, and cooking. Always searching for new adventures and creative inspiration!',
-    facts: [
-      'Favorite game: Zelda',
-      'Instrument: Guitar',
-      'Dream trip: Japan',
-      'Photography lover',
-      'Home chef',
-    ],
+    facts: ['Favorite game: Zelda', 'Instrument: Guitar', 'Dream trip: Japan', 'Photography lover', 'Home chef'],
     link: 'https://instagram.com/',
-    linkLabel: 'Meu Instagram', // <-- Adicione aqui
+    linkLabel: 'View Instagram',
   },
   {
     name: 'Planet Tools',
@@ -45,15 +39,9 @@ const PLANETS = [
     items: ['VS Code', 'GitHub', 'Figma', 'Notion', 'Framer Motion'],
     description:
       'My toolkit: coding in VS Code, collaborating on GitHub, designing in Figma, organizing with Notion, and animating with Framer Motion.',
-    facts: [
-      'Design: Figma',
-      'Docs: Notion',
-      'Code: VS Code',
-      'Animations: Framer Motion',
-      'Version control: GitHub',
-    ],
+    facts: ['Design: Figma', 'Docs: Notion', 'Code: VS Code', 'Animations: Framer Motion', 'Version control: GitHub'],
     link: 'https://figma.com/',
-    linkLabel: 'Meu Figma', // <-- Adicione aqui
+    linkLabel: 'View Figma',
   },
   {
     name: 'Planet Dreams',
@@ -70,7 +58,7 @@ const PLANETS = [
       'Space enthusiast',
     ],
     link: 'https://openai.com/',
-    linkLabel: 'OpenAI', // <-- Adicione aqui
+    linkLabel: 'View OpenAI',
   },
 ];
 
@@ -156,7 +144,15 @@ export default function About() {
               disabled={isChanging}
               style={{ opacity: isChanging ? 0.5 : 1 }}
             >
-              <svg width={36} height={36} fill="none"><path d="M26 10l-8 8 8 8" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width={36} height={36} fill="none">
+                <path
+                  d="M26 10l-8 8 8 8"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
             {/* Canvas sempre absoluto e fixo */}
             <div
@@ -205,67 +201,59 @@ export default function About() {
               disabled={isChanging}
               style={{ opacity: isChanging ? 0.5 : 1 }}
             >
-              <svg width={36} height={36} fill="none"><path d="M10 10l8 8-8 8" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width={36} height={36} fill="none">
+                <path
+                  d="M10 10l8 8-8 8"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </button>
           </div>
         </motion.div>
         {/* Infos/Details */}
         <motion.div
-          className="flex flex-col justify-center w-full md:w-[45%] px-2"
+          className="flex flex-col justify-center w-full md:w-[45%] "
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
+          {/* Título */}
           <motion.h2
-            className="text-6xl md:text-7xl font-extrabold text-white mb-4"
+            className=" text-5xl md:text-6xl font-bold text-white mb-9 tracking-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            style={{
-              letterSpacing: '2px',
-              lineHeight: '1.1',
-            }}
           >
             {planet.name}
           </motion.h2>
+
+          {/* Descrição */}
           <motion.p
-            className="text-xl text-slate-200 mb-6"
+            className="text-lg md:text-xl text-slate-300 leading-relaxed mb-10 max-w-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9 }}
-            style={{
-              fontWeight: 500,
-              lineHeight: '1.5',
-            }}
           >
             {planet.description}
           </motion.p>
-          <div className="mb-4 flex flex-wrap gap-2">
-            {planet.items.map(item => (
-              <span
-                key={item}
-                className="bg-gradient-to-r from-white/10 to-white/20 text-white px-4 py-2 rounded-lg text-base font-semibold shadow hover:scale-105 hover:from-white/20 transition-all duration-200"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-          <div className="mb-6">
-            <span className="text-white/80 font-semibold">Curiosities:</span>
-            <ul className="mt-2 ml-2 list-disc text-slate-300 text-lg space-y-1">
-              {planet.facts.map(fact => (
-                <li key={fact} className="">{fact}</li>
-              ))}
-            </ul>
-          </div>
-          <a
+
+          {/* Botão */}
+          <motion.a
             href={planet.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-2 px-6 py-3 rounded-xl font-semibold shadow bg-gradient-to-r from-blue-700 via-indigo-600 to-purple-700 text-white hover:scale-105 hover:from-blue-600 hover:to-purple-600 transition-all duration-200 border border-white/10"
+            className="self-start px-6 py-2 rounded-md font-medium text-white border border-slate-500 hover:border-slate-300 hover:bg-slate-700/40 transition-all duration-200 text-sm tracking-wide"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            {planet.linkLabel}
-          </a>
+            View Planet
+          </motion.a>
         </motion.div>
       </div>
     </section>

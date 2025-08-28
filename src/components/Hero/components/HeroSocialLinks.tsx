@@ -3,7 +3,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 
 export default function HeroSocialLinks() {
   return (
-    <motion.div custom={3} initial="hidden" animate="visible" className="mb-16">
+    <motion.div custom={3} initial="hidden" animate="visible" className="mb-1">
       <div className="flex justify-center gap-8">
         {[
           { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },

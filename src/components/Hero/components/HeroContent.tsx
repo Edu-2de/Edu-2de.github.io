@@ -19,7 +19,7 @@ export default function HeroContent({
       ref={centerRef}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={controls}
-      className="relative z-30 flex flex-col items-center text-center px-8"
+      className="relative z-30 flex flex-col items-center text-center px-8 mt-30"
     >
       <motion.div
         ref={nameRef}
@@ -78,7 +78,7 @@ export default function HeroContent({
           onClick={scrollToNext}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="text-slate-500 hover:text-slate-400 transition-colors duration-200 group flex flex-col items-center mt-8"
+          className="text-slate-500 hover:text-slate-400 transition-colors duration-200 group flex flex-col items-center"
         >
           <span className="text-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             Explore

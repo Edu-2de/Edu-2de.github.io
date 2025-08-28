@@ -1,6 +1,6 @@
 'use client';
 
-import Navigation from '@/components/Navigation';
+import Navigation from '@/components/Navigation/Navigation';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
 import Projects from '@/components/Projects';
