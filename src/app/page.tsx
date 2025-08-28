@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Navigation from '@/components/Navigation/Navigation';
 import Hero from '@/components/Hero/Hero';
 import About from '@/components/About/About';
@@ -7,12 +8,14 @@ import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 
 export default function Home() {
+  const [hideNav, setHideNav] = useState(false);
+
   return (
     <div className= "overflow-x-hidden">
-      <Navigation />
+      {!hideNav && <Navigation />}
       <main>
         <Hero />
-        <About />
+        <About setHideNav={setHideNav}/>
         <Projects />
         <Contact />
       </main>

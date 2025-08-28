@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-const ORBIT_PLANETS = [
+export const ORBIT_PLANETS = [
   {
-    name: 'Aurelia',
+    name: 'Planet Skills',
     color: 'radial-gradient(circle at 60% 40%, #fffbe7 0%, #fbbf24 60%, #f59e42 100%)',
     shadow: 'rgba(251,191,36,0.3)',
     size: 80,
@@ -13,7 +13,7 @@ const ORBIT_PLANETS = [
     border: '2px solid #fffbe7',
   },
   {
-    name: 'Nebula',
+    name: 'Planet Hobbies',
     color: 'radial-gradient(circle at 40% 60%, #a7f3f3 0%, #38bdf8 60%, #6366f1 100%)',
     shadow: 'rgba(99,102,241,0.3)',
     size: 70,
@@ -23,7 +23,7 @@ const ORBIT_PLANETS = [
     border: '2px solid #38bdf8',
   },
   {
-    name: 'Pyra',
+    name: 'Planet Tools',
     color: 'radial-gradient(circle at 50% 50%, #fbb6ce 0%, #f97316 60%, #ec4899 100%)',
     shadow: 'rgba(249,115,22,0.3)',
     size: 64,
@@ -33,7 +33,7 @@ const ORBIT_PLANETS = [
     border: '2px solid #ec4899',
   },
   {
-    name: 'Verdan',
+    name: 'Planet Dreams',
     color: 'radial-gradient(circle at 60% 40%, #a7f3d0 0%, #22d3ee 60%, #0ea5e9 100%)',
     shadow: 'rgba(34,211,238,0.3)',
     size: 68,
