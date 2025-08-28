@@ -6,7 +6,6 @@ import PlanetLoading from '../Loading/Loading';
 import { OrbitControls } from '@react-three/drei';
 import { ORBIT_PLANETS } from '../Hero/Hero_components/OrbitPlanets';
 
-
 const PLANETS = [
   {
     name: 'Planet Skills',
@@ -108,8 +107,17 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
   );
 }
 
-
-function Planet2D({ planet, active, style, onClick }: { planet: typeof ORBIT_PLANETS[0]; active: boolean; style?: React.CSSProperties; onClick?: () => void }) {
+function Planet2D({
+  planet,
+  active,
+  style,
+  onClick,
+}: {
+  planet: (typeof ORBIT_PLANETS)[0];
+  active: boolean;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}) {
   return (
     <motion.div
       whileHover={{ scale: 1.18 }}
@@ -120,9 +128,7 @@ function Planet2D({ planet, active, style, onClick }: { planet: typeof ORBIT_PLA
         height: 28,
         borderRadius: '50%',
         background: planet.color,
-        boxShadow: active
-          ? `0 0 0 3px #fff, 0 0 12px ${planet.shadow}`
-          : `0 0 6px ${planet.shadow}`,
+        boxShadow: active ? `0 0 0 3px #fff, 0 0 12px ${planet.shadow}` : `0 0 6px ${planet.shadow}`,
         border: planet.border,
         position: 'absolute',
         cursor: 'pointer',
@@ -151,34 +157,23 @@ function Planet2D({ planet, active, style, onClick }: { planet: typeof ORBIT_PLA
             zIndex: 1,
           }}
         >
-          <ellipse
-            cx={20}
-            cy={22}
-            rx={18}
-            ry={4}
-            fill="none"
-            stroke="#fbbf24"
-            strokeWidth="2"
-            opacity="0.7"
-          />
-          <ellipse
-            cx={22}
-            cy={22}
-            rx={20}
-            ry={5}
-            fill="none"
-            stroke="#ec4899"
-            strokeWidth="1.2"
-            opacity="0.5"
-          />
+          <ellipse cx={20} cy={22} rx={18} ry={4} fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0.7" />
+          <ellipse cx={22} cy={22} rx={20} ry={5} fill="none" stroke="#ec4899" strokeWidth="1.2" opacity="0.5" />
         </svg>
       )}
     </motion.div>
   );
 }
 
-
-function OrbitSystem({ selected, setSelected, isChanging }: { selected: number; setSelected: (idx: number) => void; isChanging: boolean }) {
+function OrbitSystem({
+  selected,
+  setSelected,
+  isChanging,
+}: {
+  selected: number;
+  setSelected: (idx: number) => void;
+  isChanging: boolean;
+}) {
   const center = { x: 160, y: 80 };
   const radii = [60, 90, 120, 150];
   return (
@@ -262,16 +257,26 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
       id="about"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="w-full min-h-screen flex flex-col items-center justify-center bg-[#10131a] px-4 py-16 outline-none relative"
-      style={{ overflow: 'hidden' }}
+      className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-16 outline-none relative"
+      style={{
+        overflow: 'hidden',
+        background: 'linear-gradient(135deg, #10131a 0%, #181c26 60%, #23283a 100%)',
+      }}
     >
-      <div className="w-full flex flex-col items-center mb-2" style={{ position: 'absolute', top: '24px', left: 0, right: 0, zIndex: 10 }}>
+      <div
+        className="w-full flex flex-col items-center mb-2"
+        style={{ position: 'absolute', top: '24px', left: 0, right: 0, zIndex: 10 }}
+      >
         <div className="mt-15 mb-2 text-slate-200 text-xl text-center font-semibold tracking-wide">
-          Select a planet or press <span className="font-bold text-white">A</span> / <span className="font-bold text-white">D</span> to navigate
+          Select a planet or press <span className="font-bold text-white">A</span> /{' '}
+          <span className="font-bold text-white">D</span> to navigate
         </div>
         <OrbitSystem selected={selected} setSelected={setSelected} isChanging={isChanging} />
       </div>
-      <div className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-12 md:gap-24" style={{ marginTop: '180px' }}>
+      <div
+        className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-12 md:gap-24"
+        style={{ marginTop: '180px' }}
+      >
         <motion.div
           className="flex flex-col items-center justify-center w-full md:w-[55%] min-h-[520px] relative"
           initial={{ opacity: 0, x: -60 }}
