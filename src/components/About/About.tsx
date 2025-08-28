@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import PlanetLoading from '../Loading/Loading';
+import { OrbitControls } from '@react-three/drei';
 
 const PLANETS = [
   {
@@ -63,12 +64,13 @@ const PLANETS = [
   },
 ];
 
-function Planet3D({ color, texture }: { color: string; texture: string }) {
+function Planet3D({ color, texture, name }: { color: string; texture: string; name: string }) {
   const map = useLoader(THREE.TextureLoader, texture);
   const meshRef = useRef<THREE.Mesh>(null);
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
 
   useFrame(() => {
-    if (meshRef.current) {
+    if (meshRef.current && !isUserInteracting) {
       meshRef.current.rotation.y += 0.018;
     }
   });
@@ -88,6 +90,18 @@ function Planet3D({ color, texture }: { color: string; texture: string }) {
           emissiveIntensity={0.18}
         />
       </mesh>
+      {name === 'Planet Tools' && (
+        <mesh rotation={[-Math.PI / 2.2, 0, 0]} position={[0, 0, 0]}>
+          <torusGeometry args={[4.2, 0.35, 2, 80]} />
+          <meshStandardMaterial color="#fbbf24" roughness={0.5} metalness={0.7} opacity={0.5} transparent />
+        </mesh>
+      )}
+      <OrbitControls
+        enablePan={false}
+        enableZoom={false}
+        onStart={() => setIsUserInteracting(true)}
+        onEnd={() => setIsUserInteracting(false)}
+      />
     </>
   );
 }
@@ -197,7 +211,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     }}
                   >
                     <Suspense fallback={null}>
-                      <Planet3D color={planet.color} texture={planet.texture} />
+                      <Planet3D color={planet.color} texture={planet.texture} name={planet.name} />
                     </Suspense>
                   </Canvas>
                 </motion.div>

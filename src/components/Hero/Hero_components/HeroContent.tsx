@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import TypingEffect from '../components/TypingEffect';
-import HeroSocialLinks from '../components/HeroSocialLinks';
+import TypingEffect from './TypingEffect';
+import HeroSocialLinks from './HeroSocialLinks';
 import { ArrowDown } from 'lucide-react';
 
 export default function HeroContent({
@@ -12,8 +12,8 @@ export default function HeroContent({
   nameVariants,
   textVariants,
   scrollToNext,
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-}: any) {
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any) {
   return (
     <motion.div
       ref={centerRef}
@@ -33,9 +33,7 @@ export default function HeroContent({
           custom={0}
           variants={nameVariants}
           className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-4 ${
-            nameHover
-              ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]'
-              : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
+            nameHover ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]' : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
           }`}
           style={{
             background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%)',
@@ -50,9 +48,7 @@ export default function HeroContent({
           custom={0}
           variants={nameVariants}
           className={`text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white transition-all duration-300 cursor-default mb-2 ${
-            nameHover
-              ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]'
-              : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
+            nameHover ? 'drop-shadow-[0_0_30px_rgba(148,163,184,0.6)]' : 'drop-shadow-[0_0_20px_rgba(148,163,184,0.4)]'
           }`}
           style={{
             background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #cbd5e1 100%)',
@@ -67,7 +63,8 @@ export default function HeroContent({
       </motion.div>
       <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="mb-12">
         <p className="text-slate-400 text-xl md:text-2xl max-w-3xl leading-relaxed font-light">
-          Crafting digital experiences in the <span className="text-slate-300 font-medium">cosmic web</span> of modern technology.
+          Crafting digital experiences in the <span className="text-slate-300 font-medium">cosmic web</span> of modern
+          technology.
         </p>
       </motion.div>
       {/* Social links below the description */}

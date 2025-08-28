@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { useAnimation, Variants } from 'framer-motion';
-import OrbitPlanets from './components/OrbitPlanets';
-import HeroStars from './components/HeroStars';
-import HeroContent from './components/HeroContent';
+import OrbitPlanets from './Hero_components/OrbitPlanets';
+import HeroStars from './Hero_components/HeroStars';
+import HeroContent from './Hero_components/HeroContent';
 
 export default function Hero() {
   const controls = useAnimation();

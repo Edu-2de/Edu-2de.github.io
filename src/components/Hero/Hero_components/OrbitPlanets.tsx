@@ -152,7 +152,7 @@ export default function OrbitPlanets() {
                   position: 'relative',
                 }}
               />
-              {planet.name === 'Pyra' && (
+              {planet.name === 'Planet Tools' && (
                 <svg
                   width={planet.size * 2.2}
                   height={planet.size * 2.2}
