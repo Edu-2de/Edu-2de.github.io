@@ -4,6 +4,8 @@ import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import PlanetLoading from '../Loading/Loading';
 import { OrbitControls } from '@react-three/drei';
+import { ORBIT_PLANETS } from '../Hero/Hero_components/OrbitPlanets';
+
 
 const PLANETS = [
   {
@@ -91,9 +93,9 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
         />
       </mesh>
       {name === 'Planet Tools' && (
-        <mesh rotation={[-Math.PI / 2.2, 0, 0]} position={[0, 0, 0]}>
-          <torusGeometry args={[4.2, 0.35, 2, 80]} />
-          <meshStandardMaterial color="#fbbf24" roughness={0.5} metalness={0.7} opacity={0.5} transparent />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]}>
+          <torusGeometry args={[4.2, 0.22, 2, 120]} />
+          <meshStandardMaterial color="#fbbf24" roughness={0.5} metalness={0.7} opacity={0.55} transparent />
         </mesh>
       )}
       <OrbitControls
@@ -106,12 +108,139 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
   );
 }
 
+
+function Planet2D({ planet, active, style, onClick }: { planet: typeof ORBIT_PLANETS[0]; active: boolean; style?: React.CSSProperties; onClick?: () => void }) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.18 }}
+      animate={{ scale: active ? 1.18 : 1 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      style={{
+        width: 28,
+        height: 28,
+        borderRadius: '50%',
+        background: planet.color,
+        boxShadow: active
+          ? `0 0 0 3px #fff, 0 0 12px ${planet.shadow}`
+          : `0 0 6px ${planet.shadow}`,
+        border: planet.border,
+        position: 'absolute',
+        cursor: 'pointer',
+        zIndex: active ? 2 : 1,
+        ...style,
+      }}
+      onClick={onClick}
+      tabIndex={0}
+      role="button"
+      aria-label={`Select ${planet.name}`}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          onClick?.();
+        }
+      }}
+    >
+      {planet.name === 'Planet Tools' && (
+        <svg
+          width={44}
+          height={44}
+          style={{
+            position: 'absolute',
+            left: '-8px',
+            top: '-8px',
+            pointerEvents: 'none',
+            zIndex: 1,
+          }}
+        >
+          <ellipse
+            cx={20}
+            cy={22}
+            rx={18}
+            ry={4}
+            fill="none"
+            stroke="#fbbf24"
+            strokeWidth="2"
+            opacity="0.7"
+          />
+          <ellipse
+            cx={22}
+            cy={22}
+            rx={20}
+            ry={5}
+            fill="none"
+            stroke="#ec4899"
+            strokeWidth="1.2"
+            opacity="0.5"
+          />
+        </svg>
+      )}
+    </motion.div>
+  );
+}
+
+
+function OrbitSystem({ selected, setSelected, isChanging }: { selected: number; setSelected: (idx: number) => void; isChanging: boolean }) {
+  const center = { x: 160, y: 80 };
+  const radii = [60, 90, 120, 150];
+  return (
+    <div className="relative mx-auto" style={{ width: 320, height: 160 }}>
+      {radii.map((r, i) => (
+        <svg
+          key={i}
+          width={320}
+          height={160}
+          style={{ position: 'absolute', left: 0, top: 0, pointerEvents: 'none', zIndex: 0 }}
+        >
+          <ellipse
+            cx={center.x}
+            cy={center.y}
+            rx={r}
+            ry={r / 2.2}
+            fill="none"
+            stroke="#fff"
+            strokeWidth={i === selected ? 2.5 : 1.2}
+            opacity={i === selected ? 0.18 : 0.09}
+          />
+        </svg>
+      ))}
+      {ORBIT_PLANETS.map((p, idx) => {
+        const angle = (Math.PI * 2 * idx) / ORBIT_PLANETS.length - Math.PI / 2;
+        const r = radii[idx];
+        const x = center.x + r * Math.cos(angle) - 14;
+        const y = center.y + (r / 2.2) * Math.sin(angle) - 14;
+        return (
+          <Planet2D
+            key={p.name}
+            planet={p}
+            active={selected === idx}
+            style={{
+              left: x,
+              top: y,
+              transition: 'all 0.3s cubic-bezier(.4,2,.3,1)',
+              boxShadow: selected === idx ? '0 0 0 4px #fff, 0 0 18px ' + p.shadow : '0 0 10px ' + p.shadow,
+            }}
+            onClick={() => {
+              if (!isChanging) setSelected(idx);
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
 export default function About({ setHideNav }: { setHideNav: (hide: boolean) => void }) {
   const [selected, setSelected] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   const [showPlanetOnly, setShowPlanetOnly] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [planetAnimStep, setPlanetAnimStep] = useState<'idle' | 'move' | 'loading'>('idle');
+
+  const planet = PLANETS[selected];
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'a' || e.key === 'ArrowLeft') prevPlanet();
+    if (e.key === 'd' || e.key === 'ArrowRight') nextPlanet();
+  };
 
   const nextPlanet = () => {
     setIsChanging(true);
@@ -128,29 +257,21 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
     }, 350);
   };
 
-  const planet = PLANETS[selected];
-
-  const handleViewPlanet = () => {
-    setHideNav(true);
-    setShowPlanetOnly(true);
-    setTimeout(() => {
-      setPlanetAnimStep('move');
-      setTimeout(() => {
-        setPlanetAnimStep('loading');
-        setShowLoading(true);
-        setTimeout(() => {
-          window.location.href = planet.link;
-        }, 1800);
-      }, 900);
-    }, 400);
-  };
-
   return (
     <section
       id="about"
-      className="w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-slate-950 to-gray-900 px-4 py-16"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      className="w-full min-h-screen flex flex-col items-center justify-center bg-[#10131a] px-4 py-16 outline-none relative"
+      style={{ overflow: 'hidden' }}
     >
-      <div className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-12 md:gap-24">
+      <div className="w-full flex flex-col items-center mb-2" style={{ position: 'absolute', top: '24px', left: 0, right: 0, zIndex: 10 }}>
+        <div className="mt-15 mb-2 text-slate-200 text-xl text-center font-semibold tracking-wide">
+          Select a planet or press <span className="font-bold text-white">A</span> / <span className="font-bold text-white">D</span> to navigate
+        </div>
+        <OrbitSystem selected={selected} setSelected={setSelected} isChanging={isChanging} />
+      </div>
+      <div className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-12 md:gap-24" style={{ marginTop: '180px' }}>
         <motion.div
           className="flex flex-col items-center justify-center w-full md:w-[55%] min-h-[520px] relative"
           initial={{ opacity: 0, x: -60 }}
@@ -162,8 +283,8 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
             style={{
               width: '520px',
               height: '520px',
-              minWidth: '520px',
-              minHeight: '520px',
+              minWidth: '320px',
+              minHeight: '320px',
               maxWidth: '100vw',
               maxHeight: '80vh',
             }}
@@ -217,44 +338,6 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                 </motion.div>
               )}
             </AnimatePresence>
-            {!showPlanetOnly && !showLoading && (
-              <>
-                <button
-                  aria-label="Previous planet"
-                  className="absolute left-[-48px] top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-3 text-white shadow transition-all z-10"
-                  onClick={prevPlanet}
-                  disabled={isChanging}
-                  style={{ opacity: isChanging ? 0.5 : 1 }}
-                >
-                  <svg width={36} height={36} fill="none">
-                    <path
-                      d="M26 10l-8 8 8 8"
-                      stroke="white"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-                <button
-                  aria-label="Next planet"
-                  className="absolute right-[-48px] top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 rounded-full p-3 text-white shadow transition-all z-10"
-                  onClick={nextPlanet}
-                  disabled={isChanging}
-                  style={{ opacity: isChanging ? 0.5 : 1 }}
-                >
-                  <svg width={36} height={36} fill="none">
-                    <path
-                      d="M10 10l8 8-8 8"
-                      stroke="white"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-              </>
-            )}
           </div>
         </motion.div>
         <AnimatePresence>
@@ -267,7 +350,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
               transition={{ duration: 0.4 }}
             >
               <motion.h2
-                className="text-5xl md:text-6xl font-bold text-white mb-16 tracking-tight"
+                className="text-5xl md:text-6xl font-bold text-white mb-10 tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
@@ -275,7 +358,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                 {planet.name}
               </motion.h2>
               <motion.p
-                className="text-lg md:text-xl text-slate-300 leading-relaxed mb-16 max-w-xl"
+                className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10 max-w-xl"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.9 }}
@@ -283,7 +366,20 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                 {planet.description}
               </motion.p>
               <motion.button
-                onClick={handleViewPlanet}
+                onClick={() => {
+                  setHideNav(true);
+                  setShowPlanetOnly(true);
+                  setTimeout(() => {
+                    setPlanetAnimStep('move');
+                    setTimeout(() => {
+                      setPlanetAnimStep('loading');
+                      setShowLoading(true);
+                      setTimeout(() => {
+                        window.location.href = planet.link;
+                      }, 1800);
+                    }, 900);
+                  }, 400);
+                }}
                 className="self-start px-12 py-5 rounded-lg font-medium text-white border border-slate-500 hover:border-slate-300 hover:bg-slate-700/40 transition-all duration-200 text-base tracking-wide cursor-pointer"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
