@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import PlanetLoading from '../Loading/Loading';
 import { OrbitControls } from '@react-three/drei';
 import { ORBIT_PLANETS } from '../Hero/Hero_components/OrbitPlanets';
+import Image from 'next/image';
 
 const PLANETS = [
   {
@@ -78,8 +79,8 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
 
   return (
     <>
-      <ambientLight intensity={1.6} />
-      <directionalLight position={[5, 10, 7]} intensity={1.5} />
+      <ambientLight intensity={1.2} />
+      <directionalLight position={[5, 10, 7]} intensity={1.2} />
       <mesh ref={meshRef} rotation={[0, 0, 0]}>
         <sphereGeometry args={[3.5, 64, 64]} />
         <meshStandardMaterial
@@ -88,13 +89,13 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
           roughness={0.22}
           metalness={0.7}
           emissive={color}
-          emissiveIntensity={0.18}
+          emissiveIntensity={0.13}
         />
       </mesh>
       {name === 'Planet Tools' && (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]}>
           <torusGeometry args={[4.2, 0.22, 2, 120]} />
-          <meshStandardMaterial color="#fbbf24" roughness={0.5} metalness={0.7} opacity={0.55} transparent />
+          <meshStandardMaterial color="#fbbf24" roughness={0.5} metalness={0.7} opacity={0.45} transparent />
         </mesh>
       )}
       <OrbitControls
@@ -110,30 +111,33 @@ function Planet3D({ color, texture, name }: { color: string; texture: string; na
 function Planet2D({
   planet,
   active,
-  style,
   onClick,
 }: {
   planet: (typeof ORBIT_PLANETS)[0];
   active: boolean;
-  style?: React.CSSProperties;
   onClick?: () => void;
 }) {
   return (
     <motion.div
-      whileHover={{ scale: 1.18 }}
-      animate={{ scale: active ? 1.18 : 1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      whileHover={{ scale: 1.18, boxShadow: `0 0 0 6px #23283a, 0 0 24px ${planet.shadow}` }}
+      animate={{ scale: active ? 1.14 : 1 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 28 }}
       style={{
-        width: 28,
-        height: 28,
+        width: 44,
+        height: 44,
         borderRadius: '50%',
         background: planet.color,
-        boxShadow: active ? `0 0 0 3px #fff, 0 0 12px ${planet.shadow}` : `0 0 6px ${planet.shadow}`,
+        boxShadow: active ? `0 0 0 4px #fff, 0 0 18px ${planet.shadow}` : `0 0 8px ${planet.shadow}`,
         border: planet.border,
-        position: 'absolute',
+        margin: '18px auto',
         cursor: 'pointer',
+        position: 'relative',
         zIndex: active ? 2 : 1,
-        ...style,
+        aspectRatio: '1 / 1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'box-shadow 0.3s',
       }}
       onClick={onClick}
       tabIndex={0}
@@ -147,88 +151,56 @@ function Planet2D({
     >
       {planet.name === 'Planet Tools' && (
         <svg
-          width={44}
-          height={44}
+          width={64}
+          height={64}
           style={{
             position: 'absolute',
-            left: '-8px',
-            top: '-8px',
+            left: '-10px',
+            top: '-10px',
             pointerEvents: 'none',
             zIndex: 1,
           }}
         >
-          <ellipse cx={20} cy={22} rx={18} ry={4} fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0.7" />
-          <ellipse cx={22} cy={22} rx={20} ry={5} fill="none" stroke="#ec4899" strokeWidth="1.2" opacity="0.5" />
+          <ellipse
+            cx={32}
+            cy={32}
+            rx={28}
+            ry={18}
+            fill="none"
+            stroke="#fbbf24"
+            strokeWidth="2.5"
+            opacity="0.45"
+            style={{ filter: 'blur(0.7px)' }}
+          />
+          <ellipse
+            cx={32}
+            cy={32}
+            rx={22}
+            ry={12}
+            fill="none"
+            stroke="#ec4899"
+            strokeWidth="1.5"
+            opacity="0.32"
+            style={{ filter: 'blur(1.2px)' }}
+          />
         </svg>
       )}
     </motion.div>
   );
 }
 
-function OrbitSystem({
-  selected,
-  setSelected,
-  isChanging,
-}: {
-  selected: number;
-  setSelected: (idx: number) => void;
-  isChanging: boolean;
-}) {
-  const center = { x: 160, y: 80 };
-  const radii = [60, 90, 120, 150];
-  return (
-    <div className="relative mx-auto" style={{ width: 320, height: 160 }}>
-      {radii.map((r, i) => (
-        <svg
-          key={i}
-          width={320}
-          height={160}
-          style={{ position: 'absolute', left: 0, top: 0, pointerEvents: 'none', zIndex: 0 }}
-        >
-          <ellipse
-            cx={center.x}
-            cy={center.y}
-            rx={r}
-            ry={r / 2.2}
-            fill="none"
-            stroke="#fff"
-            strokeWidth={i === selected ? 2.5 : 1.2}
-            opacity={i === selected ? 0.18 : 0.09}
-          />
-        </svg>
-      ))}
-      {ORBIT_PLANETS.map((p, idx) => {
-        const angle = (Math.PI * 2 * idx) / ORBIT_PLANETS.length - Math.PI / 2;
-        const r = radii[idx];
-        const x = center.x + r * Math.cos(angle) - 14;
-        const y = center.y + (r / 2.2) * Math.sin(angle) - 14;
-        return (
-          <Planet2D
-            key={p.name}
-            planet={p}
-            active={selected === idx}
-            style={{
-              left: x,
-              top: y,
-              transition: 'all 0.3s cubic-bezier(.4,2,.3,1)',
-              boxShadow: selected === idx ? '0 0 0 4px #fff, 0 0 18px ' + p.shadow : '0 0 10px ' + p.shadow,
-            }}
-            onClick={() => {
-              if (!isChanging) setSelected(idx);
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
 export default function About({ setHideNav }: { setHideNav: (hide: boolean) => void }) {
   const [selected, setSelected] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showPlanetOnly, setShowPlanetOnly] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
   const [planetAnimStep, setPlanetAnimStep] = useState<'idle' | 'move' | 'loading'>('idle');
+
+  const [showIntro, setShowIntro] = useState(true);
+
+  // Estado para hover Star Wars
+  const [starWarsHover, setStarWarsHover] = useState<string | null>(null);
 
   const planet = PLANETS[selected];
 
@@ -257,116 +229,263 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
       id="about"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-16 outline-none relative"
+      className="w-full min-h-screen flex items-center justify-center px-0 py-0 outline-none relative group"
       style={{
         overflow: 'hidden',
-        background: 'linear-gradient(135deg, #10131a 0%, #181c26 60%, #23283a 100%)',
+        background: 'radial-gradient(ellipse at 60% 40%, #181c26 70%, #23283a 100%)',
+        minHeight: '100vh',
+        fontFamily: 'Inter, sans-serif',
       }}
     >
-      <div
-        className="w-full flex flex-col items-center mb-2"
-        style={{ position: 'absolute', top: '24px', left: 0, right: 0, zIndex: 10 }}
-      >
-        <div className="mt-15 mb-2 text-slate-200 text-xl text-center font-semibold tracking-wide">
-          Select a planet or press <span className="font-bold text-white">A</span> /{' '}
-          <span className="font-bold text-white">D</span> to navigate
-        </div>
-        <OrbitSystem selected={selected} setSelected={setSelected} isChanging={isChanging} />
-      </div>
-      <div
-        className="flex flex-col md:flex-row items-center w-full max-w-7xl gap-12 md:gap-24"
-        style={{ marginTop: '180px' }}
-      >
-        <motion.div
-          className="flex flex-col items-center justify-center w-full md:w-[55%] min-h-[520px] relative"
-          initial={{ opacity: 0, x: -60 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <div
-            className="relative"
+      <AnimatePresence>
+        {showIntro ? (
+          <motion.div
+            className="flex flex-col items-center justify-center w-full h-full z-20 absolute left-0 top-0"
+            initial={{ opacity: 0, scale: 0.92, y: 80 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: -80 }}
+            transition={{ duration: 1.1, ease: 'easeOut' }}
             style={{
-              width: '520px',
-              height: '520px',
-              minWidth: '320px',
-              minHeight: '320px',
-              maxWidth: '100vw',
-              maxHeight: '80vh',
+              background: 'linear-gradient(120deg, #181c26 70%, #23283a 100%)',
+              minHeight: '100vh',
+              width: '100vw',
+              left: 0,
+              top: 0,
             }}
           >
-            <AnimatePresence mode="wait">
-              {!isChanging && (
-                <motion.div
-                  key={planet.name}
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={
-                    planetAnimStep === 'move' || planetAnimStep === 'loading'
-                      ? {
-                          opacity: 1,
-                          scale: 1.08,
-                        }
-                      : { opacity: 1, scale: 1 }
-                  }
-                  exit={{ opacity: 0, scale: 0.7 }}
-                  transition={{ duration: planetAnimStep === 'move' ? 0.9 : 1, ease: 'easeInOut' }}
-                  style={
-                    planetAnimStep === 'move' || planetAnimStep === 'loading'
-                      ? {
-                          width: '520px',
-                          height: '520px',
-                          position: 'absolute',
-                          left: '55%',
-                          top: '0%',
-                          zIndex: 400,
-                          background: 'transparent',
-                          boxShadow: 'none',
-                        }
-                      : {
-                          width: '100%',
-                          height: '100%',
-                          zIndex: 'auto',
-                        }
-                  }
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, y: 40 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, type: 'spring', stiffness: 70 }}
+              className="flex flex-col items-center justify-center py-16"
+              style={{
+                background: 'none',
+                minWidth: 340,
+                maxWidth: 1500,
+              }}
+            >
+              <div className="flex flex-col items-center justify-center w-full gap-0">
+                {/* Linha 1: Hello + imagem + I'm Eduardo */}
+                <div
+                  className="flex flex-row items-center justify-center w-full gap-6 mb-2"
+                  style={{ flexWrap: 'wrap' }}
                 >
-                  <Canvas
-                    camera={{ position: [0, 0, 10], fov: 50 }}
+                  <motion.span
+                    initial={{ opacity: 0, x: -60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    whileHover={{ scale: 1.06, x: -10 }}
+                    className={`transition-all ${starWarsHover === 'hello' ? 'starwars-hover animate-flash' : ''}`}
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      background: 'transparent',
+                      fontSize: '7.5rem',
+                      fontWeight: 900,
+                      color: '#fff',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1.1,
+                      fontFamily: starWarsHover === 'hello' ? 'StarWars, Arial, sans-serif' : 'Inter, sans-serif',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={() => setStarWarsHover('hello')}
+                    onMouseLeave={() => setStarWarsHover(null)}
+                  >
+                    Hello
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.7, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.5 }}
+                    whileHover={{ scale: 1.09, y: -10, boxShadow: '0 0 32px #fff' }}
+                    className="transition-all"
+                    style={{
+                      width: 140,
+                      height: 70,
+                      borderRadius: '24px',
+                      overflow: 'hidden',
+                      display: 'inline-block',
+                      background: '#23283a',
+                      border: '2px solid #fff',
+                      marginLeft: 12,
+                      marginRight: 12,
+                      marginTop: 30,
+                      cursor: 'pointer',
                     }}
                   >
-                    <Suspense fallback={null}>
-                      <Planet3D color={planet.color} texture={planet.texture} name={planet.name} />
-                    </Suspense>
-                  </Canvas>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-        <AnimatePresence>
-          {!showPlanetOnly && !showLoading && (
+                    <Image
+                      src="/gifs/han-solo.gif"
+                      alt="Eduardo Portrait"
+                      width={140}
+                      height={70}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      priority
+                    />
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 0.8 }}
+                    whileHover={{ scale: 1.06, x: 10 }}
+                    className={`transition-all ${starWarsHover === 'edu' ? 'starwars-hover animate-flash' : ''}`}
+                    style={{
+                      fontSize: '7.5rem',
+                      fontWeight: 900,
+                      color: '#fff',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1.1,
+                      fontFamily: starWarsHover === 'edu' ? 'StarWars, Arial, sans-serif' : 'Inter, sans-serif',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={() => setStarWarsHover('edu')}
+                    onMouseLeave={() => setStarWarsHover(null)}
+                  >
+                    I&apos;m Edu
+                  </motion.span>
+                </div>
+                {/* Linha 2: I develop + imagem + systems */}
+                <div
+                  className="flex flex-row items-center justify-center w-full gap-6 mt-2 mb-2"
+                  style={{ flexWrap: 'wrap', marginBottom: '3.5rem' }}
+                >
+                  <motion.span
+                    initial={{ opacity: 0, x: -60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 1.1 }}
+                    whileHover={{ scale: 1.06, x: -10 }}
+                    className={`transition-all ${starWarsHover === 'develop' ? 'starwars-hover animate-flash' : ''}`}
+                    style={{
+                      fontSize: '7.5rem',
+                      fontWeight: 900,
+                      color: '#fff',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1.1,
+                      fontFamily: starWarsHover === 'develop' ? 'StarWars, Arial, sans-serif' : 'Inter, sans-serif',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={() => setStarWarsHover('develop')}
+                    onMouseLeave={() => setStarWarsHover(null)}
+                  >
+                    I develop
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.7, y: 40 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 1.4 }}
+                    whileHover={{ scale: 1.09, y: -10, boxShadow: '0 0 32px #fff' }}
+                    className="transition-all"
+                    style={{
+                      width: 140,
+                      height: 70,
+                      borderRadius: '24px',
+                      overflow: 'hidden',
+                      display: 'inline-block',
+                      background: '#23283a',
+                      border: '2px solid #fff',
+                      marginLeft: 12,
+                      marginRight: 12,
+                      marginTop: 30,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Image
+                      src="/gifs/star-wars.gif"
+                      alt="Code Illustration"
+                      width={140}
+                      height={70}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      priority
+                    />
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, delay: 1.7 }}
+                    whileHover={{ scale: 1.06, x: 10 }}
+                    className={`transition-all ${starWarsHover === 'systems' ? 'starwars-hover animate-flash' : ''}`}
+                    style={{
+                      fontSize: '7.5rem',
+                      fontWeight: 900,
+                      color: '#fff',
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1.1,
+                      fontFamily: starWarsHover === 'systems' ? 'StarWars, Arial, sans-serif' : 'Inter, sans-serif',
+                      whiteSpace: 'nowrap',
+                      cursor: 'pointer',
+                    }}
+                    onMouseEnter={() => setStarWarsHover('systems')}
+                    onMouseLeave={() => setStarWarsHover(null)}
+                  >
+                    systems
+                  </motion.span>
+                </div>
+                {/* Descrição centralizada enxuta */}
+                <motion.p
+                  className="text-2xl font-medium text-center mb-12 mt-20"
+                  style={{
+                    maxWidth: 900,
+                    margin: '0 auto',
+                    color: 'rgba(226,232,240,0.82)',
+                    fontFamily: 'Inter, sans-serif',
+                    lineHeight: 1.6,
+                    cursor: 'pointer',
+                  }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 2.1 }}
+                  whileHover={{ scale: 1.03, y: -6, color: '#38bdf8', textShadow: '0 0 18px #38bdf8' }}
+                >
+                  I create digital solutions with design and code.
+                  <br />
+                  My focus is on building modern, fast and secure systems that solve real problems and deliver great
+                  experiences. Want to know more? See the planets below and explore each theme.
+                </motion.p>
+                {/* Botão centralizado com espaçamento extra */}
+                <motion.button
+                  onClick={() => setShowIntro(false)}
+                  className="mt-10 px-8 py-4 rounded-full font-bold text-lg bg-[#fff] text-[#23283a] border-2 border-[#fff] hover:bg-[#23283a] hover:text-[#fff] transition shadow"
+                  style={{
+                    letterSpacing: '-0.02em',
+                  }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.7, delay: 2.7 }}
+                >
+                  See planets
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="flex w-full max-w-7xl mx-auto items-center justify-between relative z-10"
+            style={{ height: '80vh' }}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -60 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+          >
             <motion.div
-              className="flex flex-col justify-center w-full md:w-[45%] px-8"
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
+              className="flex flex-col justify-center items-start w-[38%] pl-12 pr-6"
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
             >
-              <motion.h2
-                className="text-5xl md:text-6xl font-bold text-white mb-10 tracking-tight"
-                initial={{ opacity: 0, y: 30 }}
+              <motion.h1
+                className="text-5xl md:text-6xl font-extrabold text-white mb-8 tracking-tight leading-tight"
+                initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ letterSpacing: '-2px', textShadow: '0 0 18px #000' }}
               >
                 {planet.name}
-              </motion.h2>
+              </motion.h1>
               <motion.p
-                className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10 max-w-xl"
+                className="text-lg text-slate-300 leading-relaxed mb-8 max-w-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.9 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+                style={{ textShadow: '0 0 8px #000' }}
               >
                 {planet.description}
               </motion.p>
@@ -385,24 +504,109 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     }, 900);
                   }, 400);
                 }}
-                className="self-start px-12 py-5 rounded-lg font-medium text-white border border-slate-500 hover:border-slate-300 hover:bg-slate-700/40 transition-all duration-200 text-base tracking-wide cursor-pointer"
+                className="px-8 py-4 rounded-lg font-medium text-white border border-slate-700 hover:border-slate-400 hover:bg-slate-800/60 transition-all duration-200 text-base tracking-wide cursor-pointer shadow"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                style={{ background: 'rgba(36,41,56,0.85)', boxShadow: '0 0 18px #23283a' }}
               >
-                View Planet
+                Discover
               </motion.button>
             </motion.div>
-          )}
-        </AnimatePresence>
-        {showLoading && (
-          <div className="fixed inset-0 flex flex-col items-center justify-center bg-black/80 z-[400]">
-            <PlanetLoading planetName={planet.name} />
-          </div>
+            <motion.div
+              className="flex items-center justify-center w-[34%] h-full relative"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+            >
+              <AnimatePresence mode="wait">
+                {!isChanging && (
+                  <motion.div
+                    key={planet.name}
+                    initial={{ opacity: 0, scale: 0.7, rotate: -10 }}
+                    animate={
+                      planetAnimStep === 'move' || planetAnimStep === 'loading'
+                        ? {
+                            opacity: 1,
+                            scale: 1.08,
+                            rotate: 0,
+                          }
+                        : { opacity: 1, scale: 1, rotate: 0 }
+                    }
+                    exit={{ opacity: 0, scale: 0.7, rotate: 10 }}
+                    transition={{ duration: planetAnimStep === 'move' ? 0.9 : 1, ease: 'easeInOut' }}
+                    style={{
+                      width: '420px',
+                      height: '420px',
+                      maxWidth: '90vw',
+                      maxHeight: '70vh',
+                      borderRadius: '50%',
+                      boxShadow: '0 0 0 2px #23283a, 0 0 60px #10131a',
+                      background: 'transparent',
+                      position: 'relative',
+                      zIndex: 2,
+                    }}
+                  >
+                    <Canvas
+                      camera={{ position: [0, 0, 10], fov: 50 }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        background: 'transparent',
+                        borderRadius: '50%',
+                      }}
+                    >
+                      <Suspense fallback={null}>
+                        <Planet3D color={planet.color} texture={planet.texture} name={planet.name} />
+                      </Suspense>
+                    </Canvas>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+            <motion.div
+              className="flex flex-col items-center justify-center w-[9%] h-[50%] py-2 px-1"
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+              style={{
+                background: 'linear-gradient(180deg, #181c26 80%, #23283a 100%)',
+                borderRadius: '18px',
+                boxShadow: '0 0 18px 0 #10131a',
+                minWidth: '54px',
+                maxWidth: '72px',
+                minHeight: '140px',
+                maxHeight: '900px',
+                position: 'relative',
+                zIndex: 3,
+                alignSelf: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <div className="flex flex-col items-center justify-center w-full h-full gap-3">
+                {ORBIT_PLANETS.map((p, idx) => (
+                  <Planet2D
+                    key={p.name}
+                    planet={p}
+                    active={selected === idx}
+                    onClick={() => {
+                      if (!isChanging) setSelected(idx);
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
+      {showLoading && (
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black/80 z-[400]">
+          <PlanetLoading planetName={planet.name} />
+        </div>
+      )}
     </section>
   );
 }

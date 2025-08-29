@@ -191,3 +191,33 @@ canvas {
   height: 100% !important;
   display: block;
 }
+
+@font-face {
+  font-family: 'StarWars';
+  src: url('/fonts/Starjedi.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.animate-flash {
+  animation: flashStarWars 0.6s linear 1;
+}
+@keyframes flashStarWars {
+  0% { filter: brightness(1); }
+  20% { filter: brightness(2); }
+  40% { filter: brightness(0.7); }
+  60% { filter: brightness(2.5); }
+  80% { filter: brightness(0.8); }
+  100% { filter: brightness(1); }
+}
+
+.starwars-hover {
+  font-family: 'StarWars', Arial, sans-serif !important;
+  color: #ffe81f !important;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px 2px 0 #000,
+    2px -2px 0 #000,
+    -2px -2px 0 #000,
+    0 0 12px #ffe81f;
+  transition: all 0.3s cubic-bezier(.4,2,.3,1);
+}
