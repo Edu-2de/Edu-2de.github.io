@@ -58,63 +58,65 @@ function SpaceBackground() {
 }
 
 const categories = [
-  { label: "My Favorites", value: "favorites" },
-  { label: "Most Difficult", value: "difficult" },
-  { label: "UI/UX", value: "uiux" },
-  { label: "Business", value: "business" },
-  { label: "All Projects", value: null },
+  { label: 'My Favorites', value: 'favorites' },
+  { label: 'Most Difficult', value: 'difficult' },
+  { label: 'UI/UX', value: 'uiux' },
+  { label: 'Business', value: 'business' },
+  { label: 'All Projects', value: null },
 ];
 
 const projects = [
   {
-    title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution with modern UI/UX, payment integration, and admin dashboard.",
-    tech: ["React", "Node.js", "PostgreSQL"],
-    tags: ["favorites", "business", "uiux"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'E-commerce Platform',
+    description: 'Full-stack e-commerce solution with modern UI/UX, payment integration, and admin dashboard.',
+    tech: ['React', 'Node.js', 'PostgreSQL'],
+    tags: ['favorites', 'business', 'uiux'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
   {
-    title: "Task Management App",
-    description: "Collaborative project management tool with real-time updates and team collaboration features.",
-    tech: ["Next.js", "TypeScript", "Prisma"],
-    tags: ["difficult", "business"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'Task Management App',
+    description: 'Collaborative project management tool with real-time updates and team collaboration features.',
+    tech: ['Next.js', 'TypeScript', 'Prisma'],
+    tags: ['difficult', 'business'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
   {
-    title: "Weather Dashboard",
-    description: "Beautiful weather application with detailed forecasts and interactive maps.",
-    tech: ["React", "API Integration", "Charts"],
-    tags: ["uiux", "favorites"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'Weather Dashboard',
+    description: 'Beautiful weather application with detailed forecasts and interactive maps.',
+    tech: ['React', 'API Integration', 'Charts'],
+    tags: ['uiux', 'favorites'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
   {
-    title: "Portfolio Website",
-    description: "Personal portfolio showcasing projects, skills, and contact information.",
-    tech: ["React", "TailwindCSS", "Framer Motion"],
-    tags: ["favorites", "uiux"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'Portfolio Website',
+    description: 'Personal portfolio showcasing projects, skills, and contact information.',
+    tech: ['React', 'TailwindCSS', 'Framer Motion'],
+    tags: ['favorites', 'uiux'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
   {
-    title: "Chat Application",
-    description: "Real-time chat app with authentication and group conversations.",
-    tech: ["Next.js", "Socket.io", "MongoDB"],
-    tags: ["difficult"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'Chat Application',
+    description: 'Real-time chat app with authentication and group conversations.',
+    tech: ['Next.js', 'Socket.io', 'MongoDB'],
+    tags: ['difficult'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
   {
-    title: "Finance Tracker",
-    description: "Track expenses and income with charts and analytics.",
-    tech: ["Vue.js", "Firebase", "Chart.js"],
-    tags: ["business"],
-    github: "https://github.com",
-    demo: "https://demo.com",
+    title: 'Finance Tracker',
+    description: 'Track expenses and income with charts and analytics.',
+    tech: ['Vue.js', 'Firebase', 'Chart.js'],
+    tags: ['business'],
+    github: 'https://github.com',
+    demo: 'https://demo.com',
   },
 ];
+
+import { AnimationType } from 'framer-motion';
 
 // Animation for card group
 const groupVariants = {
@@ -129,14 +131,14 @@ const groupVariants = {
     y: 0,
     scale: 1,
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 50, damping: 22 }
+    transition: { type: 'spring', stiffness: 50, damping: 22 },
   },
   exit: (direction: number) => ({
     opacity: 0,
     y: direction < 0 ? 40 : -40,
     scale: 0.96,
     filter: 'blur(8px)',
-    transition: { duration: 0.45 }
+    transition: { duration: 0.45 },
   }),
 };
 
@@ -146,9 +148,7 @@ export default function Projects() {
   const [direction, setDirection] = useState(0);
 
   // Filter projects by category
-  const filteredProjects = selectedCategory
-    ? projects.filter(p => p.tags.includes(selectedCategory))
-    : projects;
+  const filteredProjects = selectedCategory ? projects.filter(p => p.tags.includes(selectedCategory)) : projects;
 
   // Pagination logic: 3 per page
   const pageSize = 3;
@@ -206,14 +206,17 @@ export default function Projects() {
             onClick={() => handleCategory(cat.value)}
             whileHover={{ scale: 1.08, y: -2, boxShadow: '0 2px 12px #0f172b44' }}
             className={`px-5 py-2 rounded-md border font-medium text-sm transition
-              ${selectedCategory === cat.value || (cat.value === null && selectedCategory === null)
-                ? 'bg-[#0f172b] text-white border-[#0f172b] shadow-lg'
-                : 'bg-slate-900 text-slate-200 border-slate-700 hover:bg-slate-800'}
+              ${
+                selectedCategory === cat.value || (cat.value === null && selectedCategory === null)
+                  ? 'bg-[#0f172b] text-white border-[#0f172b] shadow-lg'
+                  : 'bg-slate-900 text-slate-200 border-slate-700 hover:bg-slate-800'
+              }
             `}
             style={{
-              boxShadow: selectedCategory === cat.value || (cat.value === null && selectedCategory === null)
-                ? '0 2px 12px 0 #0f172b44'
-                : undefined
+              boxShadow:
+                selectedCategory === cat.value || (cat.value === null && selectedCategory === null)
+                  ? '0 2px 12px 0 #0f172b44'
+                  : undefined,
             }}
           >
             {cat.label}
@@ -225,9 +228,8 @@ export default function Projects() {
       <div className="w-full flex justify-center items-stretch gap-8 mb-8 relative">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
-            key={selectedCategory + page}
+            key={`${selectedCategory ?? 'all'}-${page}`}
             custom={direction}
-            variants={groupVariants}
             initial="initial"
             animate="animate"
             exit="exit"
@@ -248,7 +250,8 @@ export default function Projects() {
                 }}
               >
                 {/* Subtle planet ring effect */}
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 pointer-events-none z-0"
+                <div
+                  className="absolute -top-8 left-1/2 -translate-x-1/2 pointer-events-none z-0"
                   style={{
                     width: 120,
                     height: 40,
@@ -258,17 +261,18 @@ export default function Projects() {
                     filter: 'blur(2px)',
                   }}
                 />
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  background: 'radial-gradient(ellipse at 60% 30%, #0f172b33 0%, transparent 70%)'
-                }} />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(ellipse at 60% 30%, #0f172b33 0%, transparent 70%)',
+                  }}
+                />
                 <h3 className="text-lg font-semibold text-slate-100 mb-2 tracking-tight text-center z-10">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 mb-4 text-center leading-relaxed text-sm z-10">
-                  {project.description}
-                </p>
+                <p className="text-slate-400 mb-4 text-center leading-relaxed text-sm z-10">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4 justify-center z-10">
-                  {project.tech.map((tech) => (
+                  {project.tech.map(tech => (
                     <span
                       key={tech}
                       className="px-3 py-1 bg-slate-900 text-slate-200 text-xs rounded-full border border-slate-700 shadow"
