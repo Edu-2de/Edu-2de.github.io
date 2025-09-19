@@ -28,7 +28,7 @@ interface HobbyCategory {
 // Back Button Component
 const BackButton = () => {
   const { t } = useLanguage();
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -100 }}
@@ -55,12 +55,12 @@ const BackButton = () => {
 const PlanetNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useLanguage();
-  
+
   const planets = [
     { name: t.skills, path: '/skills', color: '#8b5cf6' },
     { name: t.hobbies, path: '/hobbies', color: '#64748b', current: true },
     { name: t.tools, path: '/tools', color: '#06b6d4' },
-    { name: t.dreams, path: '/dreams', color: '#10b981' }
+    { name: t.dreams, path: '/dreams', color: '#10b981' },
   ];
 
   return (
@@ -78,12 +78,12 @@ const PlanetNavigation = () => {
       >
         <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
         {t.solarSystem}
-        <motion.svg 
+        <motion.svg
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
-          className="w-4 h-4" 
-          fill="none" 
-          stroke="currentColor" 
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
           viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -109,20 +109,15 @@ const PlanetNavigation = () => {
                   transition={{ delay: index * 0.1 }}
                   onClick={() => !isCurrent && (window.location.href = planet.path)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer ${
-                    isCurrent 
-                      ? 'bg-slate-700 text-slate-200 cursor-default border border-slate-500' 
+                    isCurrent
+                      ? 'bg-slate-700 text-slate-200 cursor-default border border-slate-500'
                       : 'hover:bg-slate-700 text-slate-400 border border-transparent hover:border-slate-500'
                   }`}
                   whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
                   whileTap={!isCurrent ? { scale: 0.98 } : {}}
                 >
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: planet.color }}
-                  />
-                  <span className="text-sm font-medium whitespace-nowrap">
-                    {planet.name}
-                  </span>
+                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: planet.color }} />
+                  <span className="text-sm font-medium whitespace-nowrap">{planet.name}</span>
                   {isCurrent && (
                     <div className="flex items-center gap-1 ml-auto">
                       <div className="w-1 h-1 bg-slate-400 rounded-full" />
@@ -146,7 +141,7 @@ const PlanetBackground = () => (
     <motion.div
       initial={{ scale: 0.8, opacity: 0, rotate: -10 }}
       animate={{ scale: 1, opacity: 1, rotate: 0 }}
-      transition={{ duration: 2.5, ease: "easeOut" }}
+      transition={{ duration: 2.5, ease: 'easeOut' }}
       className="absolute -top-1/3 -left-1/4 w-[130vh] h-[130vh] rounded-full"
       style={{
         background: `radial-gradient(circle at 70% 70%, 
@@ -171,7 +166,7 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
     { id: 1, name: t.heavyMetalRiffs, artist: t.myCompositions, duration: '3:24', genre: t.metal },
     { id: 2, name: t.acousticFingerpicking, artist: t.soloSessions, duration: '2:48', genre: t.acoustic },
     { id: 3, name: t.originalCompositions, artist: t.creativeFlowArtist, duration: '4:12', genre: t.original },
-    { id: 4, name: t.jamSessions, artist: t.withFriends, duration: '5:33', genre: t.collaborative }
+    { id: 4, name: t.jamSessions, artist: t.withFriends, duration: '5:33', genre: t.collaborative },
   ];
 
   const curiosities = [
@@ -179,7 +174,7 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
     t.guitarCuriosity2,
     t.guitarCuriosity3,
     t.guitarCuriosity4,
-    t.guitarCuriosity5
+    t.guitarCuriosity5,
   ];
 
   const handleTrackClick = (trackId: number) => {
@@ -196,7 +191,7 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: index * 0.3 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-700"
     >
       {/* Header */}
@@ -211,7 +206,9 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
             <div className="flex items-center gap-4 text-slate-300">
               <span>{t.guitarExperience}</span>
               <span>•</span>
-              <span>{tracks.length} {t.tracks}</span>
+              <span>
+                {tracks.length} {t.tracks}
+              </span>
             </div>
           </div>
         </div>
@@ -220,18 +217,14 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       {/* Controls */}
       <div className="p-8">
         <div className="mb-8">
-          <p className="text-slate-300 text-lg leading-relaxed mb-4">
-            {t.guitarDescription}
-          </p>
-          <p className="text-slate-400 leading-relaxed">
-            {t.guitarStory}
-          </p>
+          <p className="text-slate-300 text-lg leading-relaxed mb-4">{t.guitarDescription}</p>
+          <p className="text-slate-400 leading-relaxed">{t.guitarStory}</p>
         </div>
 
         {/* Track List */}
         <div className="space-y-3 mb-8">
           <h4 className="text-xl font-semibold text-white mb-4">{t.myMusicalJourney}</h4>
-          {tracks.map((track) => (
+          {tracks.map(track => (
             <motion.div
               key={track.id}
               onClick={() => handleTrackClick(track.id)}
@@ -244,11 +237,11 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
               }`}
             >
               <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  selectedTrack === track.id && isPlaying 
-                    ? 'bg-slate-500 text-white' 
-                    : 'bg-slate-800 text-slate-400'
-                }`}>
+                <div
+                  className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    selectedTrack === track.id && isPlaying ? 'bg-slate-500 text-white' : 'bg-slate-800 text-slate-400'
+                  }`}
+                >
                   {selectedTrack === track.id && isPlaying ? '⏸' : '▶'}
                 </div>
                 <div className="flex-1">
@@ -266,9 +259,7 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
 
         {/* Status */}
         <div className="flex items-center justify-between mb-8">
-          <div className="text-slate-400">
-            {selectedTrack ? t.readyToPlay : t.selectTrack}
-          </div>
+          <div className="text-slate-400">{selectedTrack ? t.readyToPlay : t.selectTrack}</div>
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <span>{t.energeticExpressive}</span>
           </div>
@@ -316,9 +307,7 @@ const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     transition={{ delay: idx * 0.1 }}
                     className="p-4 bg-slate-800 rounded-lg"
                   >
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {curiosity}
-                    </p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{curiosity}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -336,26 +325,40 @@ const ArtPortfolioCard = ({ hobby, index }: { hobby: Hobby; index: number }) => 
   const { t } = useLanguage();
 
   const categories = [
-    { name: t.characterDesign, description: t.characterDesignDesc, projects: 15, techniques: [t.digitalPainting, t.conceptSketching, t.colorTheory] },
-    { name: t.digitalIllustration, description: t.digitalIllustrationDesc, projects: 23, techniques: [t.photoshopMastery, t.layerManagement, t.lightingEffects] },
-    { name: t.conceptArt, description: t.conceptArtDesc, projects: 8, techniques: [t.environmentDesign, t.moodBoarding, t.perspectiveDrawing] },
-    { name: t.storytellingThroughArt, description: t.storytellingArtDesc, projects: 12, techniques: [t.narrativeComposition, t.sequentialArt, t.emotionCapture] }
+    {
+      name: t.characterDesign,
+      description: t.characterDesignDesc,
+      projects: 15,
+      techniques: [t.digitalPainting, t.conceptSketching, t.colorTheory],
+    },
+    {
+      name: t.digitalIllustration,
+      description: t.digitalIllustrationDesc,
+      projects: 23,
+      techniques: [t.photoshopMastery, t.layerManagement, t.lightingEffects],
+    },
+    {
+      name: t.conceptArt,
+      description: t.conceptArtDesc,
+      projects: 8,
+      techniques: [t.environmentDesign, t.moodBoarding, t.perspectiveDrawing],
+    },
+    {
+      name: t.storytellingThroughArt,
+      description: t.storytellingArtDesc,
+      projects: 12,
+      techniques: [t.narrativeComposition, t.sequentialArt, t.emotionCapture],
+    },
   ];
 
-  const curiosities = [
-    t.artCuriosity1,
-    t.artCuriosity2,
-    t.artCuriosity3,
-    t.artCuriosity4,
-    t.artCuriosity5
-  ];
+  const curiosities = [t.artCuriosity1, t.artCuriosity2, t.artCuriosity3, t.artCuriosity4, t.artCuriosity5];
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: index * 0.3 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-700"
     >
       {/* Header */}
@@ -370,7 +373,9 @@ const ArtPortfolioCard = ({ hobby, index }: { hobby: Hobby; index: number }) => 
             <div className="flex items-center gap-4 text-slate-300">
               <span>{t.lifetimeCompanion}</span>
               <span>•</span>
-              <span>{categories.reduce((total, cat) => total + cat.projects, 0)} {t.projects}</span>
+              <span>
+                {categories.reduce((total, cat) => total + cat.projects, 0)} {t.projects}
+              </span>
             </div>
           </div>
         </div>
@@ -379,12 +384,8 @@ const ArtPortfolioCard = ({ hobby, index }: { hobby: Hobby; index: number }) => 
       {/* Content */}
       <div className="p-8">
         <div className="mb-8">
-          <p className="text-slate-300 text-lg leading-relaxed mb-4">
-            {t.artDescription}
-          </p>
-          <p className="text-slate-400 leading-relaxed">
-            {t.artStory}
-          </p>
+          <p className="text-slate-300 text-lg leading-relaxed mb-4">{t.artDescription}</p>
+          <p className="text-slate-400 leading-relaxed">{t.artStory}</p>
         </div>
 
         {/* Categories */}
@@ -404,14 +405,16 @@ const ArtPortfolioCard = ({ hobby, index }: { hobby: Hobby; index: number }) => 
                 <h5 className="text-white font-semibold mb-2">{category.name}</h5>
                 <p className="text-slate-300 text-sm mb-4">{category.description}</p>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-slate-400 text-sm">{category.projects} {t.projects}</span>
+                  <span className="text-slate-400 text-sm">
+                    {category.projects} {t.projects}
+                  </span>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-slate-500 rounded-full"></div>
                     <span className="text-slate-500 text-xs">{t.imaginativeDreamy}</span>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {category.techniques.map((technique) => (
+                  {category.techniques.map(technique => (
                     <span key={technique} className="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg">
                       {technique}
                     </span>
@@ -480,9 +483,7 @@ const ArtPortfolioCard = ({ hobby, index }: { hobby: Hobby; index: number }) => 
                     transition={{ delay: idx * 0.1 }}
                     className="p-4 bg-slate-800 rounded-lg"
                   >
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {curiosity}
-                    </p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{curiosity}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -500,56 +501,59 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
   const { t } = useLanguage();
 
   const spots = [
-    { 
-      name: t.downtownPlaza, 
-      difficulty: t.intermediate, 
-      status: t.active, 
-      features: [t.ledges, t.rails, t.stairs] 
+    {
+      name: t.downtownPlaza,
+      difficulty: t.intermediate,
+      status: t.active,
+      features: [t.ledges, t.rails, t.stairs],
     },
-    { 
-      name: t.techStreet, 
-      difficulty: t.advanced, 
-      status: t.crowded, 
-      features: [t.manualPads, t.gaps, t.banks] 
+    {
+      name: t.techStreet,
+      difficulty: t.advanced,
+      status: t.crowded,
+      features: [t.manualPads, t.gaps, t.banks],
     },
-    { 
-      name: t.urbanPark, 
-      difficulty: t.beginner, 
-      status: t.active, 
-      features: [t.bowl, t.quarters, t.spine] 
+    {
+      name: t.urbanPark,
+      difficulty: t.beginner,
+      status: t.active,
+      features: [t.bowl, t.quarters, t.spine],
     },
-    { 
-      name: t.hiddenGem, 
-      difficulty: t.expert, 
-      status: t.secret, 
-      features: [t.vertWall, t.hip, t.pool] 
-    }
+    {
+      name: t.hiddenGem,
+      difficulty: t.expert,
+      status: t.secret,
+      features: [t.vertWall, t.hip, t.pool],
+    },
   ];
 
-  const curiosities = [
-    t.skateCuriosity1,
-    t.skateCuriosity2,
-    t.skateCuriosity3,
-    t.skateCuriosity4,
-    t.skateCuriosity5
-  ];
+  const curiosities = [t.skateCuriosity1, t.skateCuriosity2, t.skateCuriosity3, t.skateCuriosity4, t.skateCuriosity5];
 
   const getDifficultyColor = (difficulty: string) => {
-    switch(difficulty) {
-      case t.beginner: return 'bg-green-600';
-      case t.intermediate: return 'bg-yellow-600';
-      case t.advanced: return 'bg-orange-600';
-      case t.expert: return 'bg-red-600';
-      default: return 'bg-slate-600';
+    switch (difficulty) {
+      case t.beginner:
+        return 'bg-green-600';
+      case t.intermediate:
+        return 'bg-yellow-600';
+      case t.advanced:
+        return 'bg-orange-600';
+      case t.expert:
+        return 'bg-red-600';
+      default:
+        return 'bg-slate-600';
     }
   };
 
   const getStatusColor = (status: string) => {
-    switch(status) {
-      case t.active: return 'bg-green-500';
-      case t.crowded: return 'bg-yellow-500';
-      case t.secret: return 'bg-purple-500';
-      default: return 'bg-slate-500';
+    switch (status) {
+      case t.active:
+        return 'bg-green-500';
+      case t.crowded:
+        return 'bg-yellow-500';
+      case t.secret:
+        return 'bg-purple-500';
+      default:
+        return 'bg-slate-500';
     }
   };
 
@@ -558,7 +562,7 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: index * 0.3 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-700"
     >
       {/* Header */}
@@ -573,7 +577,9 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
             <div className="flex items-center gap-4 text-slate-300">
               <span>{t.skateExperience}</span>
               <span>•</span>
-              <span>{spots.length} {t.spots}</span>
+              <span>
+                {spots.length} {t.spots}
+              </span>
             </div>
           </div>
         </div>
@@ -582,12 +588,8 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       {/* Content */}
       <div className="p-8">
         <div className="mb-8">
-          <p className="text-slate-300 text-lg leading-relaxed mb-4">
-            {t.skateDescription}
-          </p>
-          <p className="text-slate-400 leading-relaxed">
-            {t.skateStory}
-          </p>
+          <p className="text-slate-300 text-lg leading-relaxed mb-4">{t.skateDescription}</p>
+          <p className="text-slate-400 leading-relaxed">{t.skateStory}</p>
         </div>
 
         {/* Spots Map */}
@@ -611,15 +613,19 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     <span className="text-slate-400 text-xs">{spot.status}</span>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`px-3 py-1 ${getDifficultyColor(spot.difficulty)} text-white text-xs rounded-lg font-medium`}>
+                  <div
+                    className={`px-3 py-1 ${getDifficultyColor(
+                      spot.difficulty
+                    )} text-white text-xs rounded-lg font-medium`}
+                  >
                     {spot.difficulty}
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2">
-                  {spot.features.map((feature) => (
+                  {spot.features.map(feature => (
                     <span key={feature} className="px-2 py-1 bg-slate-800 text-slate-300 text-xs rounded">
                       {feature}
                     </span>
@@ -688,9 +694,7 @@ const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     transition={{ delay: idx * 0.1 }}
                     className="p-4 bg-slate-800 rounded-lg"
                   >
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {curiosity}
-                    </p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{curiosity}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -708,30 +712,30 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
   const { t } = useLanguage();
 
   const games = [
-    { 
-      name: 'Elden Ring', 
-      status: t.mastered, 
-      progress: 100, 
-      achievements: [t.eldenLord, t.allBosses, t.platinumTrophy] 
+    {
+      name: 'Elden Ring',
+      status: t.mastered,
+      progress: 100,
+      achievements: [t.eldenLord, t.allBosses, t.platinumTrophy],
     },
-    { 
-      name: 'Dark Souls III', 
-      status: t.completed, 
-      progress: 95, 
-      achievements: [t.soulOfCinder, t.allEndings] 
+    {
+      name: 'Dark Souls III',
+      status: t.completed,
+      progress: 95,
+      achievements: [t.soulOfCinder, t.allEndings],
     },
-    { 
-      name: 'Bloodborne', 
-      status: t.completed, 
-      progress: 90, 
-      achievements: [t.goodHunter, t.oldHunters, t.chaliceDungeons] 
+    {
+      name: 'Bloodborne',
+      status: t.completed,
+      progress: 90,
+      achievements: [t.goodHunter, t.oldHunters, t.chaliceDungeons],
     },
-    { 
-      name: 'Sekiro', 
-      status: t.playing, 
-      progress: 75, 
-      achievements: [t.dragonsReturn, t.allSkills, t.bossRush] 
-    }
+    {
+      name: 'Sekiro',
+      status: t.playing,
+      progress: 75,
+      achievements: [t.dragonsReturn, t.allSkills, t.bossRush],
+    },
   ];
 
   const curiosities = [
@@ -739,15 +743,19 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
     t.gamingCuriosity2,
     t.gamingCuriosity3,
     t.gamingCuriosity4,
-    t.gamingCuriosity5
+    t.gamingCuriosity5,
   ];
 
   const getStatusColor = (status: string) => {
-    switch(status) {
-      case t.mastered: return 'text-yellow-400 bg-yellow-400/20';
-      case t.completed: return 'text-green-400 bg-green-400/20';
-      case t.playing: return 'text-blue-400 bg-blue-400/20';
-      default: return 'text-slate-400 bg-slate-400/20';
+    switch (status) {
+      case t.mastered:
+        return 'text-yellow-400 bg-yellow-400/20';
+      case t.completed:
+        return 'text-green-400 bg-green-400/20';
+      case t.playing:
+        return 'text-blue-400 bg-blue-400/20';
+      default:
+        return 'text-slate-400 bg-slate-400/20';
     }
   };
 
@@ -756,7 +764,7 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: index * 0.3 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: '-100px' }}
       className="bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-700"
     >
       {/* Header */}
@@ -771,7 +779,9 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
             <div className="flex items-center gap-4 text-slate-300">
               <span>{t.lifetimeExplorer}</span>
               <span>•</span>
-              <span>{games.length} {t.games}</span>
+              <span>
+                {games.length} {t.games}
+              </span>
             </div>
           </div>
         </div>
@@ -780,12 +790,8 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
       {/* Content */}
       <div className="p-8">
         <div className="mb-8">
-          <p className="text-slate-300 text-lg leading-relaxed mb-4">
-            {t.gamingDescription}
-          </p>
-          <p className="text-slate-400 leading-relaxed">
-            {t.gamingStory}
-          </p>
+          <p className="text-slate-300 text-lg leading-relaxed mb-4">{t.gamingDescription}</p>
+          <p className="text-slate-400 leading-relaxed">{t.gamingStory}</p>
         </div>
 
         {/* Game Library */}
@@ -808,7 +814,7 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     {game.status}
                   </div>
                 </div>
-                
+
                 <div className="mb-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-slate-400 text-sm">{t.skillLevel}</span>
@@ -824,10 +830,13 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     ></motion.div>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-2">
-                  {game.achievements.map((achievement) => (
-                    <span key={achievement} className="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg border border-slate-600">
+                  {game.achievements.map(achievement => (
+                    <span
+                      key={achievement}
+                      className="px-3 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg border border-slate-600"
+                    >
                       {achievement}
                     </span>
                   ))}
@@ -895,9 +904,7 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
                     transition={{ delay: idx * 0.1 }}
                     className="p-4 bg-slate-800 rounded-lg"
                   >
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      {curiosity}
-                    </p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{curiosity}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -911,12 +918,11 @@ const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
 
 // Category Section Component
 const CategorySection = ({ category, index }: { category: HobbyCategory; index: number }) => {
-  
   const renderHobbyCard = (hobby: Hobby, hobbyIndex: number) => {
-    switch(hobby.id) {
+    switch (hobby.id) {
       case 1: // Music
         return <MusicPlayerCard key={hobby.id} hobby={hobby} index={hobbyIndex} />;
-      case 2: // Art  
+      case 2: // Art
         return <ArtPortfolioCard key={hobby.id} hobby={hobby} index={hobbyIndex} />;
       case 3: // Skateboarding
         return <SkateSpotCard key={hobby.id} hobby={hobby} index={hobbyIndex} />;
@@ -932,7 +938,7 @@ const CategorySection = ({ category, index }: { category: HobbyCategory; index: 
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.4, delay: index * 0.2 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: '-50px' }}
       className="py-24 relative"
     >
       <div className="container mx-auto px-6">
@@ -944,12 +950,8 @@ const CategorySection = ({ category, index }: { category: HobbyCategory; index: 
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="text-5xl md:text-6xl font-light text-white mb-6 tracking-tight">
-            {category.name}
-          </h2>
-          <p className="text-xl text-slate-400 mb-4 font-light">
-            {category.description}
-          </p>
+          <h2 className="text-5xl md:text-6xl font-light text-white mb-6 tracking-tight">{category.name}</h2>
+          <p className="text-xl text-slate-400 mb-4 font-light">{category.description}</p>
           <div className="flex items-center justify-center gap-3">
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
             <span className="text-slate-500 font-medium">{category.vibe}</span>
@@ -959,9 +961,7 @@ const CategorySection = ({ category, index }: { category: HobbyCategory; index: 
 
         {/* Hobby Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-          {category.hobbies.map((hobby, hobbyIndex) => 
-            renderHobbyCard(hobby, hobbyIndex)
-          )}
+          {category.hobbies.map((hobby, hobbyIndex) => renderHobbyCard(hobby, hobbyIndex))}
         </div>
       </div>
     </motion.section>
@@ -971,7 +971,7 @@ const CategorySection = ({ category, index }: { category: HobbyCategory; index: 
 // Hero Section
 const HeroSection = () => {
   const { t } = useLanguage();
-  
+
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
@@ -1008,7 +1008,7 @@ const HeroSection = () => {
             {[
               { name: t.creativeSoul, color: '#64748b' },
               { name: t.streetExplorer, color: '#475569' },
-              { name: t.digitalWanderer, color: '#334155' }
+              { name: t.digitalWanderer, color: '#334155' },
             ].map((tag, index) => (
               <motion.div
                 key={tag.name}
@@ -1018,10 +1018,7 @@ const HeroSection = () => {
                 whileHover={{ scale: 1.1, y: -5 }}
                 className="flex items-center gap-3 px-6 py-3 bg-slate-800 rounded-2xl text-slate-300 hover:text-white transition-all duration-300 cursor-pointer border border-slate-600 hover:border-slate-400"
               >
-                <div 
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: tag.color }}
-                />
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: tag.color }} />
                 <span className="font-medium">{tag.name}</span>
               </motion.div>
             ))}
@@ -1032,21 +1029,21 @@ const HeroSection = () => {
   );
 };
 
-// Call to Action Section  
+// Call to Action Section
 const CTASection = () => {
   const { t } = useLanguage();
-  
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.8 }}
-      viewport={{ once: true, margin: "-120px" }}
+      viewport={{ once: true, margin: '-120px' }}
       className="py-32 relative"
     >
       <div className="container mx-auto px-6 text-center">
         <div className="max-w-5xl mx-auto">
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4 }}
@@ -1055,8 +1052,8 @@ const CTASection = () => {
           >
             {t.shareTheExperience}
           </motion.h3>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 0.3 }}
@@ -1065,7 +1062,7 @@ const CTASection = () => {
           >
             {t.shareTheExperienceSubtitle}
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1077,7 +1074,7 @@ const CTASection = () => {
               whileHover={{ scale: 1.05, y: -4 }}
               whileTap={{ scale: 0.98 }}
               className="px-12 py-5 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-bold hover:from-slate-500 hover:to-slate-600 transition-all duration-300 rounded-2xl text-lg cursor-pointer shadow-lg"
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => (window.location.href = '/contact')}
             >
               {t.letsConnect}
             </motion.button>
@@ -1085,7 +1082,7 @@ const CTASection = () => {
               whileHover={{ scale: 1.05, y: -4 }}
               whileTap={{ scale: 0.98 }}
               className="px-12 py-5 border-2 border-slate-600 text-slate-300 font-bold hover:bg-slate-700 hover:border-slate-400 hover:text-slate-200 transition-all duration-300 rounded-2xl text-lg cursor-pointer"
-              onClick={() => window.location.href = '/projects'}
+              onClick={() => (window.location.href = '/projects')}
             >
               {t.seeMyCreations}
             </motion.button>
@@ -1099,7 +1096,7 @@ const CTASection = () => {
 // Main Component
 export default function HobbiesPage() {
   const { t } = useLanguage();
-  
+
   // Create dynamic hobby data using translations
   const hobbiesData: HobbyCategory[] = [
     {
@@ -1117,7 +1114,7 @@ export default function HobbiesPage() {
           favorite: t.guitarFavorite,
           tags: [t.heavyMetalRiffs, t.acousticFingerpicking, t.originalCompositions, t.jamSessions],
           personality: t.energeticExpressive,
-          icon: '🎵'
+          icon: '🎵',
         },
         {
           id: 2,
@@ -1129,9 +1126,9 @@ export default function HobbiesPage() {
           favorite: t.artFavorite,
           tags: [t.characterDesign, t.digitalIllustration, t.conceptArt, t.storytellingThroughArt],
           personality: t.imaginativeDreamy,
-          icon: '🎨'
-        }
-      ]
+          icon: '🎨',
+        },
+      ],
     },
     {
       name: t.urbanAdventures,
@@ -1148,9 +1145,9 @@ export default function HobbiesPage() {
           favorite: t.skateFavorite,
           tags: [t.streetSkating, t.technicalTricks, t.urbanExploration, t.skateCulture],
           personality: t.rebelliousDetermined,
-          icon: '🛹'
-        }
-      ]
+          icon: '🛹',
+        },
+      ],
     },
     {
       name: t.digitalRealms,
@@ -1167,25 +1164,25 @@ export default function HobbiesPage() {
           favorite: t.gamingFavorite,
           tags: [t.eldenRingMastery, t.soulslikeChallenges, t.openWorldExploration, t.strategicGaming],
           personality: t.focusedAdventurous,
-          icon: '🎮'
-        }
-      ]
-    }
+          icon: '🎮',
+        },
+      ],
+    },
   ];
-  
+
   return (
     <div className="min-h-screen bg-slate-900 text-white relative overflow-hidden">
       <PlanetBackground />
       <BackButton />
       <PlanetNavigation />
-      
+
       <HeroSection />
-      
+
       <div className="relative z-10">
         {hobbiesData.map((category, index) => (
           <CategorySection key={category.name} category={category} index={index} />
         ))}
-        
+
         <CTASection />
       </div>
     </div>

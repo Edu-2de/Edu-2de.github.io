@@ -17,9 +17,10 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => handleLanguageChange('en')}
         className={`
           relative w-12 h-8 rounded-lg overflow-hidden border-2 transition-all duration-300 transform
-          ${language === 'en' 
-            ? 'border-blue-400 shadow-lg shadow-blue-400/30 scale-110' 
-            : 'border-slate-600 hover:border-slate-400 hover:scale-105'
+          ${
+            language === 'en'
+              ? 'border-blue-400 shadow-lg shadow-blue-400/30 scale-110'
+              : 'border-slate-600 hover:border-slate-400 hover:scale-105'
           }
         `}
         title="English"
@@ -57,9 +58,10 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => handleLanguageChange('pt')}
         className={`
           relative w-12 h-8 rounded-lg overflow-hidden border-2 transition-all duration-300 transform
-          ${language === 'pt' 
-            ? 'border-green-400 shadow-lg shadow-green-400/30 scale-110' 
-            : 'border-slate-600 hover:border-slate-400 hover:scale-105'
+          ${
+            language === 'pt'
+              ? 'border-green-400 shadow-lg shadow-green-400/30 scale-110'
+              : 'border-slate-600 hover:border-slate-400 hover:scale-105'
           }
         `}
         title="Português"
@@ -68,10 +70,10 @@ const LanguageSwitcher: React.FC = () => {
         <div className="w-full h-full relative bg-green-600">
           {/* Yellow diamond */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div 
+            <div
               className="w-8 h-5 bg-yellow-400 transform rotate-45"
               style={{
-                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)'
+                clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
               }}
             ></div>
           </div>
