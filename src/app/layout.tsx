@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: 'Eduardo Silva - Full Stack Developer',
   description:
-    'Portfólio pessoal de Eduardo Silva - Desenvolvedor Full Stack especializado em React, Next.js, Node.js e tecnologias modernas.',
-  keywords: 'Eduardo Silva, Desenvolvedor, Full Stack, React, Next.js, TypeScript, JavaScript',
+    'Eduardo Silva personal portfolio - Full Stack Developer specialized in React, Next.js, Node.js and modern technologies.',
+  keywords: 'Eduardo Silva, Dev, Full Stack, React, Next.js, TypeScript, JavaScript',
   authors: [{ name: 'Eduardo Silva' }],
   robots: 'index, follow',
 };

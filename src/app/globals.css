@@ -113,7 +113,6 @@ a:focus {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Glass morphism effect */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, Globe , Star, Satellite } from 'lucide-react'; // Ícones espaciais
+import { Rocket, Globe , Star, Satellite } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', href: '#home', icon: <Rocket size={20} /> },
@@ -14,7 +14,7 @@ const navItems = [
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState('home');
 
-  // Detecta qual seção está visível
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['home', 'about', 'projects', 'contact'];
@@ -65,7 +65,7 @@ export default function Navigation() {
           >
             {item.icon}
             {item.name}
-            {/* Barra animada do item ativo */}
+
             {isActive && (
               <motion.div
                 layoutId="activeLine"
