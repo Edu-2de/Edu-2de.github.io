@@ -308,8 +308,8 @@ export interface Translations {
   fullStackToolsDescription: string;
   planetExperience: string;
   completedProjects: string;
-  
-  // Tools page  
+
+  // Tools page
   toolsTitle: string;
   digitalToolkit: string;
   toolsPageDescription: string;
@@ -320,7 +320,7 @@ export interface Translations {
   codingTools: string;
   designTools: string;
   productivityTools: string;
-  
+
   // Dreams page
   dreamsTitle: string;
   futureVisions: string;
@@ -676,23 +676,25 @@ export const translations: Record<Language, Translations> = {
 
     // Skills page
     technicalSkills: 'Technical Skills',
-    skillsPageDescription: 'Navigating through the event horizon of technology, where knowledge bends spacetime and innovation transcends boundaries.',
+    skillsPageDescription:
+      'Navigating through the event horizon of technology, where knowledge bends spacetime and innovation transcends boundaries.',
     codeGraviton: 'Code Graviton',
     eventHorizonExplorer: 'Event Horizon Explorer',
     quantumDeveloper: 'Quantum Developer',
     frontendDevelopmentTitle: 'Frontend Development',
     frontendDevelopmentDescription: 'User interface and experience technologies',
     backendDevelopmentTitle: 'Backend Development',
-    backendDevelopmentDescription: 'Server-side technologies and databases', 
+    backendDevelopmentDescription: 'Server-side technologies and databases',
     fullStackToolsTitle: 'Full Stack Tools',
     fullStackToolsDescription: 'Development and deployment technologies',
     planetExperience: 'Experience',
     completedProjects: 'Completed Projects',
-    
+
     // Tools page
     toolsTitle: 'Tools Universe',
     digitalToolkit: 'Digital Toolkit',
-    toolsPageDescription: 'Professional tools and platforms that power modern development workflows and creative processes. Each tool has been carefully selected and mastered to deliver exceptional results.',
+    toolsPageDescription:
+      'Professional tools and platforms that power modern development workflows and creative processes. Each tool has been carefully selected and mastered to deliver exceptional results.',
     developmentSuite: 'Development Suite',
     designStudio: 'Design Studio',
     deploymentEngine: 'Deployment Engine',
@@ -700,11 +702,12 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Coding Tools',
     designTools: 'Design Tools',
     productivityTools: 'Productivity Tools',
-    
+
     // Dreams page
     dreamsTitle: 'Dreams Universe',
     futureVisions: 'Future Visions',
-    dreamsPageDescription: 'Ambitious goals and aspirations that drive my journey forward. Each dream represents a commitment to growth, impact, and the pursuit of meaningful achievements that extend beyond personal success.',
+    dreamsPageDescription:
+      'Ambitious goals and aspirations that drive my journey forward. Each dream represents a commitment to growth, impact, and the pursuit of meaningful achievements that extend beyond personal success.',
     careerExcellence: 'Career Excellence',
     creativeExpression: 'Creative Expression',
     personalGrowth: 'Personal Growth',
@@ -1044,7 +1047,8 @@ export const translations: Record<Language, Translations> = {
 
     // Skills page
     technicalSkills: 'Habilidades Técnicas',
-    skillsPageDescription: 'Navegando através do horizonte de eventos da tecnologia, onde o conhecimento dobra o espaço-tempo e a inovação transcende fronteiras.',
+    skillsPageDescription:
+      'Navegando através do horizonte de eventos da tecnologia, onde o conhecimento dobra o espaço-tempo e a inovação transcende fronteiras.',
     codeGraviton: 'Gravíton do Código',
     eventHorizonExplorer: 'Explorador do Horizonte de Eventos',
     quantumDeveloper: 'Desenvolvedor Quântico',
@@ -1056,11 +1060,12 @@ export const translations: Record<Language, Translations> = {
     fullStackToolsDescription: 'Tecnologias de desenvolvimento e deploy',
     planetExperience: 'Experiência',
     completedProjects: 'Projetos Completados',
-    
+
     // Tools page
     toolsTitle: 'Universo de Ferramentas',
     digitalToolkit: 'Kit de Ferramentas Digitais',
-    toolsPageDescription: 'Ferramentas e plataformas profissionais que potencializam workflows de desenvolvimento modernos e processos criativos. Cada ferramenta foi cuidadosamente selecionada e dominada para entregar resultados excepcionais.',
+    toolsPageDescription:
+      'Ferramentas e plataformas profissionais que potencializam workflows de desenvolvimento modernos e processos criativos. Cada ferramenta foi cuidadosamente selecionada e dominada para entregar resultados excepcionais.',
     developmentSuite: 'Suíte de Desenvolvimento',
     designStudio: 'Estúdio de Design',
     deploymentEngine: 'Motor de Deploy',
@@ -1068,11 +1073,12 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Ferramentas de Código',
     designTools: 'Ferramentas de Design',
     productivityTools: 'Ferramentas de Produtividade',
-    
+
     // Dreams page
     dreamsTitle: 'Universo dos Sonhos',
     futureVisions: 'Visões do Futuro',
-    dreamsPageDescription: 'Objetivos ambiciosos e aspirações que impulsionam minha jornada. Cada sonho representa um compromisso com o crescimento, impacto e a busca por conquistas significativas que vão além do sucesso pessoal.',
+    dreamsPageDescription:
+      'Objetivos ambiciosos e aspirações que impulsionam minha jornada. Cada sonho representa um compromisso com o crescimento, impacto e a busca por conquistas significativas que vão além do sucesso pessoal.',
     careerExcellence: 'Excelência na Carreira',
     creativeExpression: 'Expressão Criativa',
     personalGrowth: 'Crescimento Pessoal',
