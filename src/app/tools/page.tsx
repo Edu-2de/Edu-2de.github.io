@@ -11,9 +11,8 @@ interface Tool {
   proficiency: number;
   experience: string;
   description: string;
-  icon?: string;
-  features?: string[];
-  useCases?: string[];
+  features: string[];
+  useCases: string[];
 }
 
 interface ToolCategory {
@@ -26,9 +25,9 @@ interface ToolCategory {
 // Tools Data
 const toolsData: ToolCategory[] = [
   {
-    name: 'Development Environment',
-    description: 'Core development and coding tools',
-    color: 'from-pink-300 to-rose-400',
+    name: 'Development',
+    description: 'Core development tools',
+    color: 'from-pink-400 to-rose-500',
     tools: [
       {
         id: 1,
@@ -36,7 +35,7 @@ const toolsData: ToolCategory[] = [
         category: 'Editor',
         proficiency: 95,
         experience: '3+ years',
-        description: 'Primary code editor with extensive customization and extensions for enhanced productivity',
+        description: 'Primary code editor with extensive customization and extensions',
         features: ['IntelliSense', 'Git Integration', 'Extensions', 'Debugging'],
         useCases: ['Daily Development', 'Code Review', 'Project Management']
       },
@@ -46,7 +45,7 @@ const toolsData: ToolCategory[] = [
         category: 'Version Control',
         proficiency: 90,
         experience: '2+ years',
-        description: 'Version control and collaboration platform for managing code repositories and team projects',
+        description: 'Version control and collaboration platform for code repositories',
         features: ['Git Repositories', 'Pull Requests', 'Actions', 'Project Boards'],
         useCases: ['Source Control', 'Team Collaboration', 'CI/CD Pipeline']
       },
@@ -56,130 +55,90 @@ const toolsData: ToolCategory[] = [
         category: 'CLI',
         proficiency: 80,
         experience: '2+ years',
-        description: 'Command-line interface for system operations, package management, and automation',
-        features: ['Shell Scripting', 'Package Managers', 'System Operations', 'Git Commands'],
+        description: 'Command-line interface for system operations and automation',
+        features: ['Shell Scripting', 'Package Managers', 'Git Commands'],
         useCases: ['Project Setup', 'Build Processes', 'Server Management']
-      },
-      {
-        id: 4,
-        name: 'Postman',
-        category: 'API Testing',
-        proficiency: 75,
-        experience: '1+ years',
-        description: 'API development and testing platform for building and debugging REST APIs',
-        features: ['API Testing', 'Collections', 'Environment Variables', 'Mock Servers'],
-        useCases: ['API Development', 'Testing Workflows', 'Documentation']
       }
     ]
   },
   {
-    name: 'Design & Prototyping',
-    description: 'Visual design and user interface tools',
-    color: 'from-rose-400 to-pink-500',
+    name: 'Design',
+    description: 'Visual design and prototyping',
+    color: 'from-rose-500 to-pink-600',
     tools: [
       {
-        id: 5,
+        id: 4,
         name: 'Figma',
         category: 'Design',
         proficiency: 85,
         experience: '1.5+ years',
-        description: 'Collaborative design tool for creating user interfaces, prototypes, and design systems',
-        features: ['UI Design', 'Prototyping', 'Component Libraries', 'Real-time Collaboration'],
+        description: 'Collaborative design tool for UI/UX and prototyping',
+        features: ['UI Design', 'Prototyping', 'Component Libraries', 'Collaboration'],
         useCases: ['Interface Design', 'Wireframing', 'Design Systems']
       },
       {
-        id: 6,
+        id: 5,
         name: 'Adobe Photoshop',
         category: 'Graphics',
         proficiency: 70,
         experience: '2+ years',
-        description: 'Professional image editing and graphic design software for digital art creation',
-        features: ['Photo Editing', 'Digital Art', 'Layer Management', 'Filter Effects'],
+        description: 'Professional image editing and graphic design software',
+        features: ['Photo Editing', 'Digital Art', 'Layer Management'],
         useCases: ['Image Processing', 'Graphic Design', 'Asset Creation']
-      },
-      {
-        id: 7,
-        name: 'Canva',
-        category: 'Graphics',
-        proficiency: 80,
-        experience: '1+ years',
-        description: 'Online graphic design platform for creating presentations, social media content, and marketing materials',
-        features: ['Templates', 'Drag & Drop', 'Stock Media', 'Brand Kit'],
-        useCases: ['Presentations', 'Social Media', 'Marketing Content']
       }
     ]
   },
   {
-    name: 'Deployment & Hosting',
-    description: 'Platform and infrastructure tools',
-    color: 'from-pink-500 to-fuchsia-500',
+    name: 'Deployment',
+    description: 'Hosting and infrastructure',
+    color: 'from-pink-600 to-fuchsia-600',
     tools: [
       {
-        id: 8,
+        id: 6,
         name: 'Vercel',
         category: 'Hosting',
         proficiency: 90,
         experience: '1.5+ years',
-        description: 'Frontend deployment platform with serverless functions and edge network optimization',
-        features: ['Auto Deployment', 'Custom Domains', 'Analytics', 'Edge Functions'],
+        description: 'Frontend deployment platform with serverless functions',
+        features: ['Auto Deployment', 'Custom Domains', 'Analytics'],
         useCases: ['Frontend Hosting', 'Static Sites', 'Serverless APIs']
       },
       {
-        id: 9,
-        name: 'Netlify',
-        category: 'Hosting',
-        proficiency: 75,
-        experience: '1+ years',
-        description: 'Web development platform for deploying and managing modern web applications',
-        features: ['Continuous Deployment', 'Form Handling', 'CDN', 'Identity Management'],
-        useCases: ['JAMstack Sites', 'Form Processing', 'Branch Previews']
-      },
-      {
-        id: 10,
+        id: 7,
         name: 'Firebase',
         category: 'Backend',
         proficiency: 65,
         experience: '8 months',
-        description: 'Google\'s mobile and web application development platform with real-time database',
-        features: ['Real-time Database', 'Authentication', 'Hosting', 'Cloud Functions'],
+        description: 'Google\'s development platform with real-time database',
+        features: ['Real-time Database', 'Authentication', 'Hosting'],
         useCases: ['User Authentication', 'Real-time Apps', 'Backend Services']
       }
     ]
   },
   {
-    name: 'Productivity & Communication',
-    description: 'Workflow and collaboration tools',
-    color: 'from-fuchsia-500 to-purple-500',
+    name: 'Productivity',
+    description: 'Workflow and communication',
+    color: 'from-fuchsia-600 to-purple-600',
     tools: [
       {
-        id: 11,
+        id: 8,
         name: 'Notion',
         category: 'Productivity',
         proficiency: 85,
         experience: '1+ years',
-        description: 'All-in-one workspace for notes, project management, and team collaboration',
-        features: ['Database Management', 'Templates', 'Kanban Boards', 'Team Collaboration'],
+        description: 'All-in-one workspace for notes and project management',
+        features: ['Database Management', 'Templates', 'Kanban Boards'],
         useCases: ['Project Planning', 'Documentation', 'Task Management']
       },
       {
-        id: 12,
+        id: 9,
         name: 'Discord',
         category: 'Communication',
         proficiency: 90,
         experience: '3+ years',
-        description: 'Communication platform for text, voice, and video chat with community features',
-        features: ['Voice Channels', 'Screen Sharing', 'Bot Integration', 'Server Management'],
+        description: 'Communication platform for team collaboration',
+        features: ['Voice Channels', 'Screen Sharing', 'Bot Integration'],
         useCases: ['Team Communication', 'Community Building', 'Code Reviews']
-      },
-      {
-        id: 13,
-        name: 'Trello',
-        category: 'Project Management',
-        proficiency: 70,
-        experience: '1+ years',
-        description: 'Visual project management tool based on Kanban boards for organizing tasks and workflows',
-        features: ['Kanban Boards', 'Cards & Lists', 'Team Collaboration', 'Power-Ups'],
-        useCases: ['Task Tracking', 'Project Organization', 'Team Workflows']
       }
     ]
   }
@@ -223,7 +182,6 @@ const BackButton = () => (
 // Planet Navigation Component
 const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
 
   const handlePlanetClick = (planet: typeof planets[0]) => {
     if (planet.path === '/tools') return;
@@ -237,10 +195,7 @@ const PlanetNavigation = () => {
       transition={{ delay: 0.5, duration: 0.8 }}
       className="fixed top-8 right-8 z-50 cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setSelectedPlanet(null);
-      }}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <AnimatePresence>
         {!isHovered ? (
@@ -272,7 +227,7 @@ const PlanetNavigation = () => {
             initial={{ opacity: 0, scale: 0.8, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: -10 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.4 }}
             className="flex flex-col gap-2 p-4 bg-neutral-900/70 backdrop-blur-xl rounded-2xl border border-neutral-700/40 shadow-2xl"
           >
             <div className="text-xs text-neutral-400 font-medium mb-2 px-2 flex items-center gap-2">
@@ -281,7 +236,6 @@ const PlanetNavigation = () => {
             </div>
             {planets.map((planet, index) => {
               const isCurrent = planet.path === '/tools';
-              const isSelected = selectedPlanet === planet.name;
               
               return (
                 <motion.button
@@ -290,13 +244,10 @@ const PlanetNavigation = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                   onClick={() => handlePlanetClick(planet)}
-                  onMouseEnter={() => setSelectedPlanet(planet.name)}
                   disabled={isCurrent}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer ${
                     isCurrent 
                       ? 'bg-neutral-800/70 text-pink-300 cursor-default border border-pink-500/30' 
-                      : isSelected
-                      ? 'bg-neutral-800/50 text-neutral-200 border border-neutral-600/30'
                       : 'hover:bg-neutral-800/40 text-neutral-400 border border-transparent hover:border-neutral-600/20'
                   }`}
                   whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
@@ -334,21 +285,20 @@ const PlanetNavigation = () => {
   );
 };
 
-// Planet Background - Right side
+// Planet Background - Bottom center
 const PlanetBackground = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    {/* Tools Planet - Half visible from top right */}
+    {/* Tools Planet - Half visible from bottom */}
     <motion.div
-      initial={{ scale: 0.8, opacity: 0, rotate: 15 }}
-      animate={{ scale: 1, opacity: 1, rotate: 0 }}
+      initial={{ scale: 0.8, opacity: 0, y: 50 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
       transition={{ duration: 2.5, ease: "easeOut" }}
-      className="absolute -top-1/3 -right-1/4 w-[140vh] h-[140vh] rounded-full"
+      className="absolute -bottom-1/2 left-1/2 transform -translate-x-1/2 w-[120vh] h-[120vh] rounded-full"
       style={{
-        background: `radial-gradient(circle at 30% 30%, 
-          rgba(236, 72, 153, 0.16) 0%,
-          rgba(219, 39, 119, 0.12) 25%,
-          rgba(190, 24, 93, 0.08) 50%,
-          rgba(157, 23, 77, 0.04) 75%,
+        background: `radial-gradient(circle at 50% 20%, 
+          rgba(236, 72, 153, 0.12) 0%,
+          rgba(219, 39, 119, 0.08) 30%,
+          rgba(190, 24, 93, 0.04) 60%,
           transparent 100%)`,
         filter: 'blur(1.5px)',
       }}
@@ -359,19 +309,9 @@ const PlanetBackground = () => (
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 1.2, duration: 2 }}
-      className="absolute -top-1/3 -right-1/4 w-[160vh] h-[160vh] rounded-full border border-pink-500/6"
+      className="absolute -bottom-1/2 left-1/2 transform -translate-x-1/2 w-[140vh] h-[140vh] rounded-full border border-pink-500/4"
       style={{
-        animation: 'spin 140s linear infinite',
-      }}
-    />
-    
-    <motion.div
-      initial={{ opacity: 0, scale: 1.1 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 1.8, duration: 2 }}
-      className="absolute -top-1/3 -right-1/4 w-[180vh] h-[180vh] rounded-full border border-pink-500/3"
-      style={{
-        animation: 'spin 200s linear infinite reverse',
+        animation: 'spin 160s linear infinite',
       }}
     />
   </div>
@@ -384,32 +324,30 @@ const FloatingElements = () => {
   useEffect(() => {
     const generateElements = () => {
       const components = [];
-      const numberOfElements = 10;
+      const numberOfElements = 8;
 
       for (let i = 0; i < numberOfElements; i++) {
-        const size = Math.random() * 6 + 3;
-        const duration = 20 + Math.random() * 15;
-        const delay = Math.random() * 8;
+        const size = Math.random() * 4 + 2;
+        const duration = 25 + Math.random() * 10;
+        const delay = Math.random() * 10;
         
         components.push(
           <motion.div
             key={i}
-            className="absolute opacity-20"
+            className="absolute opacity-15 rounded-full"
             style={{
               width: `${size}px`,
               height: `${size}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              background: `radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, rgba(219, 39, 119, 0.2) 50%, transparent 100%)`,
-              borderRadius: Math.random() > 0.5 ? '50%' : '20%',
+              background: `radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%)`,
               filter: 'blur(0.5px)',
             }}
             animate={{
-              y: [0, -40, 0, 30, 0],
-              x: [0, 30, -20, 0],
-              scale: [1, 1.3, 0.9, 1.1, 1],
-              rotate: [0, 45, -30, 60, 0],
-              opacity: [0.2, 0.5, 0.1, 0.4, 0.2],
+              y: [0, -30, 0, 20, 0],
+              x: [0, 20, -15, 0],
+              scale: [1, 1.2, 0.8, 1],
+              opacity: [0.15, 0.4, 0.1, 0.15],
             }}
             transition={{
               duration,
@@ -433,143 +371,99 @@ const FloatingElements = () => {
   );
 };
 
-// Digital Grid Effect
-const DigitalGrid = () => (
-  <div className="fixed inset-0 pointer-events-none z-0">
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 3, delay: 1 }}
-      className="absolute bottom-1/4 left-1/3 w-96 h-96 rounded-lg opacity-5"
-      style={{
-        backgroundImage: `linear-gradient(rgba(236, 72, 153, 0.1) 1px, transparent 1px),
-                         linear-gradient(90deg, rgba(236, 72, 153, 0.1) 1px, transparent 1px)`,
-        backgroundSize: '20px 20px',
-        animation: 'spin 400s linear infinite',
-      }}
-    />
-  </div>
-);
-
 // Tool Card Component
 const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 100);
+    const timer = setTimeout(() => setIsVisible(true), index * 150);
     return () => clearTimeout(timer);
   }, [index]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50, rotateX: -15 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{ delay: index * 0.1, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: "-80px" }}
-      className="group bg-neutral-900/40 backdrop-blur-xl rounded-2xl p-8 border border-neutral-700/30 hover:border-pink-500/20 hover:bg-neutral-900/50 transition-all duration-500 relative overflow-hidden"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.8 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="group bg-neutral-900/40 backdrop-blur-xl rounded-xl p-6 border border-neutral-700/30 hover:border-pink-500/20 hover:bg-neutral-900/50 transition-all duration-300 relative overflow-hidden"
       style={{
-        boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(236, 72, 153, 0.05)`,
+        boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/3 via-transparent to-fuchsia-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/3 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div className="relative z-10">
         {/* Header */}
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-start mb-4">
           <div>
-            <h4 className="text-2xl font-medium text-neutral-100 group-hover:text-pink-200 transition-colors duration-300 mb-2">
+            <h4 className="text-xl font-medium text-neutral-100 group-hover:text-pink-200 transition-colors duration-300 mb-1">
               {tool.name}
             </h4>
-            <div className="flex items-center gap-3 text-sm">
-              <span className="px-3 py-1 bg-pink-500/10 text-pink-300 rounded-full border border-pink-500/20 font-medium">
+            <div className="flex items-center gap-2 text-sm">
+              <span className="px-2 py-1 bg-pink-500/10 text-pink-300 rounded-md border border-pink-500/20 font-medium text-xs">
                 {tool.category}
               </span>
-              <span className="text-neutral-500">{tool.experience}</span>
+              <span className="text-neutral-500 text-xs">{tool.experience}</span>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-light text-pink-300 mb-1">
+            <div className="text-lg font-medium text-pink-300 mb-1">
               {tool.proficiency}%
             </div>
-            <div className="w-16 bg-neutral-800/40 rounded-full h-2 overflow-hidden">
+            <div className="w-12 bg-neutral-800/40 rounded-full h-1.5 overflow-hidden">
               <motion.div
-                className="bg-gradient-to-r from-pink-400 to-fuchsia-500 h-2 rounded-full"
+                className="bg-gradient-to-r from-pink-400 to-fuchsia-500 h-1.5 rounded-full"
                 initial={{ width: 0 }}
                 whileInView={{ width: isVisible ? `${tool.proficiency}%` : 0 }}
-                transition={{ duration: 2, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 1.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                style={{
-                  boxShadow: `0 0 8px rgba(236, 72, 153, 0.3)`,
-                }}
               />
             </div>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-neutral-400 leading-relaxed mb-6 font-light">
+        <p className="text-neutral-400 text-sm leading-relaxed mb-4 font-light">
           {tool.description}
         </p>
 
-        {/* Features */}
-        {tool.features && (
-          <div className="mb-6">
-            <h5 className="text-sm font-medium text-neutral-300 mb-3 flex items-center gap-2">
-              <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
-              Key Features
+        {/* Features & Use Cases */}
+        <div className="space-y-3">
+          <div>
+            <h5 className="text-xs font-medium text-neutral-300 mb-2 flex items-center gap-1">
+              <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse" />
+              Features
             </h5>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1">
               {tool.features.map((feature, idx) => (
-                <motion.span
+                <span
                   key={idx}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.3 + idx * 0.05, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="inline-block px-3 py-1 text-xs bg-neutral-800/40 text-neutral-300 rounded-lg border border-neutral-700/30 hover:bg-neutral-700/40 hover:border-pink-500/20 transition-all duration-300"
+                  className="inline-block px-2 py-1 text-xs bg-neutral-800/40 text-neutral-300 rounded-md border border-neutral-700/30"
                 >
                   {feature}
-                </motion.span>
+                </span>
               ))}
             </div>
           </div>
-        )}
 
-        {/* Use Cases */}
-        {tool.useCases && (
           <div>
-            <h5 className="text-sm font-medium text-neutral-300 mb-3 flex items-center gap-2">
-              <div className="w-2 h-2 bg-fuchsia-400 rounded-full animate-pulse delay-75" />
+            <h5 className="text-xs font-medium text-neutral-300 mb-2 flex items-center gap-1">
+              <div className="w-1.5 h-1.5 bg-fuchsia-400 rounded-full animate-pulse delay-75" />
               Use Cases
             </h5>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1">
               {tool.useCases.map((useCase, idx) => (
-                <motion.span
+                <span
                   key={idx}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.5 + idx * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
-                  className="inline-block px-3 py-1 text-xs bg-pink-500/10 text-pink-300 rounded-lg border border-pink-500/20 hover:bg-pink-500/20 transition-all duration-300"
+                  className="inline-block px-2 py-1 text-xs bg-pink-500/10 text-pink-300 rounded-md border border-pink-500/20"
                 >
                   {useCase}
-                </motion.span>
+                </span>
               ))}
             </div>
           </div>
-        )}
-
-        {/* Proficiency Indicator */}
-        <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          transition={{ delay: index * 0.1 + 0.8, duration: 0.5 }}
-          viewport={{ once: true }}
-          className="absolute top-4 right-4 w-3 h-3 bg-pink-400 rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-          style={{
-            boxShadow: `0 0 15px rgba(236, 72, 153, 0.6)`,
-          }}
-        />
+        </div>
       </div>
     </motion.div>
   );
@@ -578,38 +472,34 @@ const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
 // Tool Category Section
 const ToolCategorySection = ({ category, index }: { category: ToolCategory; index: number }) => (
   <motion.section
-    initial={{ opacity: 0, y: 100 }}
+    initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.2, delay: index * 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-    viewport={{ once: true, margin: "-150px" }}
-    className="mb-32"
+    transition={{ duration: 1, delay: index * 0.2 }}
+    viewport={{ once: true, margin: "-100px" }}
+    className="mb-20"
   >
-    <div className="text-center mb-16">
+    <div className="text-center mb-12">
       <motion.div
-        initial={{ scale: 0.8, opacity: 0, rotate: 5 }}
-        whileInView={{ scale: 1, opacity: 1, rotate: 0 }}
-        transition={{ duration: 1, delay: index * 0.3 + 0.4 }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, delay: index * 0.2 + 0.3 }}
         viewport={{ once: true }}
-        className={`inline-block px-8 py-4 rounded-full bg-gradient-to-r ${category.color} text-neutral-900 text-sm font-semibold mb-6 shadow-lg relative overflow-hidden`}
-        style={{
-          boxShadow: `0 0 30px rgba(236, 72, 153, 0.2)`,
-        }}
+        className={`inline-block px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-neutral-900 text-sm font-semibold mb-4 shadow-lg`}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-white/15 to-transparent" />
-        <span className="relative z-10">{category.name}</span>
+        {category.name}
       </motion.div>
       <motion.p 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.3 + 0.6, duration: 1 }}
+        transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
         viewport={{ once: true }}
-        className="text-neutral-400 max-w-2xl mx-auto text-lg font-light leading-relaxed"
+        className="text-neutral-400 max-w-lg mx-auto text-base font-light"
       >
         {category.description}
       </motion.p>
     </div>
 
-    <div className="grid gap-8 lg:grid-cols-2 xl:gap-10">
+    <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
       {category.tools.map((tool, toolIndex) => (
         <ToolCard key={tool.id} tool={tool} index={toolIndex} />
       ))}
@@ -622,52 +512,48 @@ const HeroSection = () => (
   <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div className="container mx-auto px-6 relative z-10">
       <motion.div
-        initial={{ opacity: 0, y: 80 }}
+        initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center max-w-6xl mx-auto"
+        transition={{ duration: 1.4 }}
+        className="text-center max-w-5xl mx-auto"
       >
         <motion.h1
-          className="text-8xl md:text-9xl font-extralight mb-16 text-neutral-100 tracking-tight"
-          initial={{ opacity: 0, y: 40 }}
+          className="text-7xl md:text-8xl font-extralight mb-12 text-neutral-100 tracking-tight"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.6, delay: 0.4 }}
+          transition={{ duration: 1.4, delay: 0.3 }}
           style={{
-            textShadow: `0 0 40px rgba(236, 72, 153, 0.2)`,
+            textShadow: `0 0 30px rgba(236, 72, 153, 0.15)`,
           }}
         >
-          Digital Arsenal
+          Digital Toolkit
         </motion.h1>
 
         <motion.p
-          className="text-2xl text-neutral-400 font-light leading-relaxed mb-20 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 40 }}
+          className="text-xl text-neutral-400 font-light leading-relaxed mb-16 max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 1.3 }}
+          transition={{ delay: 0.8, duration: 1.2 }}
         >
-          A curated collection of professional tools and platforms that power modern development workflows and creative processes.
+          Professional tools and platforms that power modern development workflows and creative processes.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 1 }}
-          className="flex flex-wrap justify-center gap-8"
+          transition={{ delay: 1.3, duration: 1 }}
+          className="flex flex-wrap justify-center gap-6"
         >
           {['Development Suite', 'Design Studio', 'Deployment Engine'].map((tag, index) => (
             <motion.span
               key={tag}
-              initial={{ opacity: 0, scale: 0.8, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 1.9 + index * 0.15, duration: 0.8 }}
-              whileHover={{ scale: 1.05, y: -3, rotate: 1 }}
-              className="px-6 py-3 bg-neutral-800/30 text-neutral-300 rounded-full border border-neutral-700/40 font-light backdrop-blur-xl hover:bg-neutral-700/30 hover:border-pink-500/20 hover:text-pink-200 transition-all duration-300 cursor-pointer relative overflow-hidden"
-              style={{
-                boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
-              }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.6 + index * 0.1, duration: 0.6 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-5 py-2 bg-neutral-800/30 text-neutral-300 rounded-full border border-neutral-700/40 font-light backdrop-blur-xl hover:bg-neutral-700/30 hover:border-pink-500/20 hover:text-pink-200 transition-all duration-300 cursor-pointer"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10">{tag}</span>
+              {tag}
             </motion.span>
           ))}
         </motion.div>
@@ -678,27 +564,18 @@ const HeroSection = () => (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 3.2 }}
+      transition={{ delay: 2.5 }}
       className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
     >
       <motion.div
-        animate={{ 
-          y: [0, 18, 0],
-          scale: [1, 1.08, 1] 
-        }}
-        transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-        className="w-8 h-16 border-2 border-neutral-600 rounded-full flex justify-center relative overflow-hidden backdrop-blur-sm"
-        style={{
-          boxShadow: `0 0 15px rgba(236, 72, 153, 0.1)`,
-        }}
+        animate={{ y: [0, 12, 0] }}
+        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        className="w-6 h-12 border-2 border-neutral-600 rounded-full flex justify-center relative backdrop-blur-sm"
       >
         <motion.div
-          animate={{ 
-            y: [0, 26, 0],
-            opacity: [0.5, 1, 0.5]
-          }}
-          transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-          className="w-1 h-6 bg-gradient-to-b from-pink-400 to-fuchsia-500 rounded-full mt-4"
+          animate={{ y: [0, 16, 0], opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          className="w-0.5 h-4 bg-gradient-to-b from-pink-400 to-fuchsia-500 rounded-full mt-3"
         />
       </motion.div>
     </motion.div>
@@ -710,65 +587,59 @@ const ToolsStats = () => (
   <motion.section
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
-    transition={{ duration: 1.6 }}
-    viewport={{ once: true, margin: "-120px" }}
-    className="py-32"
+    transition={{ duration: 1.2 }}
+    viewport={{ once: true, margin: "-100px" }}
+    className="py-24"
   >
     <div className="container mx-auto px-6">
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.3 }}
+        transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="text-center mb-20"
+        className="text-center mb-16"
       >
-        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-6">
-          Workflow Analytics
+        <h2 className="text-4xl md:text-5xl font-light text-neutral-100 mb-4">
+          Toolkit Analytics
         </h2>
-        <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
-          Professional metrics from the digital workspace ecosystem
+        <p className="text-neutral-400 text-lg font-light max-w-2xl mx-auto">
+          Professional metrics from the digital workspace
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {[
-          { number: '13+', label: 'Tools', description: 'Active Arsenal', color: '#ec4899' },
-          { number: '4', label: 'Categories', description: 'Core Domains', color: '#db2777' },
-          { number: '80%', label: 'Efficiency', description: 'Avg. Proficiency', color: '#be185d' },
-          { number: '24/7', label: 'Uptime', description: 'Productivity Flow', color: '#9d174d' }
+          { number: '9', label: 'Tools', description: 'Active Arsenal' },
+          { number: '4', label: 'Categories', description: 'Core Domains' },
+          { number: '82%', label: 'Efficiency', description: 'Avg. Proficiency' },
+          { number: '24/7', label: 'Uptime', description: 'Productivity Flow' }
         ].map((stat, index) => (
           <motion.div
             key={index}
-            initial={{ scale: 0.8, opacity: 0, y: 40, rotate: -3 }}
-            whileInView={{ scale: 1, opacity: 1, y: 0, rotate: 0 }}
-            transition={{ delay: index * 0.2, duration: 1 }}
+            initial={{ scale: 0.9, opacity: 0, y: 30 }}
+            whileInView={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.15, duration: 0.8 }}
             viewport={{ once: true }}
-            className="group text-center relative"
+            className="group text-center"
           >
             <motion.div 
-              className="text-5xl md:text-6xl font-extralight text-neutral-100 mb-4 group-hover:text-pink-200 transition-colors duration-500 relative"
-              whileHover={{ scale: 1.1, y: -5, rotate: 2 }}
-              transition={{ duration: 0.3 }}
-              style={{
-                textShadow: `0 0 20px ${stat.color}25`,
-              }}
+              className="text-4xl md:text-5xl font-extralight text-neutral-100 mb-2 group-hover:text-pink-200 transition-colors duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              transition={{ duration: 0.2 }}
             >
               {stat.number}
             </motion.div>
-            <div className="text-lg font-medium text-neutral-300 mb-2">
+            <div className="text-base font-medium text-neutral-300 mb-1">
               {stat.label}
             </div>
             <div className="text-sm text-neutral-500 font-light">
               {stat.description}
             </div>
             <motion.div
-              className="w-12 h-0.5 mx-auto mt-3 rounded-full bg-pink-400"
-              style={{ 
-                boxShadow: `0 0 8px rgba(236, 72, 153, 0.4)`
-              }}
-              initial={{ scaleX: 0, rotate: -5 }}
-              whileInView={{ scaleX: 1, rotate: 0 }}
-              transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
+              className="w-8 h-0.5 mx-auto mt-2 rounded-full bg-pink-400"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ delay: index * 0.15 + 0.4, duration: 0.6 }}
               viewport={{ once: true }}
             />
           </motion.div>
@@ -781,67 +652,59 @@ const ToolsStats = () => (
 // Call to Action Section
 const CTASection = () => (
   <motion.section
-    initial={{ opacity: 0, y: 100 }}
+    initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.6 }}
-    viewport={{ once: true, margin: "-120px" }}
-    className="py-32"
+    transition={{ duration: 1.2 }}
+    viewport={{ once: true, margin: "-100px" }}
+    className="py-24"
   >
     <div className="container mx-auto px-6 text-center">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <motion.h3 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.3 }}
+          transition={{ duration: 1 }}
           viewport={{ once: true }}
-          className="text-6xl md:text-7xl font-light text-neutral-100 mb-10 tracking-tight"
-          style={{
-            textShadow: `0 0 25px rgba(236, 72, 153, 0.15)`,
-          }}
+          className="text-5xl md:text-6xl font-light text-neutral-100 mb-8 tracking-tight"
         >
           Let&apos;s Build Together
         </motion.h3>
         
         <motion.p 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.3, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-2xl text-neutral-400 leading-relaxed mb-14 font-light"
+          className="text-xl text-neutral-400 leading-relaxed mb-12 font-light"
         >
-          Ready to leverage these tools for your next project? Let&apos;s create something exceptional with professional-grade development workflows.
+          Ready to leverage these tools for your next project? Let&apos;s create something exceptional.
         </motion.p>
         
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.3, delay: 0.4 }}
+          transition={{ duration: 1, delay: 0.4 }}
           viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-6 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <motion.button
-            whileHover={{ scale: 1.05, y: -3, rotate: 1 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-500 text-neutral-900 font-semibold hover:from-pink-400 hover:to-fuchsia-400 transition-all duration-300 rounded-full text-lg cursor-pointer relative overflow-hidden"
+            className="px-8 py-3 bg-gradient-to-r from-pink-500 to-fuchsia-500 text-neutral-900 font-semibold hover:from-pink-400 hover:to-fuchsia-400 transition-all duration-300 rounded-full cursor-pointer"
             onClick={() => window.location.href = '/contact'}
             style={{
-              boxShadow: `0 8px 25px rgba(236, 72, 153, 0.3)`,
+              boxShadow: `0 6px 20px rgba(236, 72, 153, 0.25)`,
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">Start Project</span>
+            Start Project
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.05, y: -3, rotate: -1 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 border-2 border-neutral-600 text-neutral-300 font-semibold hover:bg-neutral-800/20 hover:border-pink-500/30 hover:text-pink-200 transition-all duration-300 rounded-full text-lg backdrop-blur-xl cursor-pointer relative overflow-hidden"
+            className="px-8 py-3 border-2 border-neutral-600 text-neutral-300 font-semibold hover:bg-neutral-800/20 hover:border-pink-500/30 hover:text-pink-200 transition-all duration-300 rounded-full backdrop-blur-xl cursor-pointer"
             onClick={() => window.location.href = '/projects'}
-            style={{
-              boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
-            }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">View Portfolio</span>
+            View Portfolio
           </motion.button>
         </motion.div>
       </div>
@@ -855,7 +718,6 @@ export default function ToolsPage() {
     <div className="min-h-screen bg-neutral-900 text-white relative overflow-hidden">
       <FloatingElements />
       <PlanetBackground />
-      <DigitalGrid />
       <BackButton />
       <PlanetNavigation />
       
@@ -864,7 +726,7 @@ export default function ToolsPage() {
       <div className="relative z-10">
         <ToolsStats />
         
-        <main className="container mx-auto px-6 py-16">
+        <main className="container mx-auto px-6 py-12">
           {toolsData.map((category, index) => (
             <ToolCategorySection key={category.name} category={category} index={index} />
           ))}
