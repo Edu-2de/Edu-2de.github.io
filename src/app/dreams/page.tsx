@@ -41,10 +41,10 @@ const dreamsData: DreamCategory[] = [
           'Master advanced React/Next.js patterns',
           'Deep dive into system design',
           'Lead team projects',
-          'Contribute to open source'
+          'Contribute to open source',
         ],
         impact: 'Create impactful applications and help shape development teams',
-        status: 'in-progress'
+        status: 'in-progress',
       },
       {
         id: 2,
@@ -57,12 +57,12 @@ const dreamsData: DreamCategory[] = [
           'Identify market opportunities',
           'Build MVP and validate',
           'Assemble strong team',
-          'Secure funding and scale'
+          'Secure funding and scale',
         ],
         impact: 'Create jobs, drive innovation, and make a positive impact on the world',
-        status: 'planning'
-      }
-    ]
+        status: 'planning',
+      },
+    ],
   },
   {
     name: 'Creative Pursuits',
@@ -80,10 +80,10 @@ const dreamsData: DreamCategory[] = [
           'Complete 10-12 original songs',
           'Set up home recording studio',
           'Professional mixing/mastering',
-          'Digital platform distribution'
+          'Digital platform distribution',
         ],
         impact: 'Inspire others and express artistic vision through music',
-        status: 'in-progress'
+        status: 'in-progress',
       },
       {
         id: 4,
@@ -96,12 +96,12 @@ const dreamsData: DreamCategory[] = [
           'Develop consistent art style',
           'Create 20+ finished pieces',
           'Build online portfolio',
-          'Organize exhibition event'
+          'Organize exhibition event',
         ],
         impact: 'Contribute to digital art culture and inspire fellow artists',
-        status: 'planning'
-      }
-    ]
+        status: 'planning',
+      },
+    ],
   },
   {
     name: 'Personal Growth',
@@ -115,14 +115,9 @@ const dreamsData: DreamCategory[] = [
         timeline: '3-5 years',
         description: 'Visit 20+ countries while working remotely and experiencing diverse cultures',
         motivation: 'Broaden perspectives, create memories, and understand different ways of life',
-        steps: [
-          'Establish remote work setup',
-          'Save travel fund',
-          'Plan route and logistics',
-          'Document experiences'
-        ],
+        steps: ['Establish remote work setup', 'Save travel fund', 'Plan route and logistics', 'Document experiences'],
         impact: 'Gain global perspective and create lifelong memories',
-        status: 'planning'
+        status: 'planning',
       },
       {
         id: 6,
@@ -135,12 +130,12 @@ const dreamsData: DreamCategory[] = [
           'Consistent workout routine',
           'Optimal nutrition plan',
           'Stress management techniques',
-          'Regular health monitoring'
+          'Regular health monitoring',
         ],
         impact: 'Live healthier, longer, and inspire others to prioritize wellness',
-        status: 'in-progress'
-      }
-    ]
+        status: 'in-progress',
+      },
+    ],
   },
   {
     name: 'Impact & Legacy',
@@ -154,14 +149,9 @@ const dreamsData: DreamCategory[] = [
         timeline: '5-10 years',
         description: 'Build an innovative online learning platform that democratizes quality education',
         motivation: 'Make high-quality education accessible to everyone, regardless of their background',
-        steps: [
-          'Research educational gaps',
-          'Develop platform prototype',
-          'Partner with educators',
-          'Scale globally'
-        ],
+        steps: ['Research educational gaps', 'Develop platform prototype', 'Partner with educators', 'Scale globally'],
         impact: 'Transform lives through education and reduce inequality',
-        status: 'evolving'
+        status: 'evolving',
       },
       {
         id: 8,
@@ -170,17 +160,12 @@ const dreamsData: DreamCategory[] = [
         timeline: '3-5 years',
         description: 'Establish a mentorship program for aspiring developers and creators',
         motivation: 'Give back to the community and help others achieve their dreams',
-        steps: [
-          'Build personal expertise',
-          'Create curriculum',
-          'Find mentees',
-          'Measure impact'
-        ],
-        impact: 'Accelerate others\' growth and create a cycle of knowledge sharing',
-        status: 'planning'
-      }
-    ]
-  }
+        steps: ['Build personal expertise', 'Create curriculum', 'Find mentees', 'Measure impact'],
+        impact: "Accelerate others' growth and create a cycle of knowledge sharing",
+        status: 'planning',
+      },
+    ],
+  },
 ];
 
 // Planet Navigation Data
@@ -188,7 +173,7 @@ const planets = [
   { name: 'Skills', path: '/skills', color: '#fbbf24' },
   { name: 'Hobbies', path: '/hobbies', color: '#38bdf8' },
   { name: 'Tools', path: '/tools', color: '#ec4899' },
-  { name: 'Dreams', path: '/dreams', color: '#22d3ee' }
+  { name: 'Dreams', path: '/dreams', color: '#22d3ee' },
 ];
 
 // Back Button Component
@@ -197,7 +182,7 @@ const BackButton = () => (
     initial={{ opacity: 0, x: -20 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.5, duration: 0.8 }}
-    onClick={() => window.location.href = '/'}
+    onClick={() => (window.location.href = '/')}
     className="fixed top-8 left-8 z-50 group cursor-pointer"
   >
     <div className="flex items-center gap-3 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border border-neutral-600 hover:border-cyan-500 transition-all duration-300 shadow-lg">
@@ -222,7 +207,7 @@ const BackButton = () => (
 const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handlePlanetClick = (planet: typeof planets[0]) => {
+  const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/dreams') return;
     window.location.href = planet.path;
   };
@@ -275,7 +260,7 @@ const PlanetNavigation = () => {
             </div>
             {planets.map((planet, index) => {
               const isCurrent = planet.path === '/dreams';
-              
+
               return (
                 <motion.button
                   key={planet.name}
@@ -285,23 +270,21 @@ const PlanetNavigation = () => {
                   onClick={() => handlePlanetClick(planet)}
                   disabled={isCurrent}
                   className={`flex items-center gap-3 px-4 py-3 transition-all duration-200 cursor-pointer ${
-                    isCurrent 
-                      ? 'bg-neutral-700 text-cyan-300 cursor-default border border-cyan-500' 
+                    isCurrent
+                      ? 'bg-neutral-700 text-cyan-300 cursor-default border border-cyan-500'
                       : 'hover:bg-neutral-700 text-neutral-400 border border-transparent hover:border-neutral-500'
                   }`}
                   whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
                   whileTap={!isCurrent ? { scale: 0.98 } : {}}
                 >
-                  <div 
+                  <div
                     className="w-4 h-4 rounded-full relative"
-                    style={{ 
+                    style={{
                       backgroundColor: planet.color,
                       boxShadow: `0 0 8px ${planet.color}60`,
                     }}
                   />
-                  <span className="text-sm font-medium whitespace-nowrap">
-                    {planet.name}
-                  </span>
+                  <span className="text-sm font-medium whitespace-nowrap">{planet.name}</span>
                   {isCurrent && (
                     <div className="flex items-center gap-1 ml-auto">
                       <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" />
@@ -326,7 +309,7 @@ const PlanetBackground = () => (
     <motion.div
       initial={{ scale: 0.7, opacity: 0, y: -100 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 3, ease: "easeOut" }}
+      transition={{ duration: 3, ease: 'easeOut' }}
       className="absolute -top-1/2 left-1/2 transform -translate-x-1/2 w-[110vh] h-[110vh] rounded-full"
       style={{
         background: `radial-gradient(circle at 50% 80%, 
@@ -337,7 +320,7 @@ const PlanetBackground = () => (
         filter: 'blur(2px)',
       }}
     />
-    
+
     {/* Orbital rings */}
     <motion.div
       initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
@@ -348,7 +331,7 @@ const PlanetBackground = () => (
         animation: 'spin 180s linear infinite',
       }}
     />
-    
+
     <motion.div
       initial={{ opacity: 0, scale: 1.2, rotate: 15 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -363,7 +346,7 @@ const PlanetBackground = () => (
 
 // Floating Stars Background
 const FloatingStars = () => {
-  const [stars, setStars] = useState<JSX.Element[]>([]);
+  const [stars, setStars] = useState<React.ReactElement[]>([]);
 
   useEffect(() => {
     const generateStars = () => {
@@ -374,7 +357,7 @@ const FloatingStars = () => {
         const size = Math.random() * 3 + 1;
         const duration = 20 + Math.random() * 15;
         const delay = Math.random() * 10;
-        
+
         components.push(
           <motion.div
             key={i}
@@ -396,7 +379,7 @@ const FloatingStars = () => {
               duration,
               delay,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: 'easeInOut',
             }}
           />
         );
@@ -407,11 +390,7 @@ const FloatingStars = () => {
     generateStars();
   }, []);
 
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {stars}
-    </div>
-  );
+  return <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">{stars}</div>;
 };
 
 // Status Badge Component
@@ -450,14 +429,14 @@ const DreamCard = ({ dream, index }: { dream: Dream; index: number }) => {
       initial={{ opacity: 0, y: 50, rotateY: -10 }}
       whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
       transition={{ delay: index * 0.15, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: '-80px' }}
       className="group bg-neutral-800 border border-neutral-700 hover:border-cyan-500 transition-all duration-500 relative overflow-hidden"
       style={{
         boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4)`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
+
       <div className="relative z-10 p-6">
         {/* Header */}
         <div className="flex justify-between items-start mb-4">
@@ -466,9 +445,7 @@ const DreamCard = ({ dream, index }: { dream: Dream; index: number }) => {
               {dream.title}
             </h4>
             <div className="flex items-center gap-3 text-sm mb-3">
-              <span className="px-3 py-1 bg-cyan-600 text-white font-medium">
-                {dream.category}
-              </span>
+              <span className="px-3 py-1 bg-cyan-600 text-white font-medium">{dream.category}</span>
               <span className="text-neutral-400 font-medium">{dream.timeline}</span>
             </div>
             <StatusBadge status={dream.status} />
@@ -476,9 +453,7 @@ const DreamCard = ({ dream, index }: { dream: Dream; index: number }) => {
         </div>
 
         {/* Description */}
-        <p className="text-neutral-300 text-base leading-relaxed mb-6 font-normal">
-          {dream.description}
-        </p>
+        <p className="text-neutral-300 text-base leading-relaxed mb-6 font-normal">{dream.description}</p>
 
         {/* Motivation */}
         <div className="mb-6">
@@ -487,7 +462,7 @@ const DreamCard = ({ dream, index }: { dream: Dream; index: number }) => {
             Motivation
           </h5>
           <p className="text-cyan-200 text-sm font-medium italic bg-cyan-900/20 p-3 border-l-4 border-cyan-500">
-            "{dream.motivation}"
+            &ldquo;{dream.motivation}&rdquo;
           </p>
         </div>
 
@@ -569,7 +544,7 @@ const DreamCategorySection = ({ category, index }: { category: DreamCategory; in
     initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.2, delay: index * 0.3 }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="mb-20"
   >
     <div className="text-center mb-16">
@@ -586,7 +561,7 @@ const DreamCategorySection = ({ category, index }: { category: DreamCategory; in
         <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
         <span className="relative z-10">{category.name}</span>
       </motion.div>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.3 + 0.7, duration: 1 }}
@@ -633,7 +608,7 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 1.3 }}
         >
-          Ambitious goals and aspirations that drive my journey forward. Each dream represents a commitment to growth, 
+          Ambitious goals and aspirations that drive my journey forward. Each dream represents a commitment to growth,
           impact, and the pursuit of meaningful achievements that extend beyond personal success.
         </motion.p>
 
@@ -671,22 +646,22 @@ const HeroSection = () => (
       className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
     >
       <motion.div
-        animate={{ 
+        animate={{
           y: [0, 15, 0],
-          scale: [1, 1.1, 1] 
+          scale: [1, 1.1, 1],
         }}
-        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
         className="w-8 h-16 border-2 border-neutral-500 flex justify-center relative"
         style={{
           boxShadow: `0 0 15px rgba(34, 211, 238, 0.2)`,
         }}
       >
         <motion.div
-          animate={{ 
+          animate={{
             y: [0, 20, 0],
-            opacity: [0.4, 1, 0.4]
+            opacity: [0.4, 1, 0.4],
           }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
           className="w-1 h-6 bg-gradient-to-b from-cyan-400 to-blue-500 mt-4"
         />
       </motion.div>
@@ -700,7 +675,7 @@ const DreamsStats = () => (
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     transition={{ duration: 1.4 }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="py-24 bg-neutral-800/30"
   >
     <div className="container mx-auto px-6">
@@ -711,11 +686,10 @@ const DreamsStats = () => (
         viewport={{ once: true }}
         className="text-center mb-20"
       >
-        <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 tracking-tight">
-          Vision Analytics
-        </h2>
+        <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 tracking-tight">Vision Analytics</h2>
         <p className="text-neutral-300 text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-          Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward realization.
+          Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward
+          realization.
         </p>
       </motion.div>
 
@@ -724,7 +698,7 @@ const DreamsStats = () => (
           { number: '8', label: 'Active Dreams', description: 'Vision Pipeline', color: '#22d3ee' },
           { number: '4', label: 'Life Areas', description: 'Holistic Growth', color: '#06b6d4' },
           { number: '3', label: 'In Progress', description: 'Active Pursuit', color: '#0891b2' },
-          { number: '5-10', label: 'Year Horizon', description: 'Strategic Timeline', color: '#0e7490' }
+          { number: '5-10', label: 'Year Horizon', description: 'Strategic Timeline', color: '#0e7490' },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -738,8 +712,8 @@ const DreamsStats = () => (
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <motion.div 
+
+            <motion.div
               className="text-5xl md:text-6xl font-bold text-white mb-4 group-hover:text-cyan-200 transition-colors duration-500 relative z-10"
               whileHover={{ scale: 1.1, y: -5, rotateZ: 3 }}
               transition={{ duration: 0.3 }}
@@ -749,16 +723,12 @@ const DreamsStats = () => (
             >
               {stat.number}
             </motion.div>
-            <div className="text-lg font-bold text-neutral-200 mb-3 relative z-10">
-              {stat.label}
-            </div>
-            <div className="text-sm text-neutral-400 font-normal relative z-10">
-              {stat.description}
-            </div>
+            <div className="text-lg font-bold text-neutral-200 mb-3 relative z-10">{stat.label}</div>
+            <div className="text-sm text-neutral-400 font-normal relative z-10">{stat.description}</div>
             <motion.div
               className="w-16 h-1 mx-auto mt-6 bg-cyan-500 relative z-10"
-              style={{ 
-                boxShadow: `0 0 10px rgba(34, 211, 238, 0.5)`
+              style={{
+                boxShadow: `0 0 10px rgba(34, 211, 238, 0.5)`,
               }}
               initial={{ scaleX: 0, rotateZ: -5 }}
               whileInView={{ scaleX: 1, rotateZ: 0 }}
@@ -778,12 +748,12 @@ const CTASection = () => (
     initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.4 }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="py-32"
   >
     <div className="container mx-auto px-6 text-center">
       <div className="max-w-5xl mx-auto">
-        <motion.h3 
+        <motion.h3
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
@@ -795,18 +765,18 @@ const CTASection = () => (
         >
           Dream With Me
         </motion.h3>
-        
-        <motion.p 
+
+        <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.3 }}
           viewport={{ once: true }}
           className="text-2xl text-neutral-300 leading-relaxed mb-16 font-normal"
         >
-          Whether you share similar aspirations or have complementary goals, let&apos;s connect and explore how we can 
+          Whether you share similar aspirations or have complementary goals, let&apos;s connect and explore how we can
           support each other&apos;s journey toward meaningful achievements and lasting impact.
         </motion.p>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -818,7 +788,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -4, rotateZ: 1 }}
             whileTap={{ scale: 0.98 }}
             className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 cursor-pointer relative overflow-hidden"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => (window.location.href = '/contact')}
             style={{
               boxShadow: `0 10px 30px rgba(34, 211, 238, 0.4)`,
             }}
@@ -830,7 +800,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -4, rotateZ: -1 }}
             whileTap={{ scale: 0.98 }}
             className="px-12 py-5 border-2 border-neutral-600 text-neutral-300 font-bold hover:bg-neutral-800 hover:border-cyan-500 hover:text-cyan-200 transition-all duration-300 cursor-pointer relative overflow-hidden"
-            onClick={() => window.location.href = '/projects'}
+            onClick={() => (window.location.href = '/projects')}
             style={{
               boxShadow: `0 6px 25px rgba(0, 0, 0, 0.3)`,
             }}
@@ -852,25 +822,29 @@ export default function DreamsPage() {
       <PlanetBackground />
       <BackButton />
       <PlanetNavigation />
-      
+
       <HeroSection />
-      
+
       <div className="relative z-10">
         <DreamsStats />
-        
+
         <main className="container mx-auto px-6 py-20">
           {dreamsData.map((category, index) => (
             <DreamCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-        
+
         <CTASection />
       </div>
-      
+
       <style jsx>{`
         @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
       `}</style>
     </div>

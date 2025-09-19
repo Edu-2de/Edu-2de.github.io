@@ -36,7 +36,7 @@ const skillsData: SkillCategory[] = [
         level: 85,
         experience: '2+ years',
         description: 'Component-based UI development with hooks and state management',
-        projects: ['Portfolio Website', 'E-commerce Dashboard', 'Task Management App']
+        projects: ['Portfolio Website', 'E-commerce Dashboard', 'Task Management App'],
       },
       {
         id: 2,
@@ -45,7 +45,7 @@ const skillsData: SkillCategory[] = [
         level: 80,
         experience: '1+ years',
         description: 'Full-stack React framework with SSR and API routes',
-        projects: ['Personal Portfolio', 'Blog Platform', 'Business Website']
+        projects: ['Personal Portfolio', 'Blog Platform', 'Business Website'],
       },
       {
         id: 3,
@@ -54,7 +54,7 @@ const skillsData: SkillCategory[] = [
         level: 75,
         experience: '1+ years',
         description: 'Type-safe JavaScript for scalable applications',
-        projects: ['React Applications', 'Node.js APIs', 'Configuration Tools']
+        projects: ['React Applications', 'Node.js APIs', 'Configuration Tools'],
       },
       {
         id: 4,
@@ -63,9 +63,9 @@ const skillsData: SkillCategory[] = [
         level: 90,
         experience: '2+ years',
         description: 'Utility-first CSS framework for rapid UI development',
-        projects: ['All Recent Projects', 'Component Libraries', 'Landing Pages']
-      }
-    ]
+        projects: ['All Recent Projects', 'Component Libraries', 'Landing Pages'],
+      },
+    ],
   },
   {
     name: 'Backend Development',
@@ -79,7 +79,7 @@ const skillsData: SkillCategory[] = [
         level: 70,
         experience: '1+ years',
         description: 'JavaScript runtime for building scalable server applications',
-        projects: ['REST APIs', 'Real-time Chat App', 'Authentication Systems']
+        projects: ['REST APIs', 'Real-time Chat App', 'Authentication Systems'],
       },
       {
         id: 6,
@@ -88,7 +88,7 @@ const skillsData: SkillCategory[] = [
         level: 65,
         experience: '1+ years',
         description: 'Versatile programming language for web development and automation',
-        projects: ['Data Processing Scripts', 'Web Scrapers', 'API Integrations']
+        projects: ['Data Processing Scripts', 'Web Scrapers', 'API Integrations'],
       },
       {
         id: 7,
@@ -97,7 +97,7 @@ const skillsData: SkillCategory[] = [
         level: 60,
         experience: '6 months',
         description: 'Advanced open-source relational database system',
-        projects: ['User Management System', 'E-commerce Database', 'Analytics Platform']
+        projects: ['User Management System', 'E-commerce Database', 'Analytics Platform'],
       },
       {
         id: 8,
@@ -106,9 +106,9 @@ const skillsData: SkillCategory[] = [
         level: 55,
         experience: '6 months',
         description: 'NoSQL document database for flexible data storage',
-        projects: ['Content Management', 'User Profiles', 'Logging Systems']
-      }
-    ]
+        projects: ['Content Management', 'User Profiles', 'Logging Systems'],
+      },
+    ],
   },
   {
     name: 'Tools & Technologies',
@@ -122,7 +122,7 @@ const skillsData: SkillCategory[] = [
         level: 85,
         experience: '2+ years',
         description: 'Version control system for tracking code changes',
-        projects: ['All Projects', 'Open Source Contributions', 'Team Collaboration']
+        projects: ['All Projects', 'Open Source Contributions', 'Team Collaboration'],
       },
       {
         id: 10,
@@ -131,7 +131,7 @@ const skillsData: SkillCategory[] = [
         level: 50,
         experience: '3 months',
         description: 'Containerization platform for consistent deployments',
-        projects: ['Development Environment', 'Microservices', 'CI/CD Pipeline']
+        projects: ['Development Environment', 'Microservices', 'CI/CD Pipeline'],
       },
       {
         id: 11,
@@ -140,7 +140,7 @@ const skillsData: SkillCategory[] = [
         level: 95,
         experience: '3+ years',
         description: 'Primary code editor with extensive customization',
-        projects: ['Daily Development', 'Extension Configuration', 'Team Settings']
+        projects: ['Daily Development', 'Extension Configuration', 'Team Settings'],
       },
       {
         id: 12,
@@ -149,10 +149,10 @@ const skillsData: SkillCategory[] = [
         level: 80,
         experience: '1+ years',
         description: 'Platform for frontend deployment with serverless functions',
-        projects: ['Portfolio Hosting', 'Static Sites', 'API Deployment']
-      }
-    ]
-  }
+        projects: ['Portfolio Hosting', 'Static Sites', 'API Deployment'],
+      },
+    ],
+  },
 ];
 
 // Planet Navigation Data
@@ -160,7 +160,7 @@ const planets = [
   { name: 'Skills', path: '/skills', color: '#fbbf24' },
   { name: 'Hobbies', path: '/hobbies', color: '#38bdf8' },
   { name: 'Tools', path: '/tools', color: '#ec4899' },
-  { name: 'Dreams', path: '/dreams', color: '#22d3ee' }
+  { name: 'Dreams', path: '/dreams', color: '#22d3ee' },
 ];
 
 // Back Button Component
@@ -169,7 +169,7 @@ const BackButton = () => (
     initial={{ opacity: 0, x: -20 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.5, duration: 0.8 }}
-    onClick={() => window.location.href = '/'}
+    onClick={() => (window.location.href = '/')}
     className="fixed top-8 left-8 z-50 group cursor-pointer"
   >
     <div className="flex items-center gap-3 px-4 py-2 bg-neutral-900/60 hover:bg-neutral-800/70 backdrop-blur-xl rounded-full border border-neutral-700/40 hover:border-amber-500/30 transition-all duration-300 shadow-xl">
@@ -202,7 +202,7 @@ const PlanetNavigation = () => {
 
   const nextPlanet = getNextPlanet();
 
-  const handlePlanetClick = (planet: typeof planets[0]) => {
+  const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/skills') return;
     window.location.href = planet.path;
   };
@@ -259,7 +259,7 @@ const PlanetNavigation = () => {
             {planets.map((planet, index) => {
               const isCurrent = planet.path === '/skills';
               const isSelected = selectedPlanet === planet.name;
-              
+
               return (
                 <motion.button
                   key={planet.name}
@@ -270,8 +270,8 @@ const PlanetNavigation = () => {
                   onMouseEnter={() => setSelectedPlanet(planet.name)}
                   disabled={isCurrent}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 cursor-pointer ${
-                    isCurrent 
-                      ? 'bg-neutral-800/70 text-amber-300 cursor-default border border-amber-500/30' 
+                    isCurrent
+                      ? 'bg-neutral-800/70 text-amber-300 cursor-default border border-amber-500/30'
                       : isSelected
                       ? 'bg-neutral-800/50 text-neutral-200 border border-neutral-600/30'
                       : 'hover:bg-neutral-800/40 text-neutral-400 border border-transparent hover:border-neutral-600/20'
@@ -279,21 +279,19 @@ const PlanetNavigation = () => {
                   whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
                   whileTap={!isCurrent ? { scale: 0.98 } : {}}
                 >
-                  <div 
+                  <div
                     className="w-4 h-4 rounded-full relative"
-                    style={{ 
+                    style={{
                       backgroundColor: planet.color,
                       boxShadow: `0 0 12px ${planet.color}40`,
                     }}
                   >
-                    <div 
+                    <div
                       className="absolute inset-0 rounded-full animate-ping opacity-20"
                       style={{ backgroundColor: planet.color }}
                     />
                   </div>
-                  <span className="text-sm font-medium whitespace-nowrap">
-                    {planet.name}
-                  </span>
+                  <span className="text-sm font-medium whitespace-nowrap">{planet.name}</span>
                   {isCurrent && (
                     <div className="flex items-center gap-1 ml-auto">
                       <div className="w-1 h-1 bg-amber-400 rounded-full animate-pulse" />
@@ -318,7 +316,7 @@ const PlanetBackground = () => (
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 2, ease: "easeOut" }}
+      transition={{ duration: 2, ease: 'easeOut' }}
       className="absolute -bottom-1/2 -right-1/4 w-[150vh] h-[150vh] rounded-full"
       style={{
         background: `radial-gradient(circle at 30% 30%, 
@@ -330,7 +328,7 @@ const PlanetBackground = () => (
         filter: 'blur(1px)',
       }}
     />
-    
+
     {/* Orbital rings */}
     <motion.div
       initial={{ opacity: 0 }}
@@ -341,7 +339,7 @@ const PlanetBackground = () => (
         animation: 'spin 100s linear infinite',
       }}
     />
-    
+
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -356,7 +354,7 @@ const PlanetBackground = () => (
 
 // Subtle Stars Background
 const StarsBackground = () => {
-  const [stars, setStars] = useState<JSX.Element[]>([]);
+  const [stars, setStars] = useState<React.ReactElement[]>([]);
 
   useEffect(() => {
     const generateStars = () => {
@@ -367,7 +365,7 @@ const StarsBackground = () => {
         const size = Math.random() * 2 + 0.5;
         const duration = 4 + Math.random() * 6;
         const delay = Math.random() * 10;
-        
+
         elements.push(
           <motion.div
             key={i}
@@ -386,7 +384,7 @@ const StarsBackground = () => {
               duration,
               delay,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: 'easeInOut',
             }}
           />
         );
@@ -397,11 +395,7 @@ const StarsBackground = () => {
     generateStars();
   }, []);
 
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {stars}
-    </div>
-  );
+  return <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">{stars}</div>;
 };
 
 // Event Horizon Effect (Black Hole Distortion)
@@ -439,7 +433,7 @@ const SkillBar = ({ skill, index }: { skill: Skill; index: number }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.15, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, margin: '-80px' }}
       className="group"
     >
       <div className="flex justify-between items-center mb-6">
@@ -453,7 +447,7 @@ const SkillBar = ({ skill, index }: { skill: Skill; index: number }) => {
           <span className="text-neutral-500">{skill.experience}</span>
         </div>
       </div>
-      
+
       <div className="relative mb-8">
         <div className="w-full bg-neutral-800/30 rounded-full h-2 overflow-hidden border border-neutral-700/20">
           <motion.div
@@ -474,17 +468,15 @@ const SkillBar = ({ skill, index }: { skill: Skill; index: number }) => {
               transition={{
                 duration: 2,
                 delay: index * 0.1 + 1,
-                ease: "easeInOut"
+                ease: 'easeInOut',
               }}
             />
           </motion.div>
         </div>
       </div>
-      
-      <p className="text-neutral-400 leading-relaxed mb-6 font-light text-lg">
-        {skill.description}
-      </p>
-      
+
+      <p className="text-neutral-400 leading-relaxed mb-6 font-light text-lg">{skill.description}</p>
+
       {skill.projects && (
         <div className="flex flex-wrap gap-3">
           {skill.projects.slice(0, 2).map((project, idx) => (
@@ -522,7 +514,7 @@ const SkillCategorySection = ({ category, index }: { category: SkillCategory; in
     initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.2, delay: index * 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="mb-40"
   >
     <div className="text-center mb-20">
@@ -539,7 +531,7 @@ const SkillCategorySection = ({ category, index }: { category: SkillCategory; in
         <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent" />
         <span className="relative z-10">{category.name}</span>
       </motion.div>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.3 + 0.6, duration: 1 }}
@@ -552,12 +544,12 @@ const SkillCategorySection = ({ category, index }: { category: SkillCategory; in
 
     <div className="grid gap-16 lg:grid-cols-2 xl:gap-20">
       {category.skills.map((skill, skillIndex) => (
-        <motion.div 
-          key={skill.id} 
+        <motion.div
+          key={skill.id}
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: skillIndex * 0.15, duration: 1 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: true, margin: '-60px' }}
           className="bg-neutral-900/30 backdrop-blur-xl rounded-3xl p-10 border border-neutral-700/30 hover:border-amber-500/20 hover:bg-neutral-900/40 transition-all duration-700 group relative overflow-hidden"
           style={{
             boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(251, 191, 36, 0.05)`,
@@ -601,7 +593,8 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 1.2 }}
         >
-          Navigating through the event horizon of technology, where knowledge bends spacetime and innovation transcends boundaries.
+          Navigating through the event horizon of technology, where knowledge bends spacetime and innovation transcends
+          boundaries.
         </motion.p>
 
         <motion.div
@@ -639,7 +632,7 @@ const HeroSection = () => (
     >
       <motion.div
         animate={{ y: [0, 16, 0] }}
-        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
         className="w-8 h-16 border-2 border-neutral-600 rounded-full flex justify-center relative overflow-hidden backdrop-blur-sm"
         style={{
           boxShadow: `0 0 15px rgba(251, 191, 36, 0.1)`,
@@ -647,7 +640,7 @@ const HeroSection = () => (
       >
         <motion.div
           animate={{ y: [0, 24, 0] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
           className="w-1 h-6 bg-gradient-to-b from-amber-400 to-yellow-500 rounded-full mt-4"
         />
       </motion.div>
@@ -661,7 +654,7 @@ const SkillsStats = () => (
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     transition={{ duration: 1.5 }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="py-40"
   >
     <div className="container mx-auto px-6">
@@ -672,9 +665,7 @@ const SkillsStats = () => (
         viewport={{ once: true }}
         className="text-center mb-24"
       >
-        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">
-          Gravitational Statistics
-        </h2>
+        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">Gravitational Statistics</h2>
         <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
           Data collected from beyond the event horizon of my technological journey
         </p>
@@ -685,7 +676,7 @@ const SkillsStats = () => (
           { number: '12+', label: 'Technologies', description: 'Quantum Tools', color: '#fbbf24' },
           { number: '20+', label: 'Projects', description: 'Stellar Objects', color: '#f59e0b' },
           { number: '2+', label: 'Years', description: 'Light Years', color: '#d97706' },
-          { number: '∞', label: 'Learning', description: 'Infinite Mass', color: '#b45309' }
+          { number: '∞', label: 'Learning', description: 'Infinite Mass', color: '#b45309' },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -695,7 +686,7 @@ const SkillsStats = () => (
             viewport={{ once: true }}
             className="group text-center relative"
           >
-            <motion.div 
+            <motion.div
               className="text-6xl md:text-7xl font-extralight text-neutral-100 mb-6 group-hover:text-amber-200 transition-colors duration-500 relative"
               whileHover={{ scale: 1.1, y: -5 }}
               transition={{ duration: 0.3 }}
@@ -705,16 +696,12 @@ const SkillsStats = () => (
             >
               {stat.number}
             </motion.div>
-            <div className="text-xl font-light text-neutral-300 mb-3">
-              {stat.label}
-            </div>
-            <div className="text-sm text-neutral-500 font-light">
-              {stat.description}
-            </div>
+            <div className="text-xl font-light text-neutral-300 mb-3">{stat.label}</div>
+            <div className="text-sm text-neutral-500 font-light">{stat.description}</div>
             <motion.div
               className="w-16 h-0.5 mx-auto mt-4 rounded-full bg-amber-400"
-              style={{ 
-                boxShadow: `0 0 8px rgba(251, 191, 36, 0.4)`
+              style={{
+                boxShadow: `0 0 8px rgba(251, 191, 36, 0.4)`,
               }}
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -734,12 +721,12 @@ const CTASection = () => (
     initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.5 }}
-    viewport={{ once: true, margin: "-120px" }}
+    viewport={{ once: true, margin: '-120px' }}
     className="py-40"
   >
     <div className="container mx-auto px-6 text-center">
       <div className="max-w-4xl mx-auto">
-        <motion.h3 
+        <motion.h3
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
@@ -751,17 +738,18 @@ const CTASection = () => (
         >
           Ready to Collaborate?
         </motion.h3>
-        
-        <motion.p 
+
+        <motion.p
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2 }}
           viewport={{ once: true }}
           className="text-2xl text-neutral-400 leading-relaxed mb-16 font-light"
         >
-          Let&apos;s create something that defies the laws of conventional development and transcends digital boundaries.
+          Let&apos;s create something that defies the laws of conventional development and transcends digital
+          boundaries.
         </motion.p>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -773,7 +761,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
             className="px-12 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-neutral-900 font-semibold hover:from-amber-400 hover:to-yellow-400 transition-all duration-300 rounded-full text-lg cursor-pointer relative overflow-hidden"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => (window.location.href = '/contact')}
             style={{
               boxShadow: `0 8px 25px rgba(251, 191, 36, 0.3)`,
             }}
@@ -785,7 +773,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
             className="px-12 py-4 border-2 border-neutral-600 text-neutral-300 font-semibold hover:bg-neutral-800/20 hover:border-amber-500/30 hover:text-amber-200 transition-all duration-300 rounded-full text-lg backdrop-blur-xl cursor-pointer relative overflow-hidden"
-            onClick={() => window.location.href = '/projects'}
+            onClick={() => (window.location.href = '/projects')}
             style={{
               boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
             }}
@@ -808,25 +796,29 @@ export default function SkillsPage() {
       <EventHorizon />
       <BackButton />
       <PlanetNavigation />
-      
+
       <HeroSection />
-      
+
       <div className="relative z-10">
         <SkillsStats />
-        
+
         <main className="container mx-auto px-6 py-20">
           {skillsData.map((category, index) => (
             <SkillCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-        
+
         <CTASection />
       </div>
-      
+
       <style jsx>{`
         @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
       `}</style>
     </div>

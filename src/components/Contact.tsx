@@ -74,7 +74,7 @@ export default function Contact() {
 
             {/* Social Links */}
             <div className="pt-8">
-              <h4 className="text-lg font-medium text-gray-900 mb-4">Find me online</h4>
+              <h4 className="text-lg font-medium text-gray-900 mb-4">{t.findMeOnline}</h4>
               <div className="flex gap-4">
                 {[
                   { icon: Github, href: 'https://github.com', label: 'GitHub' },
@@ -106,11 +106,8 @@ export default function Contact() {
             className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex flex-col justify-center"
           >
             <div className="text-center">
-              <h3 className="text-2xl font-light text-gray-900 mb-6">Ready to start your project?</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Let&apos;s discuss your ideas and see how we can bring them to life. I&apos;m available for freelance
-                projects and full-time opportunities.
-              </p>
+              <h3 className="text-2xl font-light text-gray-900 mb-6">{t.readyToStartProject}</h3>
+              <p className="text-gray-600 mb-8 leading-relaxed">{t.contactDescription}</p>
 
               <div className="space-y-4">
                 <motion.a
@@ -119,7 +116,7 @@ export default function Contact() {
                   whileTap={{ scale: 0.95 }}
                   className="block w-full bg-gray-900 text-white py-4 px-6 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-200"
                 >
-                  Start a Conversation
+                  {t.startConversation}
                 </motion.a>
 
                 <motion.a
@@ -130,7 +127,7 @@ export default function Contact() {
                   whileTap={{ scale: 0.95 }}
                   className="block w-full border border-gray-300 text-gray-700 py-4 px-6 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200"
                 >
-                  Schedule a Call
+                  {t.scheduleCall}
                 </motion.a>
               </div>
             </div>
@@ -144,7 +141,7 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-24 pt-12 border-t border-gray-200"
         >
-          <p className="text-gray-500 text-sm">© 2024 Eduardo Silva. Built with Next.js and hosted on GitHub Pages.</p>
+          <p className="text-gray-500 text-s">{t.footerText}</p>
         </motion.div>
       </div>
     </section>

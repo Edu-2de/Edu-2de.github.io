@@ -2,18 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, Globe , Star, Satellite } from 'lucide-react';
-
-const navItems = [
-  { name: 'Home', href: '#home', icon: <Rocket size={20} /> },
-  { name: 'About', href: '#about', icon: <Globe size={20} /> },
-  { name: 'Work', href: '#projects', icon: <Star size={20} /> },
-  { name: 'Contact', href: '#contact', icon: <Satellite size={20} /> },
-];
+import { Rocket, Globe, Star, Satellite } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 export default function Navigation() {
+  const { t } = useLanguage();
   const [activeSection, setActiveSection] = useState('home');
 
+  const navItems = [
+    { name: t.home, href: '#home', icon: <Rocket size={20} /> },
+    { name: t.about, href: '#about', icon: <Globe size={20} /> },
+    { name: t.work, href: '#projects', icon: <Star size={20} /> },
+    { name: t.contact, href: '#contact', icon: <Satellite size={20} /> },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {

@@ -7,15 +7,15 @@ import { OrbitControls } from '@react-three/drei';
 import { ORBIT_PLANETS } from '../Hero/Hero_components/OrbitPlanets';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/language-context';
+import { Translations } from '@/lib/translations';
 
-const PLANETS = [
+const getPlanets = (t: Translations) => [
   {
-    name: 'Planet Skills',
+    name: t.planetSkills,
     color: '#fbbf24',
     texture: '/textures/venusmap.jpg',
     items: ['JavaScript', 'TypeScript', 'React', 'Node.js', 'CSS', 'Tailwind'],
-    description:
-      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, and beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
+    description: t.skillsDescription,
     facts: [
       'Favorite language: TypeScript',
       'Most used: React',
@@ -27,34 +27,31 @@ const PLANETS = [
     linkLabel: 'View GitHub',
   },
   {
-    name: 'Planet Hobbies',
+    name: t.planetHobbies,
     color: '#38bdf8',
     texture: '/textures/neptunemap.jpg',
     items: ['Music', 'Gaming', 'Travel', 'Photography', 'Cooking'],
-    description:
-      'My passions orbit around music, games, travel, photography, and cooking. Always searching for new adventures and creative inspiration!',
+    description: t.hobbiesDescription,
     facts: ['Favorite game: Zelda', 'Instrument: Guitar', 'Dream trip: Japan', 'Photography lover', 'Home chef'],
     link: '/hobbies',
     linkLabel: 'View Instagram',
   },
   {
-    name: 'Planet Tools',
+    name: t.planetTools,
     color: '#ec4899',
     texture: '/textures/mars_1k_color.jpg',
     items: ['VS Code', 'GitHub', 'Figma', 'Notion', 'Framer Motion'],
-    description:
-      'My toolkit: coding in VS Code, collaborating on GitHub, designing in Figma, organizing with Notion, and animating with Framer Motion.',
+    description: t.toolsDescription,
     facts: ['Design: Figma', 'Docs: Notion', 'Code: VS Code', 'Animations: Framer Motion', 'Version control: GitHub'],
     link: '/tools',
     linkLabel: 'View Figma',
   },
   {
-    name: 'Planet Dreams',
+    name: t.planetDreams,
     color: '#22d3ee',
     texture: '/textures/plutomap1k.jpg',
     items: ['Space Travel', 'Remote Work', 'Open Source', 'AI Projects'],
-    description:
-      'Dreaming big: working remotely, contributing to open source, exploring AI, and maybe one day, traveling through space!',
+    description: t.dreamsDescription,
     facts: [
       'Goal: Contribute to open source',
       'Dream: Visit Mars',
@@ -191,6 +188,7 @@ function Planet2D({
 }
 
 export default function About({ setHideNav }: { setHideNav: (hide: boolean) => void }) {
+  const { t } = useLanguage();
   const [selected, setSelected] = useState(0);
   const [isChanging, setIsChanging] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -203,6 +201,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
   // Estado para hover Star Wars
   const [starWarsHover, setStarWarsHover] = useState<string | null>(null);
 
+  const PLANETS = getPlanets(t);
   const planet = PLANETS[selected];
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -290,7 +289,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     onMouseEnter={() => setStarWarsHover('hello')}
                     onMouseLeave={() => setStarWarsHover(null)}
                   >
-                    Hello
+                    {t.hello}
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0, scale: 0.7, y: 40 }}
@@ -340,7 +339,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     onMouseEnter={() => setStarWarsHover('edu')}
                     onMouseLeave={() => setStarWarsHover(null)}
                   >
-                    I&apos;m Edu
+                    {t.imEdu}
                   </motion.span>
                 </div>
                 {/* Linha 2: I develop + imagem + systems */}
@@ -367,7 +366,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     onMouseEnter={() => setStarWarsHover('develop')}
                     onMouseLeave={() => setStarWarsHover(null)}
                   >
-                    I develop
+                    {t.iDevelop}
                   </motion.span>
                   <motion.span
                     initial={{ opacity: 0, scale: 0.7, y: 40 }}
@@ -417,7 +416,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                     onMouseEnter={() => setStarWarsHover('systems')}
                     onMouseLeave={() => setStarWarsHover(null)}
                   >
-                    systems
+                    {t.systems}
                   </motion.span>
                 </div>
                 {/* Descrição centralizada enxuta */}
@@ -436,10 +435,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                   transition={{ duration: 0.8, delay: 2.1 }}
                   whileHover={{ scale: 1.03, y: -6, color: '#38bdf8', textShadow: '0 0 18px #38bdf8' }}
                 >
-                  I create digital solutions with design and code.
-                  <br />
-                  My focus is on building modern, fast and secure systems that solve real problems and deliver great
-                  experiences. Want to know more? See the planets below and explore each theme.
+                  {t.aboutIntroDescription}
                 </motion.p>
                 {/* Botão centralizado com espaçamento extra */}
                 <motion.button
@@ -452,7 +448,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.7, delay: 2.7 }}
                 >
-                  See planets
+                  {t.seePlanets}
                 </motion.button>
               </div>
             </motion.div>
@@ -513,7 +509,7 @@ export default function About({ setHideNav }: { setHideNav: (hide: boolean) => v
                 whileTap={{ scale: 0.97 }}
                 style={{ background: 'rgba(36,41,56,0.85)', boxShadow: '0 0 18px #23283a' }}
               >
-                Discover
+                {t.discover}
               </motion.button>
             </motion.div>
             <motion.div

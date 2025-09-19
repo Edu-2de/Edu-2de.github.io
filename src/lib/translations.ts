@@ -273,6 +273,26 @@ export interface Translations {
   about: string;
   work: string;
 
+  // About page specific
+  hello: string;
+  imEdu: string;
+  iDevelop: string;
+  systems: string;
+  aboutIntroDescription: string;
+  seePlanets: string;
+  discover: string;
+  findMeOnline: string;
+  readyToStartProject: string;
+  startConversation: string;
+  scheduleCall: string;
+  footerText: string;
+  projectInquiry: string;
+  discussIdeas: string;
+
+  // Projects
+  projectsTitle: string;
+  seeMoreOnGithub: string;
+
   // Hero typing phrases
   typingPhrases: string[];
 
@@ -591,6 +611,28 @@ export const translations: Record<Language, Translations> = {
       'My toolkit: coding in VS Code, collaborating on GitHub, designing in Figma, organizing with Notion, and animating with Framer Motion.',
     dreamsDescription:
       "Building the future with innovative ideas, creating meaningful impact, and pushing the boundaries of what's possible in tech.",
+
+    // About page specific
+    hello: 'Hello',
+    imEdu: "I'm Edu",
+    iDevelop: 'I develop',
+    systems: 'systems',
+    aboutIntroDescription:
+      'I create digital solutions with design and code. My focus is on building modern, fast and secure systems that solve real problems and deliver great experiences. Want to know more? See the planets below and explore each theme.',
+    seePlanets: 'See planets',
+    discover: 'Discover',
+    findMeOnline: 'Find me online',
+    readyToStartProject: 'Ready to start your project?',
+    startConversation: 'Start a Conversation',
+    scheduleCall: 'Schedule a Call',
+    footerText: '© 2024 Eduardo Silva. Built with Next.js and hosted on GitHub Pages.',
+
+    // Projects
+    projectsTitle: 'Projects',
+    seeMoreOnGithub: 'See more on GitHub',
+    projectInquiry:
+      "Let's discuss your ideas and see how we can bring them to life. I'm available for freelance projects and full-time opportunities.",
+    discussIdeas: 'Ready to start your project?',
   },
   pt: {
     // Navigation
@@ -898,6 +940,28 @@ export const translations: Record<Language, Translations> = {
       'Meu kit de ferramentas: codificando no VS Code, colaborando no GitHub, projetando no Figma, organizando com Notion e animando com Framer Motion.',
     dreamsDescription:
       'Construindo o futuro com ideias inovadoras, criando impacto significativo e empurrando os limites do que é possível na tecnologia.',
+
+    // About page specific
+    hello: 'Olá',
+    imEdu: 'Eu sou o Edu',
+    iDevelop: 'Eu desenvolvo',
+    systems: 'sistemas',
+    aboutIntroDescription:
+      'Eu crio soluções digitais com design e código. Meu foco é construir sistemas modernos, rápidos e seguros que resolvem problemas reais e entregam ótimas experiências. Quer saber mais? Veja os planetas abaixo e explore cada tema.',
+    seePlanets: 'Ver planetas',
+    discover: 'Descobrir',
+    findMeOnline: 'Me encontre online',
+    readyToStartProject: 'Pronto para começar seu projeto?',
+    startConversation: 'Iniciar uma Conversa',
+    scheduleCall: 'Agendar uma Chamada',
+    footerText: '© 2024 Eduardo Silva. Construído com Next.js e hospedado no GitHub Pages.',
+
+    // Projects
+    projectsTitle: 'Projetos',
+    seeMoreOnGithub: 'Ver mais no GitHub',
+    projectInquiry:
+      'Vamos discutir suas ideias e ver como podemos trazê-las à vida. Estou disponível para projetos freelance e oportunidades de tempo integral.',
+    discussIdeas: 'Pronto para começar seu projeto?',
   },
 };
 
