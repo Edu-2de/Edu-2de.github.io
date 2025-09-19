@@ -8,11 +8,11 @@ interface Hobby {
   id: number;
   name: string;
   category: string;
-  level: number;
   experience: string;
   description: string;
   icon?: string;
-  achievements?: string[];
+  highlights?: string[];
+  favoriteAspect?: string;
 }
 
 interface HobbyCategory {
@@ -25,131 +25,59 @@ interface HobbyCategory {
 // Hobbies Data
 const hobbiesData: HobbyCategory[] = [
   {
-    name: 'Creative Arts',
-    description: 'Visual and digital creative expressions',
+    name: 'Creative Expression',
+    description: 'Artistic outlets that fuel my imagination',
     color: 'from-cyan-300 to-blue-400',
     hobbies: [
       {
         id: 1,
-        name: 'Digital Art',
+        name: 'Music & Guitar',
         category: 'Creative',
-        level: 75,
-        experience: '1+ years',
-        description: 'Creating digital illustrations and concept art using various tools',
-        achievements: ['Portrait Studies', 'Character Design', 'Abstract Compositions']
+        experience: '4+ years',
+        description: 'Expressing emotions through melodies and exploring different musical genres on the guitar',
+        favoriteAspect: 'Creating original riffs and learning complex solos',
+        highlights: ['Rock & Metal', 'Fingerstyle Acoustic', 'Songwriting']
       },
       {
         id: 2,
-        name: 'Photography',
+        name: 'Drawing & Art',
         category: 'Creative',
-        level: 70,
-        experience: '2+ years',
-        description: 'Capturing moments and exploring composition in different environments',
-        achievements: ['Street Photography', 'Nature Shots', 'Portrait Sessions']
-      },
-      {
-        id: 3,
-        name: 'Video Editing',
-        category: 'Creative',
-        level: 65,
-        experience: '6 months',
-        description: 'Post-production work creating engaging visual narratives',
-        achievements: ['Short Films', 'Travel Vlogs', 'Motion Graphics']
-      },
-      {
-        id: 4,
-        name: 'UI/UX Design',
-        category: 'Creative',
-        level: 80,
-        experience: '1.5+ years',
-        description: 'Designing user interfaces and experiences for digital products',
-        achievements: ['Mobile Apps', 'Web Interfaces', 'Design Systems']
+        experience: 'Lifetime',
+        description: 'A lifelong passion for visual storytelling through sketches, digital art, and character design',
+        favoriteAspect: 'Character design and concept art creation',
+        highlights: ['Character Design', 'Digital Illustration', 'Concept Art']
       }
     ]
   },
   {
-    name: 'Physical Activities',
-    description: 'Sports and outdoor adventures',
+    name: 'Active Lifestyle',
+    description: 'Physical activities that keep me energized',
     color: 'from-blue-400 to-indigo-400',
     hobbies: [
       {
-        id: 5,
+        id: 3,
         name: 'Skateboarding',
         category: 'Sports',
-        level: 60,
-        experience: '3+ years',
-        description: 'Street skating and learning new tricks around the city',
-        achievements: ['Kickflip', 'Heelflip', 'Rail Slides']
-      },
-      {
-        id: 6,
-        name: 'Swimming',
-        category: 'Sports',
-        level: 85,
-        experience: '5+ years',
-        description: 'Competitive swimming and water sports activities',
-        achievements: ['100m Freestyle', 'Open Water', 'Team Relay']
-      },
-      {
-        id: 7,
-        name: 'Hiking',
-        category: 'Outdoors',
-        level: 70,
-        experience: '2+ years',
-        description: 'Exploring nature trails and mountain paths',
-        achievements: ['Mountain Peaks', 'Trail Photography', 'Camping Trips']
-      },
-      {
-        id: 8,
-        name: 'Cycling',
-        category: 'Sports',
-        level: 75,
-        experience: '4+ years',
-        description: 'Road cycling and mountain biking adventures',
-        achievements: ['Long Distance Rides', 'Mountain Trails', 'City Exploration']
+        experience: '8+ years',
+        description: 'Street skating culture, learning technical tricks, and the freedom of rolling through the city',
+        favoriteAspect: 'Landing new tricks after countless attempts',
+        highlights: ['Street Skating', 'Technical Tricks', 'Urban Exploration']
       }
     ]
   },
   {
-    name: 'Mental Challenges',
-    description: 'Games and intellectual pursuits',
+    name: 'Digital Adventures',
+    description: 'Virtual worlds and interactive entertainment',
     color: 'from-indigo-400 to-purple-400',
     hobbies: [
       {
-        id: 9,
-        name: 'Chess',
-        category: 'Strategy',
-        level: 65,
-        experience: '2+ years',
-        description: 'Strategic thinking and pattern recognition through chess',
-        achievements: ['Online Tournaments', 'Chess.com Rating', 'Tactical Puzzles']
-      },
-      {
-        id: 10,
+        id: 4,
         name: 'Gaming',
         category: 'Entertainment',
-        level: 90,
-        experience: '8+ years',
-        description: 'Competitive and casual gaming across multiple platforms',
-        achievements: ['Esports Tournaments', 'Speedruns', 'Community Building']
-      },
-      {
-        id: 11,
-        name: 'Reading',
-        category: 'Learning',
-        level: 80,
-        experience: '10+ years',
-        description: 'Exploring different worlds through books and literature',
-        achievements: ['50+ Books/Year', 'Book Reviews', 'Reading Challenges']
-      },
-      {
-        id: 12,
-        name: 'Puzzle Solving',
-        category: 'Logic',
-        level: 70,
-        experience: '3+ years',
-        description: 'Mathematical puzzles and logical problem solving',
-        achievements: ['Rubiks Cube', 'Logic Puzzles', 'Math Competitions']
+        experience: 'Lifetime',
+        description: 'Exploring immersive worlds, challenging gameplay, and rich storytelling in video games',
+        favoriteAspect: 'Elden Ring - The perfect blend of challenge and exploration',
+        highlights: ['Elden Ring', 'Soulslike Games', 'Open World RPGs']
       }
     ]
   }
@@ -194,7 +122,6 @@ const BackButton = () => (
 const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
-  const currentPlanetIndex = planets.findIndex(p => p.path === '/hobbies');
 
   const handlePlanetClick = (planet: typeof planets[0]) => {
     if (planet.path === '/hobbies') return;
@@ -305,7 +232,7 @@ const PlanetNavigation = () => {
   );
 };
 
-// Planet Background - Left side this time
+// Planet Background - Left side
 const PlanetBackground = () => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     {/* Hobbies Planet - Half visible from top left */}
@@ -325,7 +252,7 @@ const PlanetBackground = () => (
       }}
     />
     
-    {/* Orbital rings with different animation */}
+    {/* Orbital rings */}
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -423,96 +350,78 @@ const CosmicDust = () => (
   </div>
 );
 
-// Animated Hobby Bar Component
-const HobbyBar = ({ hobby, index }: { hobby: Hobby; index: number }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 200);
-    return () => clearTimeout(timer);
-  }, [index]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.1, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: "-80px" }}
-      className="group"
-    >
-      <div className="flex justify-between items-center mb-6">
-        <h4 className="text-2xl font-light text-neutral-100 group-hover:text-cyan-200 transition-colors duration-300">
-          {hobby.name}
-        </h4>
-        <div className="flex items-center gap-4 text-sm">
-          <span className="font-medium text-neutral-300 px-3 py-1 bg-neutral-800/40 rounded-full backdrop-blur-sm border border-neutral-700/30">
-            {hobby.level}%
-          </span>
-          <span className="text-neutral-500">{hobby.experience}</span>
+// Hobby Card Component
+const HobbyCard = ({ hobby, index }: { hobby: Hobby; index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -60, rotateY: -15 }}
+    whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+    transition={{ delay: index * 0.2, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+    viewport={{ once: true, margin: "-80px" }}
+    className="group bg-neutral-900/30 backdrop-blur-xl rounded-3xl p-8 border border-neutral-700/30 hover:border-cyan-500/20 hover:bg-neutral-900/40 transition-all duration-700 relative overflow-hidden"
+    style={{
+      boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.05)`,
+    }}
+  >
+    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/4 via-transparent to-blue-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+    
+    <div className="relative z-10">
+      {/* Header */}
+      <div className="flex justify-between items-start mb-6">
+        <div>
+          <h3 className="text-3xl font-light text-neutral-100 group-hover:text-cyan-200 transition-colors duration-300 mb-2">
+            {hobby.name}
+          </h3>
+          <div className="flex items-center gap-2 text-cyan-400">
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium">{hobby.experience}</span>
+          </div>
         </div>
       </div>
-      
-      <div className="relative mb-8">
-        <div className="w-full bg-neutral-800/30 rounded-full h-2 overflow-hidden border border-neutral-700/20">
-          <motion.div
-            className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full relative overflow-hidden"
-            initial={{ width: 0 }}
-            whileInView={{ width: isVisible ? `${hobby.level}%` : 0 }}
-            transition={{ duration: 2.8, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-            viewport={{ once: true }}
-            style={{
-              boxShadow: `0 0 15px rgba(56, 189, 248, 0.5)`,
-            }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-white/40 via-white/15 to-transparent"
-              animate={{
-                x: ['-100%', '100%'],
-              }}
-              transition={{
-                duration: 2.5,
-                delay: index * 0.1 + 1.2,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
-        </div>
-      </div>
-      
+
+      {/* Description */}
       <p className="text-neutral-400 leading-relaxed mb-6 font-light text-lg">
         {hobby.description}
       </p>
-      
-      {hobby.achievements && (
+
+      {/* Favorite Aspect */}
+      {hobby.favoriteAspect && (
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
+          viewport={{ once: true }}
+          className="bg-neutral-800/40 rounded-2xl p-4 mb-6 border border-neutral-700/20"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+            </svg>
+            <span className="text-sm font-medium text-cyan-300">Favorite Aspect</span>
+          </div>
+          <p className="text-neutral-300 font-light">{hobby.favoriteAspect}</p>
+        </motion.div>
+      )}
+
+      {/* Highlights */}
+      {hobby.highlights && (
         <div className="flex flex-wrap gap-3">
-          {hobby.achievements.slice(0, 2).map((achievement, idx) => (
+          {hobby.highlights.map((highlight, idx) => (
             <motion.span
               key={idx}
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.6 + idx * 0.1, duration: 0.7 }}
+              transition={{ delay: index * 0.2 + 0.7 + idx * 0.1, duration: 0.7 }}
               viewport={{ once: true }}
               className="inline-block px-4 py-2 text-xs bg-neutral-800/30 text-neutral-300 rounded-full border border-neutral-700/30 hover:bg-neutral-700/40 hover:border-cyan-500/20 transition-all duration-300 backdrop-blur-sm cursor-pointer"
             >
-              {achievement}
+              {highlight}
             </motion.span>
           ))}
-          {hobby.achievements.length > 2 && (
-            <motion.span
-              initial={{ opacity: 0, scale: 0.8, y: 10 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: index * 0.1 + 0.8, duration: 0.7 }}
-              viewport={{ once: true }}
-              className="inline-block px-4 py-2 text-xs bg-neutral-800/20 text-neutral-500 rounded-full border border-neutral-700/20 cursor-pointer"
-            >
-              +{hobby.achievements.length - 2} more
-            </motion.span>
-          )}
         </div>
       )}
-    </motion.div>
-  );
-};
+    </div>
+  </motion.div>
+);
 
 // Hobby Category Section
 const HobbyCategorySection = ({ category, index }: { category: HobbyCategory; index: number }) => (
@@ -521,7 +430,7 @@ const HobbyCategorySection = ({ category, index }: { category: HobbyCategory; in
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.4, delay: index * 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     viewport={{ once: true, margin: "-150px" }}
-    className="mb-40"
+    className="mb-32"
   >
     <div className="text-center mb-20">
       <motion.div
@@ -548,24 +457,9 @@ const HobbyCategorySection = ({ category, index }: { category: HobbyCategory; in
       </motion.p>
     </div>
 
-    <div className="grid gap-16 lg:grid-cols-2 xl:gap-20">
+    <div className="grid gap-12 lg:gap-16">
       {category.hobbies.map((hobby, hobbyIndex) => (
-        <motion.div 
-          key={hobby.id} 
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ delay: hobbyIndex * 0.2, duration: 1.2 }}
-          viewport={{ once: true, margin: "-60px" }}
-          className="bg-neutral-900/30 backdrop-blur-xl rounded-3xl p-10 border border-neutral-700/30 hover:border-cyan-500/20 hover:bg-neutral-900/40 transition-all duration-700 group relative overflow-hidden"
-          style={{
-            boxShadow: `0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(56, 189, 248, 0.05)`,
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/4 via-transparent to-blue-500/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-          <div className="relative z-10">
-            <HobbyBar hobby={hobby} index={hobbyIndex} />
-          </div>
-        </motion.div>
+        <HobbyCard key={hobby.id} hobby={hobby} index={hobbyIndex} />
       ))}
     </div>
   </motion.section>
@@ -590,7 +484,7 @@ const HeroSection = () => (
             textShadow: `0 0 40px rgba(56, 189, 248, 0.25)`,
           }}
         >
-          Personal Hobbies
+          Personal Passions
         </motion.h1>
 
         <motion.p
@@ -599,7 +493,7 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 1.4 }}
         >
-          Exploring the infinite cosmos of creativity, adventure, and intellectual curiosity that fuels my passion for life.
+          The creative outlets and adventures that shape my identity beyond the digital realm and fuel my inspiration.
         </motion.p>
 
         <motion.div
@@ -608,7 +502,7 @@ const HeroSection = () => (
           transition={{ delay: 1.8, duration: 1.2 }}
           className="flex flex-wrap justify-center gap-8"
         >
-          {['Creative Spirit', 'Adventure Seeker', 'Lifelong Learner'].map((tag, index) => (
+          {['Music Creator', 'Street Artist', 'Digital Explorer'].map((tag, index) => (
             <motion.span
               key={tag}
               initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
@@ -628,7 +522,7 @@ const HeroSection = () => (
       </motion.div>
     </div>
 
-    {/* Enhanced Scroll Indicator with different animation */}
+    {/* Scroll Indicator */}
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -677,19 +571,19 @@ const HobbiesStats = () => (
         className="text-center mb-24"
       >
         <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">
-          Passion Metrics
+          Passion Journey
         </h2>
         <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
-          Quantifying the joy and fulfillment found in creative and physical pursuits
+          The creative and adventurous pursuits that define who I am beyond the screen
         </p>
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-16">
         {[
-          { number: '12+', label: 'Hobbies', description: 'Active Interests', color: '#38bdf8' },
-          { number: '5+', label: 'Years', description: 'Creative Journey', color: '#0ea5e9' },
-          { number: '100+', label: 'Projects', description: 'Personal Creations', color: '#0284c7' },
-          { number: '∞', label: 'Inspiration', description: 'Endless Motivation', color: '#0369a1' }
+          { number: '4+', label: 'Hobbies', description: 'Core Passions', color: '#38bdf8' },
+          { number: '15+', label: 'Years', description: 'Combined Experience', color: '#0ea5e9' },
+          { number: '∞', label: 'Memories', description: 'Unforgettable Moments', color: '#0284c7' },
+          { number: '1', label: 'Favorite', description: 'Elden Ring', color: '#0369a1' }
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -763,7 +657,7 @@ const CTASection = () => (
           viewport={{ once: true }}
           className="text-2xl text-neutral-400 leading-relaxed mb-16 font-light"
         >
-          Whether it&apos;s collaborating on creative projects or exploring new horizons together, I&apos;m always up for the next adventure.
+          Whether it&apos;s jamming together, skating the streets, or discussing the lore of Elden Ring, I&apos;m always up for connecting over shared passions.
         </motion.p>
         
         <motion.div
@@ -783,7 +677,7 @@ const CTASection = () => (
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-white/25 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">Connect & Create</span>
+            <span className="relative z-10">Connect & Jam</span>
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05, y: -4, rotate: -1 }}
