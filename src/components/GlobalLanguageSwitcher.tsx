@@ -49,7 +49,13 @@ const GlobalLanguageSwitcher: React.FC = () => {
                 `}
               >
                 <div className="w-6 h-4 relative overflow-hidden rounded">
-                  <Image src={lang.flag} alt={lang.name} width={24} height={16} className="w-full h-full object-cover" />
+                  <Image
+                    src={lang.flag}
+                    alt={lang.name}
+                    width={24}
+                    height={16}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
@@ -70,11 +76,11 @@ const GlobalLanguageSwitcher: React.FC = () => {
         className="w-14 h-14 bg-slate-800 border border-slate-700 rounded-full hover:bg-slate-700 hover:border-slate-600 transition-all duration-300 shadow-lg backdrop-blur-sm flex items-center justify-center relative overflow-hidden"
       >
         <div className="w-8 h-6 relative">
-          <Image 
-            src={currentLanguage?.flag || '/flags/us.svg'} 
-            alt={currentLanguage?.name || 'English'} 
-            width={32} 
-            height={24} 
+          <Image
+            src={currentLanguage?.flag || '/flags/us.svg'}
+            alt={currentLanguage?.name || 'English'}
+            width={32}
+            height={24}
             className="w-full h-full object-cover rounded"
           />
         </div>
