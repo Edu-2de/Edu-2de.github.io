@@ -1,16 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/lib/language-context';
 
 export default function TypingEffect() {
-  const phrases = useMemo(() => [
-    "Front-end Developer & Space UI Explorer",
-    "Full Stack Astronaut",
-    "Advocate of Clean Code",
-    "Cosmic Interface Designer",
-    "React Nebula Navigator",
-    "Galactic UX Enthusiast",
-    "TypeScript Star Mapper"
-  ], []);
+  const { t } = useLanguage();
+  const phrases = useMemo(() => t.typingPhrases, [t.typingPhrases]);
   const [displayed, setDisplayed] = useState('');
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [charIdx, setCharIdx] = useState(0);

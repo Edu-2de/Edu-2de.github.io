@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import TypingEffect from './TypingEffect';
 import HeroSocialLinks from './HeroSocialLinks';
 import { ArrowDown } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 export default function HeroContent({
   nameHover,
@@ -14,6 +15,7 @@ export default function HeroContent({
   scrollToNext,
 }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
 any) {
+  const { t } = useLanguage();
   return (
     <motion.div
       ref={centerRef}
@@ -62,10 +64,7 @@ any) {
         <TypingEffect />
       </motion.div>
       <motion.div custom={2} initial="hidden" animate="visible" variants={textVariants} className="mb-12">
-        <p className="text-slate-400 text-xl md:text-2xl max-w-3xl leading-relaxed font-light">
-          Crafting digital experiences in the <span className="text-slate-300 font-medium">cosmic web</span> of modern
-          technology.
-        </p>
+        <p className="text-slate-400 text-xl md:text-2xl max-w-3xl leading-relaxed font-light">{t.heroSubtitle}</p>
       </motion.div>
       {/* Social links below the description */}
       <HeroSocialLinks />
@@ -78,7 +77,7 @@ any) {
           className="text-slate-500 hover:text-slate-400 transition-colors duration-200 group flex flex-col items-center"
         >
           <span className="text-sm mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            Explore
+            {t.exploreMyWork}
           </span>
           <motion.div animate={{ y: [0, 4, 0] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}>
             <ArrowDown size={20} />

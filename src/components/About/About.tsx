@@ -6,6 +6,7 @@ import PlanetLoading from '../Loading/Loading';
 import { OrbitControls } from '@react-three/drei';
 import { ORBIT_PLANETS } from '../Hero/Hero_components/OrbitPlanets';
 import Image from 'next/image';
+import { useLanguage } from '@/lib/language-context';
 
 const PLANETS = [
   {

@@ -243,6 +243,48 @@ export interface Translations {
   projectsCompleted: string;
   technologiesMastered: string;
   level: string;
+
+  // Home page
+  welcome: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  exploreMyWork: string;
+  getInTouch: string;
+  aboutMe: string;
+  aboutTitle: string;
+  aboutDescription: string;
+  myStory: string;
+  currentFocus: string;
+  passionForCode: string;
+  projectsDescription: string;
+  viewProject: string;
+  viewAllProjects: string;
+  contact: string;
+  contactTitle: string;
+  contactDescription: string;
+  sendMessage: string;
+  name: string;
+  email: string;
+  message: string;
+  send: string;
+
+  // Navigation
+  home: string;
+  about: string;
+  work: string;
+
+  // Hero typing phrases
+  typingPhrases: string[];
+
+  // About/Planets
+  planetSkills: string;
+  planetHobbies: string;
+  planetTools: string;
+  planetDreams: string;
+  skillsDescription: string;
+  hobbiesDescription: string;
+  toolsDescription: string;
+  dreamsDescription: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -494,6 +536,61 @@ export const translations: Record<Language, Translations> = {
     projectsCompleted: 'Projects Completed',
     technologiesMastered: 'Technologies Mastered',
     level: 'Level',
+
+    // Home page
+    welcome: 'Welcome',
+    heroTitle: 'Full Stack Developer',
+    heroSubtitle: 'Creating digital experiences with passion, precision, and cutting-edge technology.',
+    exploreMyWork: 'Explore My Work',
+    getInTouch: 'Get In Touch',
+    aboutMe: 'About Me',
+    aboutTitle: 'Passionate Developer & Creative Thinker',
+    aboutDescription:
+      "I'm a full-stack developer with a love for creating beautiful, functional applications that solve real-world problems.",
+    myStory: 'My Story',
+    currentFocus: 'Current Focus',
+    passionForCode: 'Passion for Code',
+    projectsDescription: 'A showcase of my recent work and creative projects.',
+    viewProject: 'View Project',
+    viewAllProjects: 'View All Projects',
+    contact: 'Contact',
+    contactTitle: "Let's Work Together",
+    contactDescription: "Have a project in mind? I'd love to hear from you.",
+    sendMessage: 'Send Message',
+    name: 'Name',
+    email: 'Email',
+    message: 'Message',
+    send: 'Send',
+
+    // Navigation
+    home: 'Home',
+    about: 'About',
+    work: 'Work',
+
+    // Hero typing phrases
+    typingPhrases: [
+      'Front-end Developer & Space UI Explorer',
+      'Full Stack Astronaut',
+      'Advocate of Clean Code',
+      'Cosmic Interface Designer',
+      'React Nebula Navigator',
+      'Galactic UX Enthusiast',
+      'TypeScript Star Mapper',
+    ],
+
+    // About/Planets
+    planetSkills: 'Planet Skills',
+    planetHobbies: 'Planet Hobbies',
+    planetTools: 'Planet Tools',
+    planetDreams: 'Planet Dreams',
+    skillsDescription:
+      'Explore my universe of skills: interfaces with React & TypeScript, APIs with Node.js, and beautiful UIs with CSS & Tailwind. Always learning, always evolving!',
+    hobbiesDescription:
+      'My passions orbit around music, games, travel, photography, and cooking. Always searching for new adventures and creative inspiration!',
+    toolsDescription:
+      'My toolkit: coding in VS Code, collaborating on GitHub, designing in Figma, organizing with Notion, and animating with Framer Motion.',
+    dreamsDescription:
+      "Building the future with innovative ideas, creating meaningful impact, and pushing the boundaries of what's possible in tech.",
   },
   pt: {
     // Navigation
@@ -746,6 +843,61 @@ export const translations: Record<Language, Translations> = {
     projectsCompleted: 'Projetos Completados',
     technologiesMastered: 'Tecnologias Dominadas',
     level: 'Nível',
+
+    // Home page
+    welcome: 'Bem-vindo',
+    heroTitle: 'Desenvolvedor Full Stack',
+    heroSubtitle: 'Criando experiências digitais com paixão, precisão e tecnologia de ponta.',
+    exploreMyWork: 'Explore Meu Trabalho',
+    getInTouch: 'Entre em Contato',
+    aboutMe: 'Sobre Mim',
+    aboutTitle: 'Desenvolvedor Apaixonado & Pensador Criativo',
+    aboutDescription:
+      'Sou um desenvolvedor full-stack com amor por criar aplicações bonitas e funcionais que resolvem problemas do mundo real.',
+    myStory: 'Minha História',
+    currentFocus: 'Foco Atual',
+    passionForCode: 'Paixão por Código',
+    projectsDescription: 'Uma vitrine do meu trabalho recente e projetos criativos.',
+    viewProject: 'Ver Projeto',
+    viewAllProjects: 'Ver Todos os Projetos',
+    contact: 'Contato',
+    contactTitle: 'Vamos Trabalhar Juntos',
+    contactDescription: 'Tem um projeto em mente? Adoraria ouvir de você.',
+    sendMessage: 'Enviar Mensagem',
+    name: 'Nome',
+    email: 'Email',
+    message: 'Mensagem',
+    send: 'Enviar',
+
+    // Navigation
+    home: 'Início',
+    about: 'Sobre',
+    work: 'Trabalhos',
+
+    // Hero typing phrases
+    typingPhrases: [
+      'Desenvolvedor Front-end & Explorador de UI Espacial',
+      'Astronauta Full Stack',
+      'Defensor de Código Limpo',
+      'Designer de Interface Cósmica',
+      'Navegador da Nebulosa React',
+      'Entusiasta de UX Galático',
+      'Mapeador de Estrelas TypeScript',
+    ],
+
+    // About/Planets
+    planetSkills: 'Planeta Habilidades',
+    planetHobbies: 'Planeta Hobbies',
+    planetTools: 'Planeta Ferramentas',
+    planetDreams: 'Planeta Sonhos',
+    skillsDescription:
+      'Explore meu universo de habilidades: interfaces com React & TypeScript, APIs com Node.js, e UIs lindas com CSS & Tailwind. Sempre aprendendo, sempre evoluindo!',
+    hobbiesDescription:
+      'Minhas paixões orbitam em torno de música, jogos, viagem, fotografia e culinária. Sempre buscando novas aventuras e inspiração criativa!',
+    toolsDescription:
+      'Meu kit de ferramentas: codificando no VS Code, colaborando no GitHub, projetando no Figma, organizando com Notion e animando com Framer Motion.',
+    dreamsDescription:
+      'Construindo o futuro com ideias inovadoras, criando impacto significativo e empurrando os limites do que é possível na tecnologia.',
   },
 };
 

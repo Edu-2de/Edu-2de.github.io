@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Mail, MessageCircle, Github, Linkedin, Twitter } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: true,
@@ -19,13 +21,9 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
-            Let&apos;s Connect
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">{t.contactTitle}</h2>
           <div className="w-20 h-px bg-gray-300 mx-auto mb-8"></div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Ready to bring your ideas to life? I&apos;m always interested in discussing new projects and opportunities.
-          </p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t.contactDescription}</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
@@ -37,11 +35,8 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl font-light text-gray-900 mb-6">Get in Touch</h3>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                Whether you have a project in mind, want to collaborate, or just want to say hello, 
-                I&apos;d love to hear from you. Let&apos;s create something amazing together.
-              </p>
+              <h3 className="text-2xl font-light text-gray-900 mb-6">{t.getInTouch}</h3>
+              <p className="text-gray-600 leading-relaxed mb-8">{t.contactDescription}</p>
             </div>
 
             {/* Contact Methods */}
@@ -82,9 +77,9 @@ export default function Contact() {
               <h4 className="text-lg font-medium text-gray-900 mb-4">Find me online</h4>
               <div className="flex gap-4">
                 {[
-                  { icon: Github, href: "https://github.com", label: "GitHub" },
-                  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-                  { icon: Twitter, href: "https://twitter.com", label: "Twitter" }
+                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
+                  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
                 ].map(({ icon: Icon, href, label }) => (
                   <motion.a
                     key={label}
@@ -111,14 +106,12 @@ export default function Contact() {
             className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex flex-col justify-center"
           >
             <div className="text-center">
-              <h3 className="text-2xl font-light text-gray-900 mb-6">
-                Ready to start your project?
-              </h3>
+              <h3 className="text-2xl font-light text-gray-900 mb-6">Ready to start your project?</h3>
               <p className="text-gray-600 mb-8 leading-relaxed">
-                Let&apos;s discuss your ideas and see how we can bring them to life. 
-                I&apos;m available for freelance projects and full-time opportunities.
+                Let&apos;s discuss your ideas and see how we can bring them to life. I&apos;m available for freelance
+                projects and full-time opportunities.
               </p>
-              
+
               <div className="space-y-4">
                 <motion.a
                   href="mailto:contato@eduardosilva.dev?subject=New Project Inquiry"
@@ -128,7 +121,7 @@ export default function Contact() {
                 >
                   Start a Conversation
                 </motion.a>
-                
+
                 <motion.a
                   href="https://calendly.com/eduardosilva"
                   target="_blank"
@@ -151,9 +144,7 @@ export default function Contact() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-24 pt-12 border-t border-gray-200"
         >
-          <p className="text-gray-500 text-sm">
-            © 2024 Eduardo Silva. Built with Next.js and hosted on GitHub Pages.
-          </p>
+          <p className="text-gray-500 text-sm">© 2024 Eduardo Silva. Built with Next.js and hosted on GitHub Pages.</p>
         </motion.div>
       </div>
     </section>
