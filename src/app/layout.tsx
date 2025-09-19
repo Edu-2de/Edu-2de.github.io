@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { LanguageProvider } from '@/lib/language-context';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,7 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
+        <LanguageProvider>
+          <LanguageSwitcher />
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }
