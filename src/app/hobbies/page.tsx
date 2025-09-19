@@ -47,7 +47,7 @@ const hobbiesData: HobbyCategory[] = [
         highlights: ['Heavy Metal Riffs', 'Acoustic Fingerpicking', 'Original Compositions', 'Jam Sessions'],
         mood: '🎸 Energetic & Expressive',
         intensity: 95,
-        themeColor: '#f97316',
+        themeColor: '#1db954',
         bgPattern: 'musical'
       },
       {
@@ -83,7 +83,7 @@ const hobbiesData: HobbyCategory[] = [
         highlights: ['Street Skating', 'Technical Tricks', 'Urban Exploration', 'Skate Culture'],
         mood: '🛹 Rebellious & Determined',
         intensity: 92,
-        themeColor: '#10b981',
+        themeColor: '#f97316',
         bgPattern: 'urban'
       }
     ]
@@ -295,381 +295,576 @@ const PlanetBackground = () => (
   </div>
 );
 
-// Dynamic Background Effects for each hobby
-const DynamicBackground = ({ hobby }: { hobby: Hobby }) => {
-  const [effects, setEffects] = useState<JSX.Element[]>([]);
+// Spotify-like Music Player Component
+const MusicPlayerCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
+  const [selectedTrack, setSelectedTrack] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
-    const generateEffects = () => {
-      const elements = [];
-      const numberOfEffects = 12;
+  const tracks = [
+    { id: 1, name: 'Heavy Metal Riffs', artist: 'My Compositions', duration: '3:24', genre: 'Metal' },
+    { id: 2, name: 'Acoustic Fingerpicking', artist: 'Solo Sessions', duration: '2:48', genre: 'Acoustic' },
+    { id: 3, name: 'Original Compositions', artist: 'Creative Flow', duration: '4:12', genre: 'Original' },
+    { id: 4, name: 'Jam Sessions', artist: 'With Friends', duration: '5:33', genre: 'Collaborative' }
+  ];
 
-      for (let i = 0; i < numberOfEffects; i++) {
-        let effectElement;
-
-        switch (hobby.bgPattern) {
-          case 'musical':
-            effectElement = (
-              <motion.div
-                key={i}
-                className="absolute text-xl opacity-15"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  color: hobby.themeColor,
-                  fontSize: `${10 + Math.random() * 12}px`,
-                }}
-                animate={{
-                  y: [0, -40, 0],
-                  rotate: [0, 360],
-                  scale: [1, 1.3, 1],
-                  opacity: [0.1, 0.25, 0.1],
-                }}
-                transition={{
-                  duration: 6 + Math.random() * 4,
-                  delay: Math.random() * 5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                {['♪', '♫', '♬', '♩'][Math.floor(Math.random() * 4)]}
-              </motion.div>
-            );
-            break;
-
-          case 'artistic':
-            effectElement = (
-              <motion.div
-                key={i}
-                className="absolute rounded-full opacity-15"
-                style={{
-                  width: `${6 + Math.random() * 15}px`,
-                  height: `${6 + Math.random() * 15}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  background: `radial-gradient(circle, ${hobby.themeColor}40 0%, transparent 70%)`,
-                }}
-                animate={{
-                  scale: [0.5, 1.2, 0.7],
-                  rotate: [0, 180, 360],
-                  opacity: [0.1, 0.3, 0.1],
-                }}
-                transition={{
-                  duration: 5 + Math.random() * 3,
-                  delay: Math.random() * 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            );
-            break;
-
-          case 'urban':
-            effectElement = (
-              <motion.div
-                key={i}
-                className="absolute opacity-12"
-                style={{
-                  width: `${3 + Math.random() * 8}px`,
-                  height: `${15 + Math.random() * 30}px`,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  backgroundColor: hobby.themeColor,
-                  borderRadius: Math.random() > 0.5 ? '0' : '2px',
-                }}
-                animate={{
-                  x: [0, 80, -40, 0],
-                  y: [0, -15, 15, 0],
-                  rotate: [0, 180, 360],
-                  opacity: [0.1, 0.25, 0.1],
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 4,
-                  delay: Math.random() * 3,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-              />
-            );
-            break;
-
-          case 'digital':
-            effectElement = (
-              <motion.div
-                key={i}
-                className="absolute opacity-20 font-mono text-xs"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  color: hobby.themeColor,
-                }}
-                animate={{
-                  opacity: [0, 0.8, 0],
-                  scale: [0.8, 1.1, 0.8],
-                  y: [0, -25, 0],
-                }}
-                transition={{
-                  duration: 2.5 + Math.random() * 2,
-                  delay: Math.random() * 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                {['0', '1', '█', '▓', 'HP', 'EXP'][Math.floor(Math.random() * 6)]}
-              </motion.div>
-            );
-            break;
-
-          default:
-            effectElement = null;
-        }
-
-        if (effectElement) {
-          elements.push(effectElement);
-        }
-      }
-      setEffects(elements);
-    };
-
-    generateEffects();
-  }, [hobby]);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {effects}
-    </div>
-  );
-};
-
-// Passion Meter Component
-const PassionMeter = ({ hobby }: { hobby: Hobby }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.8, delay: 0.5 }}
-    viewport={{ once: true }}
-    className="relative"
-  >
-    <div className="flex items-center justify-between mb-3">
-      <span className="text-sm font-medium text-neutral-300">Passion Intensity</span>
-      <span className="text-2xl font-bold" style={{ color: hobby.themeColor }}>
-        {hobby.intensity}%
-      </span>
-    </div>
-    
-    <div className="relative w-full h-3 bg-neutral-800 rounded-full overflow-hidden">
-      <motion.div
-        className="h-full rounded-full"
-        style={{
-          background: `linear-gradient(90deg, ${hobby.themeColor}60, ${hobby.themeColor})`,
-          boxShadow: `0 0 15px ${hobby.themeColor}40`,
-        }}
-        initial={{ width: 0 }}
-        whileInView={{ width: `${hobby.intensity}%` }}
-        transition={{ duration: 2, delay: 0.8 }}
-        viewport={{ once: true }}
-      />
-      
-      {/* Pulse effect */}
-      <motion.div
-        className="absolute top-0 left-0 h-full w-2 rounded-full opacity-60"
-        style={{ backgroundColor: hobby.themeColor }}
-        animate={{
-          x: [`0%`, `${hobby.intensity - 2}%`],
-          opacity: [0.6, 1, 0.6],
-        }}
-        transition={{
-          duration: 2,
-          delay: 2.5,
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
-      />
-    </div>
-  </motion.div>
-);
-
-// Story Card Component
-const StoryCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const handleTrackClick = (trackId: number) => {
+    if (selectedTrack === trackId) {
+      setIsPlaying(!isPlaying);
+    } else {
+      setSelectedTrack(trackId);
+      setIsPlaying(true);
+    }
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100, rotateX: -15 }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-      transition={{ 
-        duration: 1.2, 
-        delay: index * 0.3, 
-        ease: [0.25, 0.1, 0.25, 1] 
-      }}
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: index * 0.3 }}
       viewport={{ once: true, margin: "-100px" }}
-      className="relative overflow-hidden group"
+      className="bg-gradient-to-br from-neutral-900 to-neutral-800 rounded-3xl overflow-hidden shadow-2xl"
     >
-      {/* Background with dynamic effects */}
-      <div 
-        className="absolute inset-0 rounded-3xl"
-        style={{
-          background: `linear-gradient(135deg, 
-            ${hobby.themeColor}15 0%, 
-            ${hobby.themeColor}08 50%, 
-            transparent 100%)`,
-        }}
-      />
-      
-      <DynamicBackground hobby={hobby} />
-      
-      {/* Main content */}
-      <div className="relative z-10 p-8 md:p-12">
-        {/* Header with mood */}
-        <div className="text-center mb-8">
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: index * 0.3 + 0.4, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-3 px-6 py-3 bg-neutral-800/60 backdrop-blur-xl rounded-full mb-6"
-            style={{ border: `1px solid ${hobby.themeColor}30` }}
+      {/* Spotify-like Header */}
+      <div className="bg-gradient-to-r from-green-500 to-green-600 p-8">
+        <div className="flex items-center gap-6">
+          <div className="w-32 h-32 bg-green-700/30 rounded-2xl flex items-center justify-center">
+            <span className="text-6xl">🎸</span>
+          </div>
+          <div>
+            <h3 className="text-4xl font-bold text-white mb-2">{hobby.name}</h3>
+            <p className="text-green-100 text-lg mb-2">{hobby.category}</p>
+            <div className="flex items-center gap-4 text-green-200">
+              <span>{hobby.experience}</span>
+              <span>•</span>
+              <span>{tracks.length} tracks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="px-8 py-6 bg-neutral-800/50">
+        <div className="flex items-center gap-4">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-black hover:bg-green-400 transition-colors"
+            onClick={() => setIsPlaying(!isPlaying)}
           >
-            <div 
-              className="w-3 h-3 rounded-full animate-pulse"
-              style={{ backgroundColor: hobby.themeColor }}
-            />
-            <span className="text-neutral-300 font-medium">{hobby.mood}</span>
-          </motion.div>
-          
-          <motion.h3
-            className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
-            style={{ 
-              color: hobby.themeColor,
-              textShadow: `0 0 30px ${hobby.themeColor}40`
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.3 + 0.6, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {hobby.name}
-          </motion.h3>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.3 + 0.8, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 text-sm text-neutral-400"
-          >
-            <span className="px-3 py-1 bg-neutral-800/40 rounded-full">
-              {hobby.category}
-            </span>
-            <span>{hobby.experience}</span>
-          </motion.div>
+            {isPlaying ? (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6 4h2v12H6V4zm6 0h2v12h-2V4z"/>
+              </svg>
+            ) : (
+              <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M6.5 4v12l8.5-6-8.5-6z"/>
+              </svg>
+            )}
+          </motion.button>
+          <div className="text-neutral-300">
+            <p className="font-medium">{selectedTrack ? tracks.find(t => t.id === selectedTrack)?.name : 'Select a track'}</p>
+            <p className="text-sm text-neutral-400">{selectedTrack ? tracks.find(t => t.id === selectedTrack)?.artist : 'Ready to play'}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Track List */}
+      <div className="px-8 pb-8">
+        <div className="space-y-2">
+          {tracks.map((track, idx) => (
+            <motion.div
+              key={track.id}
+              whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
+              className={`p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                selectedTrack === track.id ? 'bg-green-500/20 border-l-4 border-green-500' : 'hover:bg-neutral-700/30'
+              }`}
+              onClick={() => handleTrackClick(track.id)}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="text-neutral-400 w-6">{idx + 1}</span>
+                  <div>
+                    <p className={`font-medium ${selectedTrack === track.id ? 'text-green-400' : 'text-white'}`}>
+                      {track.name}
+                    </p>
+                    <p className="text-sm text-neutral-400">{track.artist}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="px-2 py-1 bg-neutral-700 rounded-full text-xs text-neutral-300">
+                    {track.genre}
+                  </span>
+                  <span className="text-neutral-400">{track.duration}</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Main description */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.3 + 1, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-xl text-neutral-200 leading-relaxed text-center mb-10 max-w-3xl mx-auto font-light"
-        >
-          {hobby.description}
-        </motion.p>
-
-        {/* Passion Meter */}
-        <div className="mb-10">
-          <PassionMeter hobby={hobby} />
-        </div>
-
-        {/* Expandable content */}
+        {/* Expandable Content */}
         <AnimatePresence>
-          {isExpanded && (
+          {selectedTrack && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5 }}
-              className="space-y-8 overflow-hidden"
+              className="mt-8 p-6 bg-neutral-800/50 rounded-2xl"
             >
-              {/* Personal story */}
-              <div className="bg-neutral-800/40 backdrop-blur-xl rounded-2xl p-6 border border-neutral-700/50">
-                <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                  <div 
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: hobby.themeColor }}
-                  />
-                  My Journey
-                </h4>
-                <p className="text-neutral-300 leading-relaxed italic">
-                  "{hobby.personalStory}"
-                </p>
-              </div>
-
-              {/* Favorite aspect */}
-              <div 
-                className="bg-gradient-to-r from-neutral-800/60 to-neutral-800/30 backdrop-blur-xl rounded-2xl p-6"
-                style={{ border: `1px solid ${hobby.themeColor}30` }}
-              >
-                <h4 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: hobby.themeColor }}>
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                  </svg>
-                  What I Love Most
-                </h4>
-                <p className="text-neutral-200 font-medium">
-                  {hobby.favoriteAspect}
-                </p>
-              </div>
-
-              {/* Highlights */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {hobby.highlights?.map((highlight, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
-                    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                    transition={{ delay: idx * 0.1, duration: 0.5 }}
-                    className="bg-neutral-800/60 backdrop-blur-xl rounded-xl p-4 text-center hover:bg-neutral-700/60 transition-all duration-300 cursor-pointer group"
-                    style={{ border: `1px solid ${hobby.themeColor}20` }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    <div 
-                      className="w-2 h-2 rounded-full mx-auto mb-2 group-hover:scale-125 transition-transform"
-                      style={{ backgroundColor: hobby.themeColor }}
-                    />
-                    <span className="text-sm text-neutral-300 font-medium">
-                      {highlight}
-                    </span>
-                  </motion.div>
-                ))}
+              <h4 className="text-lg font-semibold text-white mb-4">About This Style</h4>
+              <p className="text-neutral-300 leading-relaxed italic">
+                "{hobby.personalStory}"
+              </p>
+              <div className="mt-4">
+                <p className="text-green-400 font-medium">{hobby.favoriteAspect}</p>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Toggle button */}
-        <motion.button
-          onClick={() => setIsExpanded(!isExpanded)}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full mt-8 py-4 bg-neutral-800/60 hover:bg-neutral-700/60 backdrop-blur-xl rounded-xl text-white font-semibold transition-all duration-300 flex items-center justify-center gap-3 group"
-          style={{ border: `1px solid ${hobby.themeColor}30` }}
-        >
-          <span>{isExpanded ? 'Show Less' : 'Discover More'}</span>
-          <motion.svg
-            className="w-5 h-5 group-hover:scale-110 transition-transform"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </motion.svg>
-        </motion.button>
       </div>
     </motion.div>
   );
+};
+
+// Urban Skate Spot Explorer Component
+const SkateSpotCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
+  const [selectedSpot, setSelectedSpot] = useState<number | null>(null);
+
+  const spots = [
+    { id: 1, name: 'Downtown Plaza', difficulty: 'Beginner', features: ['Ledges', 'Rails', 'Stairs'], status: 'Active' },
+    { id: 2, name: 'Tech Street', difficulty: 'Advanced', features: ['Manual Pads', 'Gaps', 'Banks'], status: 'Active' },
+    { id: 3, name: 'Urban Park', difficulty: 'Intermediate', features: ['Bowl', 'Quarters', 'Spine'], status: 'Crowded' },
+    { id: 4, name: 'Hidden Gem', difficulty: 'Expert', features: ['Vert Wall', 'Hip', 'Pool'], status: 'Secret' }
+  ];
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Beginner': return '#22c55e';
+      case 'Intermediate': return '#eab308';
+      case 'Advanced': return '#f97316';
+      case 'Expert': return '#dc2626';
+      default: return '#6b7280';
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: index * 0.3 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="bg-gradient-to-br from-neutral-900 via-orange-900/10 to-neutral-800 rounded-3xl overflow-hidden shadow-2xl"
+    >
+      {/* Urban Header */}
+      <div className="bg-gradient-to-r from-orange-600 to-red-600 p-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-6 mb-6">
+            <div className="w-20 h-20 bg-orange-700/30 rounded-2xl flex items-center justify-center">
+              <span className="text-4xl">🛹</span>
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold text-white mb-2">{hobby.name}</h3>
+              <p className="text-orange-100">{hobby.category}</p>
+            </div>
+          </div>
+          
+          {/* Street Cred Stats */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-2xl font-bold text-white">{hobby.intensity}%</div>
+              <div className="text-orange-200 text-sm">Street Cred</div>
+            </div>
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-2xl font-bold text-white">{spots.length}</div>
+              <div className="text-orange-200 text-sm">Spots</div>
+            </div>
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-2xl font-bold text-white">8+</div>
+              <div className="text-orange-200 text-sm">Years</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Spot Explorer */}
+      <div className="p-8">
+        <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <span className="w-3 h-3 bg-orange-500 rounded-full"></span>
+          Favorite Spots
+        </h4>
+
+        <div className="grid gap-4">
+          {spots.map((spot) => (
+            <motion.div
+              key={spot.id}
+              whileHover={{ scale: 1.02 }}
+              className={`p-6 rounded-xl cursor-pointer transition-all duration-200 ${
+                selectedSpot === spot.id 
+                  ? 'bg-orange-500/20 border-2 border-orange-500' 
+                  : 'bg-neutral-800/50 border-2 border-transparent hover:border-orange-500/30'
+              }`}
+              onClick={() => setSelectedSpot(selectedSpot === spot.id ? null : spot.id)}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h5 className="text-lg font-semibold text-white">{spot.name}</h5>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span 
+                      className="px-2 py-1 rounded-full text-xs font-medium"
+                      style={{ 
+                        backgroundColor: `${getDifficultyColor(spot.difficulty)}20`,
+                        color: getDifficultyColor(spot.difficulty)
+                      }}
+                    >
+                      {spot.difficulty}
+                    </span>
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      spot.status === 'Active' ? 'bg-green-500/20 text-green-400' :
+                      spot.status === 'Crowded' ? 'bg-yellow-500/20 text-yellow-400' :
+                      'bg-purple-500/20 text-purple-400'
+                    }`}>
+                      {spot.status}
+                    </span>
+                  </div>
+                </div>
+                <motion.svg
+                  className="w-6 h-6 text-orange-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  animate={{ rotate: selectedSpot === spot.id ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </motion.svg>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {spot.features.map((feature, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-neutral-700 rounded-full text-sm text-neutral-300">
+                    {feature}
+                  </span>
+                ))}
+              </div>
+
+              <AnimatePresence>
+                {selectedSpot === spot.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-6 pt-4 border-t border-neutral-700"
+                  >
+                    <p className="text-neutral-300 italic">"{hobby.personalStory}"</p>
+                    <div className="mt-4 p-4 bg-orange-500/10 rounded-lg">
+                      <p className="text-orange-300 font-medium">{hobby.favoriteAspect}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Gaming Achievement Dashboard Component
+const GamingDashboard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
+
+  const games = [
+    { 
+      id: 1, 
+      name: 'Elden Ring', 
+      progress: 95, 
+      status: 'Mastered',
+      achievements: ['Elden Lord', 'All Bosses', 'Platinum Trophy'],
+      playtime: '200+ hours'
+    },
+    { 
+      id: 2, 
+      name: 'Dark Souls III', 
+      progress: 88, 
+      status: 'Completed',
+      achievements: ['Soul of Cinder', 'All Endings', 'NG+7'],
+      playtime: '150+ hours'
+    },
+    { 
+      id: 3, 
+      name: 'Bloodborne', 
+      progress: 92, 
+      status: 'Mastered',
+      achievements: ['Good Hunter', 'Old Hunters', 'Chalice Dungeons'],
+      playtime: '180+ hours'
+    },
+    { 
+      id: 4, 
+      name: 'Sekiro', 
+      progress: 85, 
+      status: 'Completed',
+      achievements: ['Dragon\'s Return', 'All Skills', 'Boss Rush'],
+      playtime: '120+ hours'
+    }
+  ];
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'Mastered': return '#dc2626';
+      case 'Completed': return '#eab308';
+      case 'Playing': return '#22c55e';
+      default: return '#6b7280';
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: index * 0.3 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="bg-gradient-to-br from-neutral-900 via-red-900/10 to-black rounded-3xl overflow-hidden shadow-2xl"
+    >
+      {/* Gaming Header */}
+      <div className="bg-gradient-to-r from-red-600 to-purple-600 p-8 relative">
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="relative z-10">
+          <div className="flex items-center gap-6 mb-6">
+            <div className="w-20 h-20 bg-red-700/30 rounded-2xl flex items-center justify-center">
+              <span className="text-4xl">🎮</span>
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold text-white mb-2">{hobby.name}</h3>
+              <p className="text-red-100">{hobby.category}</p>
+            </div>
+          </div>
+
+          {/* Gaming Stats */}
+          <div className="grid grid-cols-4 gap-4">
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-xl font-bold text-white">{hobby.intensity}%</div>
+              <div className="text-red-200 text-xs">Skill Level</div>
+            </div>
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-xl font-bold text-white">{games.length}</div>
+              <div className="text-red-200 text-xs">Games</div>
+            </div>
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-xl font-bold text-white">600+</div>
+              <div className="text-red-200 text-xs">Hours</div>
+            </div>
+            <div className="bg-black/30 rounded-lg p-3 text-center">
+              <div className="text-xl font-bold text-white">∞</div>
+              <div className="text-red-200 text-xs">Passion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Game Library */}
+      <div className="p-8">
+        <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <span className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+          Trophy Collection
+        </h4>
+
+        <div className="space-y-4">
+          {games.map((game) => (
+            <motion.div
+              key={game.id}
+              whileHover={{ scale: 1.02 }}
+              className={`p-6 rounded-xl cursor-pointer transition-all duration-200 ${
+                selectedGame === game.id 
+                  ? 'bg-red-500/20 border-2 border-red-500' 
+                  : 'bg-neutral-800/50 border-2 border-transparent hover:border-red-500/30'
+              }`}
+              onClick={() => setSelectedGame(selectedGame === game.id ? null : game.id)}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-red-600/30 rounded-lg flex items-center justify-center">
+                    <span className="text-xl">🏆</span>
+                  </div>
+                  <div>
+                    <h5 className="text-lg font-semibold text-white">{game.name}</h5>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span 
+                        className="px-2 py-1 rounded-full text-xs font-medium"
+                        style={{ 
+                          backgroundColor: `${getStatusColor(game.status)}20`,
+                          color: getStatusColor(game.status)
+                        }}
+                      >
+                        {game.status}
+                      </span>
+                      <span className="text-neutral-400 text-sm">{game.playtime}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-white">{game.progress}%</div>
+                  <div className="w-20 h-2 bg-neutral-700 rounded-full mt-1">
+                    <motion.div
+                      className="h-full bg-gradient-to-r from-red-500 to-purple-500 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${game.progress}%` }}
+                      transition={{ duration: 1.5, delay: 0.5 }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-4">
+                {game.achievements.map((achievement, idx) => (
+                  <span key={idx} className="px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">
+                    {achievement}
+                  </span>
+                ))}
+              </div>
+
+              <AnimatePresence>
+                {selectedGame === game.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-6 pt-4 border-t border-neutral-700"
+                  >
+                    <p className="text-neutral-300 italic mb-4">"{hobby.personalStory}"</p>
+                    <div className="p-4 bg-red-500/10 rounded-lg">
+                      <p className="text-red-300 font-medium">{hobby.favoriteAspect}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Art Gallery Component
+const ArtGalleryCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
+  const [selectedPiece, setSelectedPiece] = useState<number | null>(null);
+
+  const artPieces = [
+    { id: 1, title: 'Character Design', medium: 'Digital', year: '2024', style: 'Anime/Manga' },
+    { id: 2, title: 'Concept Art', medium: 'Digital Paint', year: '2024', style: 'Fantasy' },
+    { id: 3, title: 'Digital Illustration', medium: 'Photoshop', year: '2023', style: 'Realism' },
+    { id: 4, title: 'Storytelling Art', medium: 'Mixed Media', year: '2023', style: 'Narrative' }
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, delay: index * 0.3 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="bg-gradient-to-br from-neutral-900 via-purple-900/10 to-neutral-800 rounded-3xl overflow-hidden shadow-2xl"
+    >
+      {/* Gallery Header */}
+      <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-8">
+        <div className="flex items-center gap-6 mb-6">
+          <div className="w-20 h-20 bg-purple-700/30 rounded-2xl flex items-center justify-center">
+            <span className="text-4xl">🎨</span>
+          </div>
+          <div>
+            <h3 className="text-3xl font-bold text-white mb-2">{hobby.name}</h3>
+            <p className="text-purple-100">{hobby.category}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          <div className="bg-black/30 rounded-lg p-3 text-center">
+            <div className="text-xl font-bold text-white">{hobby.intensity}%</div>
+            <div className="text-purple-200 text-xs">Creativity</div>
+          </div>
+          <div className="bg-black/30 rounded-lg p-3 text-center">
+            <div className="text-xl font-bold text-white">{artPieces.length}</div>
+            <div className="text-purple-200 text-xs">Pieces</div>
+          </div>
+          <div className="bg-black/30 rounded-lg p-3 text-center">
+            <div className="text-xl font-bold text-white">∞</div>
+            <div className="text-purple-200 text-xs">Ideas</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Art Portfolio */}
+      <div className="p-8">
+        <h4 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+          <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
+          Portfolio Gallery
+        </h4>
+
+        <div className="grid grid-cols-2 gap-6">
+          {artPieces.map((piece) => (
+            <motion.div
+              key={piece.id}
+              whileHover={{ scale: 1.05 }}
+              className={`aspect-square rounded-xl cursor-pointer transition-all duration-200 ${
+                selectedPiece === piece.id 
+                  ? 'ring-4 ring-purple-500' 
+                  : 'hover:ring-2 hover:ring-purple-500/50'
+              }`}
+              style={{
+                background: `linear-gradient(135deg, 
+                  ${hobby.themeColor}40 0%, 
+                  ${hobby.themeColor}20 50%, 
+                  transparent 100%)`
+              }}
+              onClick={() => setSelectedPiece(selectedPiece === piece.id ? null : piece.id)}
+            >
+              <div className="w-full h-full p-6 flex flex-col justify-end bg-gradient-to-t from-black/60 to-transparent rounded-xl">
+                <h5 className="text-white font-semibold mb-2">{piece.title}</h5>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-purple-300">{piece.medium}</span>
+                  <span className="text-neutral-400">{piece.year}</span>
+                </div>
+                <span className="text-xs text-purple-200 mt-1">{piece.style}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <AnimatePresence>
+          {selectedPiece && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              className="mt-8 p-6 bg-purple-500/10 rounded-2xl border border-purple-500/30"
+            >
+              <h5 className="text-lg font-semibold text-white mb-4">Artist's Vision</h5>
+              <p className="text-neutral-300 italic mb-4">"{hobby.personalStory}"</p>
+              <div className="p-4 bg-purple-500/10 rounded-lg">
+                <p className="text-purple-300 font-medium">{hobby.favoriteAspect}</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+};
+
+// Story Card Component - Now routes to specific components
+const StoryCard = ({ hobby, index }: { hobby: Hobby; index: number }) => {
+  switch (hobby.bgPattern) {
+    case 'musical':
+      return <MusicPlayerCard hobby={hobby} index={index} />;
+    case 'urban':
+      return <SkateSpotCard hobby={hobby} index={index} />;
+    case 'digital':
+      return <GamingDashboard hobby={hobby} index={index} />;
+    case 'artistic':
+      return <ArtGalleryCard hobby={hobby} index={index} />;
+    default:
+      return <MusicPlayerCard hobby={hobby} index={index} />;
+  }
 };
 
 // Category Section
