@@ -1203,7 +1203,7 @@ const CTASection = () => (
             className="px-12 py-5 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-bold hover:from-slate-500 hover:to-slate-600 transition-all duration-300 rounded-2xl text-lg cursor-pointer shadow-lg"
             onClick={() => window.location.href = '/contact'}
           >
-            Let's Connect
+            Let s Connect
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05, y: -4 }}
