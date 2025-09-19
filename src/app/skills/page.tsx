@@ -27,7 +27,7 @@ const skillsData: SkillCategory[] = [
   {
     name: 'Frontend Development',
     description: 'User interface and experience technologies',
-    color: 'from-blue-400 to-cyan-400',
+    color: 'from-neutral-300 to-neutral-400',
     skills: [
       {
         id: 1,
@@ -70,7 +70,7 @@ const skillsData: SkillCategory[] = [
   {
     name: 'Backend Development',
     description: 'Server-side technologies and databases',
-    color: 'from-green-400 to-emerald-400',
+    color: 'from-neutral-400 to-neutral-500',
     skills: [
       {
         id: 5,
@@ -113,7 +113,7 @@ const skillsData: SkillCategory[] = [
   {
     name: 'Tools & Technologies',
     description: 'Development tools and deployment platforms',
-    color: 'from-purple-400 to-pink-400',
+    color: 'from-neutral-500 to-neutral-600',
     skills: [
       {
         id: 9,
@@ -155,6 +155,14 @@ const skillsData: SkillCategory[] = [
   }
 ];
 
+// Planet Navigation Data
+const planets = [
+  { name: 'Skills', path: '/skills', color: '#fbbf24' },
+  { name: 'Hobbies', path: '/hobbies', color: '#38bdf8' },
+  { name: 'Tools', path: '/tools', color: '#ec4899' },
+  { name: 'Dreams', path: '/dreams', color: '#22d3ee' }
+];
+
 // Back Button Component
 const BackButton = () => (
   <motion.button
@@ -164,9 +172,9 @@ const BackButton = () => (
     onClick={() => window.location.href = '/'}
     className="fixed top-8 left-8 z-50 group"
   >
-    <div className="flex items-center gap-3 px-4 py-2 bg-gray-900/80 hover:bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-700/50 transition-all duration-300">
+    <div className="flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border border-white/20 transition-all duration-300">
       <motion.svg
-        className="w-5 h-5 text-gray-300 group-hover:text-white transition-colors"
+        className="w-5 h-5 text-neutral-300 group-hover:text-white transition-colors"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -175,12 +183,123 @@ const BackButton = () => (
       >
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
       </motion.svg>
-      <span className="text-sm text-gray-300 group-hover:text-white transition-colors font-medium">
+      <span className="text-sm text-neutral-300 group-hover:text-white transition-colors font-medium">
         Back
       </span>
     </div>
   </motion.button>
 );
+
+// Planet Navigation Component
+const PlanetNavigation = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
+  const currentPlanetIndex = planets.findIndex(p => p.path === '/skills');
+
+  const getNextPlanet = () => {
+    return planets[(currentPlanetIndex + 1) % planets.length];
+  };
+
+  const nextPlanet = getNextPlanet();
+
+  const handlePlanetClick = (planet: typeof planets[0]) => {
+    if (planet.path === '/skills') return;
+    window.location.href = planet.path;
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.5, duration: 0.8 }}
+      className="fixed top-8 right-8 z-50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setSelectedPlanet(null);
+      }}
+    >
+      <AnimatePresence>
+        {!isHovered ? (
+          <motion.button
+            key="next-button"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.3 }}
+            className="group flex items-center gap-3 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full border border-white/20 transition-all duration-300"
+          >
+            <span className="text-sm text-neutral-300 group-hover:text-white transition-colors font-medium">
+              Next Planet
+            </span>
+            <motion.svg
+              className="w-5 h-5 text-neutral-300 group-hover:text-white transition-colors"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              whileHover={{ x: 3 }}
+              transition={{ duration: 0.2 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
+            </motion.svg>
+          </motion.button>
+        ) : (
+          <motion.div
+            key="planet-menu"
+            initial={{ opacity: 0, scale: 0.8, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+            className="flex flex-col gap-2 p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20"
+          >
+            <div className="text-xs text-neutral-400 font-medium mb-1 px-2">
+              Choose Planet
+            </div>
+            {planets.map((planet, index) => {
+              const isCurrent = planet.path === '/skills';
+              const isSelected = selectedPlanet === planet.name;
+              
+              return (
+                <motion.button
+                  key={planet.name}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                  onClick={() => handlePlanetClick(planet)}
+                  onMouseEnter={() => setSelectedPlanet(planet.name)}
+                  disabled={isCurrent}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${
+                    isCurrent 
+                      ? 'bg-white/20 text-white cursor-default' 
+                      : isSelected
+                      ? 'bg-white/15 text-white'
+                      : 'hover:bg-white/10 text-neutral-300'
+                  }`}
+                  whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
+                  whileTap={!isCurrent ? { scale: 0.98 } : {}}
+                >
+                  <div 
+                    className="w-3 h-3 rounded-full"
+                    style={{ 
+                      backgroundColor: planet.color,
+                      boxShadow: `0 0 8px ${planet.color}`,
+                    }}
+                  />
+                  <span className="text-sm font-medium whitespace-nowrap">
+                    {planet.name}
+                  </span>
+                  {isCurrent && (
+                    <div className="w-1 h-1 bg-white rounded-full ml-1" />
+                  )}
+                </motion.button>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
 
 // Floating Particles Background
 const FloatingParticles = () => {
@@ -189,17 +308,17 @@ const FloatingParticles = () => {
   useEffect(() => {
     const generateParticles = () => {
       const elements = [];
-      const numberOfParticles = 30;
+      const numberOfParticles = 40;
 
       for (let i = 0; i < numberOfParticles; i++) {
-        const size = Math.random() * 3 + 1;
-        const duration = 15 + Math.random() * 25;
-        const delay = Math.random() * 10;
+        const size = Math.random() * 2 + 0.5;
+        const duration = 20 + Math.random() * 30;
+        const delay = Math.random() * 15;
         
         elements.push(
           <motion.div
             key={i}
-            className="absolute rounded-full bg-white/5"
+            className="absolute rounded-full bg-gradient-to-br from-white/20 to-neutral-300/10"
             style={{
               width: `${size}px`,
               height: `${size}px`,
@@ -207,16 +326,16 @@ const FloatingParticles = () => {
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-              y: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-              opacity: [0.1, 0.3, 0.1, 0.1],
-              scale: [1, 1.2, 0.8, 1]
+              x: [0, Math.random() * 200 - 100, Math.random() * 200 - 100, 0],
+              y: [0, Math.random() * 200 - 100, Math.random() * 200 - 100, 0],
+              opacity: [0.1, 0.4, 0.2, 0.1],
+              scale: [1, 1.5, 0.5, 1]
             }}
             transition={{
               duration,
               delay,
               repeat: Infinity,
-              ease: "linear"
+              ease: "easeInOut"
             }}
           />
         );
@@ -239,58 +358,82 @@ const SkillBar = ({ skill, index }: { skill: Skill; index: number }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), index * 100);
+    const timer = setTimeout(() => setIsVisible(true), index * 150);
     return () => clearTimeout(timer);
   }, [index]);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.15, duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
+      viewport={{ once: true, margin: "-80px" }}
       className="group"
     >
-      <div className="flex justify-between items-center mb-4">
-        <h4 className="text-xl font-light text-white group-hover:text-gray-300 transition-colors">
+      <div className="flex justify-between items-center mb-6">
+        <h4 className="text-2xl font-light text-neutral-100 group-hover:text-white transition-colors duration-300">
           {skill.name}
         </h4>
         <div className="flex items-center gap-4 text-sm">
-          <span className="font-medium text-gray-300">{skill.level}%</span>
-          <span className="text-gray-500">{skill.experience}</span>
+          <span className="font-medium text-neutral-300 px-2 py-1 bg-white/5 rounded-full">
+            {skill.level}%
+          </span>
+          <span className="text-neutral-500">{skill.experience}</span>
         </div>
       </div>
       
-      <div className="relative mb-6">
-        <div className="w-full bg-gray-800 rounded-full h-1">
+      <div className="relative mb-8">
+        <div className="w-full bg-neutral-800/50 rounded-full h-2 overflow-hidden">
           <motion.div
-            className="bg-gradient-to-r from-gray-300 to-white h-1 rounded-full"
+            className="bg-gradient-to-r from-neutral-400 to-neutral-200 h-2 rounded-full relative overflow-hidden"
             initial={{ width: 0 }}
             whileInView={{ width: isVisible ? `${skill.level}%` : 0 }}
-            transition={{ duration: 2, delay: index * 0.1, ease: "easeOut" }}
+            transition={{ duration: 2.5, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
             viewport={{ once: true }}
-          />
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"
+              animate={{
+                x: ['-100%', '100%'],
+              }}
+              transition={{
+                duration: 2,
+                delay: index * 0.1 + 1,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.div>
         </div>
       </div>
       
-      <p className="text-gray-400 leading-relaxed mb-4 font-light">
+      <p className="text-neutral-400 leading-relaxed mb-6 font-light text-lg">
         {skill.description}
       </p>
       
       {skill.projects && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3">
           {skill.projects.slice(0, 2).map((project, idx) => (
-            <span
+            <motion.span
               key={idx}
-              className="inline-block px-3 py-1 text-xs bg-gray-800/50 text-gray-300 rounded-full border border-gray-700/50"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 + 0.5 + idx * 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="inline-block px-4 py-2 text-xs bg-white/5 text-neutral-300 rounded-full border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
             >
               {project}
-            </span>
+            </motion.span>
           ))}
           {skill.projects.length > 2 && (
-            <span className="inline-block px-3 py-1 text-xs bg-gray-800/30 text-gray-500 rounded-full border border-gray-700/30">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 + 0.7, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="inline-block px-4 py-2 text-xs bg-white/5 text-neutral-500 rounded-full border border-white/5"
+            >
               +{skill.projects.length - 2} more
-            </span>
+            </motion.span>
           )}
         </div>
       )}
@@ -301,42 +444,42 @@ const SkillBar = ({ skill, index }: { skill: Skill; index: number }) => {
 // Skill Category Section
 const SkillCategorySection = ({ category, index }: { category: SkillCategory; index: number }) => (
   <motion.section
-    initial={{ opacity: 0, y: 60 }}
+    initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, delay: index * 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-    viewport={{ once: true, margin: "-100px" }}
-    className="mb-32"
+    transition={{ duration: 1.2, delay: index * 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+    viewport={{ once: true, margin: "-120px" }}
+    className="mb-40"
   >
-    <div className="text-center mb-16">
+    <div className="text-center mb-20">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, delay: index * 0.3 + 0.3 }}
+        transition={{ duration: 1, delay: index * 0.3 + 0.4 }}
         viewport={{ once: true }}
-        className={`inline-block px-6 py-3 rounded-full bg-gradient-to-r ${category.color} text-black text-sm font-medium mb-6`}
+        className={`inline-block px-8 py-4 rounded-full bg-gradient-to-r ${category.color} text-neutral-900 text-sm font-semibold mb-8 shadow-lg`}
       >
         {category.name}
       </motion.div>
       <motion.p 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: index * 0.3 + 0.5, duration: 0.8 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.3 + 0.6, duration: 1 }}
         viewport={{ once: true }}
-        className="text-gray-400 max-w-lg mx-auto text-lg font-light"
+        className="text-neutral-400 max-w-2xl mx-auto text-xl font-light leading-relaxed"
       >
         {category.description}
       </motion.p>
     </div>
 
-    <div className="grid gap-12 lg:grid-cols-2">
+    <div className="grid gap-16 lg:grid-cols-2 xl:gap-20">
       {category.skills.map((skill, skillIndex) => (
         <motion.div 
           key={skill.id} 
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: skillIndex * 0.1, duration: 0.8 }}
-          viewport={{ once: true, margin: "-50px" }}
-          className="bg-gray-900/30 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50 hover:border-gray-700/50 hover:bg-gray-900/40 transition-all duration-500"
+          transition={{ delay: skillIndex * 0.15, duration: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          className="bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-md rounded-3xl p-10 border border-white/10 hover:border-white/20 hover:bg-white/[0.08] transition-all duration-700 group"
         >
           <SkillBar skill={skill} index={skillIndex} />
         </motion.div>
@@ -350,42 +493,43 @@ const HeroSection = () => (
   <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
     <div className="container mx-auto px-6 relative z-10">
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-        className="text-center max-w-5xl mx-auto"
+        transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
+        className="text-center max-w-6xl mx-auto"
       >
         <motion.h1
-          className="text-7xl md:text-8xl font-extralight mb-12 text-white tracking-tight"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-8xl md:text-9xl font-extralight mb-16 text-neutral-100 tracking-tight"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
+          transition={{ duration: 1.5, delay: 0.3 }}
         >
           Technical Skills
         </motion.h1>
 
         <motion.p
-          className="text-2xl text-gray-400 font-light leading-relaxed mb-16 max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-2xl text-neutral-400 font-light leading-relaxed mb-20 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1 }}
+          transition={{ delay: 0.9, duration: 1.2 }}
         >
-          Technologies and tools I use to build modern web applications and solve complex problems.
+          Technologies and tools I use to build modern web applications and solve complex problems with precision and creativity.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
-          className="flex flex-wrap justify-center gap-6"
+          transition={{ delay: 1.5, duration: 1 }}
+          className="flex flex-wrap justify-center gap-8"
         >
-          {['Self-taught', 'Continuously Learning', 'Problem Solver'].map((tag, index) => (
+          {['Self-taught Developer', 'Always Learning', 'Problem Solver'].map((tag, index) => (
             <motion.span
               key={tag}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.6 + index * 0.1, duration: 0.6 }}
-              className="px-4 py-2 bg-gray-800/50 text-gray-300 rounded-full border border-gray-700/50 font-light"
+              transition={{ delay: 1.8 + index * 0.15, duration: 0.8 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="px-6 py-3 bg-white/5 text-neutral-300 rounded-full border border-white/10 font-light backdrop-blur-md hover:bg-white/10 hover:border-white/20 transition-all duration-300"
             >
               {tag}
             </motion.span>
@@ -394,22 +538,22 @@ const HeroSection = () => (
       </motion.div>
     </div>
 
-    {/* Scroll Indicator */}
+    {/* Enhanced Scroll Indicator */}
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 2.5 }}
-      className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+      transition={{ delay: 3 }}
+      className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
     >
       <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-        className="w-6 h-12 border border-gray-600 rounded-full flex justify-center"
+        animate={{ y: [0, 16, 0] }}
+        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        className="w-8 h-16 border-2 border-neutral-600 rounded-full flex justify-center relative overflow-hidden"
       >
         <motion.div
-          animate={{ y: [0, 16, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-          className="w-1 h-4 bg-gray-500 rounded-full mt-3"
+          animate={{ y: [0, 24, 0] }}
+          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+          className="w-1 h-6 bg-gradient-to-b from-neutral-400 to-neutral-600 rounded-full mt-4"
         />
       </motion.div>
     </motion.div>
@@ -421,53 +565,62 @@ const SkillsStats = () => (
   <motion.section
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
-    transition={{ duration: 1.2 }}
-    viewport={{ once: true, margin: "-100px" }}
-    className="py-32"
+    transition={{ duration: 1.5 }}
+    viewport={{ once: true, margin: "-120px" }}
+    className="py-40"
   >
     <div className="container mx-auto px-6">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        className="text-center mb-20"
+        className="text-center mb-24"
       >
-        <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
-          At a Glance
+        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">
+          Overview
         </h2>
-        <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto">
-          A snapshot of my journey in software development
+        <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
+          A comprehensive look at my journey in software development and the technologies I&apos;ve mastered
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-16">
         {[
-          { number: '12+', label: 'Technologies', description: 'Languages & Frameworks' },
-          { number: '20+', label: 'Projects', description: 'Built & Deployed' },
-          { number: '2+', label: 'Years', description: 'Learning & Building' },
-          { number: '100%', label: 'Self-taught', description: 'Continuous Learning' }
+          { number: '12+', label: 'Technologies', description: 'Languages & Frameworks', color: '#fbbf24' },
+          { number: '20+', label: 'Projects', description: 'Built & Deployed', color: '#38bdf8' },
+          { number: '2+', label: 'Years', description: 'Learning & Building', color: '#ec4899' },
+          { number: '100%', label: 'Self-taught', description: 'Continuous Learning', color: '#22d3ee' }
         ].map((stat, index) => (
           <motion.div
             key={index}
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: index * 0.15, duration: 0.8 }}
+            initial={{ scale: 0.8, opacity: 0, y: 40 }}
+            whileInView={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.2, duration: 1 }}
             viewport={{ once: true }}
             className="group text-center"
           >
             <motion.div 
-              className="text-5xl md:text-6xl font-extralight text-white mb-4 group-hover:text-gray-300 transition-colors duration-300"
-              whileHover={{ scale: 1.05 }}
+              className="text-6xl md:text-7xl font-extralight text-neutral-100 mb-6 group-hover:text-neutral-200 transition-colors duration-500"
+              whileHover={{ scale: 1.1, y: -5 }}
+              transition={{ duration: 0.3 }}
             >
               {stat.number}
             </motion.div>
-            <div className="text-lg font-light text-gray-300 mb-2">
+            <div className="text-xl font-light text-neutral-300 mb-3">
               {stat.label}
             </div>
-            <div className="text-sm text-gray-500 font-light">
+            <div className="text-sm text-neutral-500 font-light">
               {stat.description}
             </div>
+            <motion.div
+              className="w-16 h-0.5 mx-auto mt-4 rounded-full"
+              style={{ backgroundColor: stat.color }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
+              viewport={{ once: true }}
+            />
           </motion.div>
         ))}
       </div>
@@ -478,54 +631,54 @@ const SkillsStats = () => (
 // Call to Action Section
 const CTASection = () => (
   <motion.section
-    initial={{ opacity: 0, y: 60 }}
+    initial={{ opacity: 0, y: 80 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.2 }}
-    viewport={{ once: true, margin: "-100px" }}
-    className="py-32"
+    transition={{ duration: 1.5 }}
+    viewport={{ once: true, margin: "-120px" }}
+    className="py-40"
   >
     <div className="container mx-auto px-6 text-center">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.h3 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.2 }}
           viewport={{ once: true }}
-          className="text-5xl md:text-6xl font-light text-white mb-8 tracking-tight"
+          className="text-6xl md:text-7xl font-light text-neutral-100 mb-12 tracking-tight"
         >
-          Let&apos;s Create Something Amazing
+          Let&apos;s Create Something Extraordinary
         </motion.h3>
         
         <motion.p 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 1.2, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-xl text-gray-400 leading-relaxed mb-12 font-light"
+          className="text-2xl text-neutral-400 leading-relaxed mb-16 font-light"
         >
           I&apos;m always eager to learn new technologies and take on challenging projects. 
-          Let&apos;s discuss how we can bring your ideas to life.
+          Let&apos;s collaborate and bring innovative ideas to life.
         </motion.p>
         
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
           viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-6 justify-center"
+          className="flex flex-col sm:flex-row gap-8 justify-center"
         >
           <motion.button
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 bg-white text-black font-medium hover:bg-gray-100 transition-colors duration-300 rounded-full"
+            className="px-12 py-4 bg-neutral-100 text-neutral-900 font-semibold hover:bg-white hover:shadow-lg transition-all duration-300 rounded-full text-lg"
             onClick={() => window.location.href = '/contact'}
           >
             Get In Touch
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 border border-gray-600 text-gray-300 font-medium hover:bg-gray-800/30 hover:border-gray-500 transition-all duration-300 rounded-full"
+            className="px-12 py-4 border-2 border-neutral-600 text-neutral-300 font-semibold hover:bg-white/5 hover:border-neutral-500 transition-all duration-300 rounded-full text-lg backdrop-blur-md"
             onClick={() => window.location.href = '/projects'}
           >
             View Projects
@@ -539,9 +692,10 @@ const CTASection = () => (
 // Main Skills Page Component
 export default function SkillsPage() {
   return (
-    <div className="min-h-screen bg-black text-white relative">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 text-white relative overflow-hidden">
       <FloatingParticles />
       <BackButton />
+      <PlanetNavigation />
       
       <HeroSection />
       
