@@ -4,6 +4,7 @@ export type Language = 'en' | 'pt';
 export interface Translations {
   // Navigation
   returnToBase: string;
+  backToHome: string;
   nextOrbit: string;
   solarSystem: string;
 
@@ -293,6 +294,44 @@ export interface Translations {
   projectsTitle: string;
   seeMoreOnGithub: string;
 
+  // Skills page
+  technicalSkills: string;
+  skillsPageDescription: string;
+  codeGraviton: string;
+  eventHorizonExplorer: string;
+  quantumDeveloper: string;
+  frontendDevelopmentTitle: string;
+  frontendDevelopmentDescription: string;
+  backendDevelopmentTitle: string;
+  backendDevelopmentDescription: string;
+  fullStackToolsTitle: string;
+  fullStackToolsDescription: string;
+  planetExperience: string;
+  completedProjects: string;
+  
+  // Tools page  
+  toolsTitle: string;
+  digitalToolkit: string;
+  toolsPageDescription: string;
+  developmentSuite: string;
+  designStudio: string;
+  deploymentEngine: string;
+  productivityHub: string;
+  codingTools: string;
+  designTools: string;
+  productivityTools: string;
+  
+  // Dreams page
+  dreamsTitle: string;
+  futureVisions: string;
+  dreamsPageDescription: string;
+  careerExcellence: string;
+  creativeExpression: string;
+  personalGrowth: string;
+  globalImpact: string;
+  myDreams: string;
+  motivation: string;
+
   // Hero typing phrases
   typingPhrases: string[];
 
@@ -311,6 +350,7 @@ export const translations: Record<Language, Translations> = {
   en: {
     // Navigation
     returnToBase: 'Return to Base',
+    backToHome: 'Return to Base',
     nextOrbit: 'Next Orbit',
     solarSystem: 'Solar System',
 
@@ -633,10 +673,49 @@ export const translations: Record<Language, Translations> = {
     projectInquiry:
       "Let's discuss your ideas and see how we can bring them to life. I'm available for freelance projects and full-time opportunities.",
     discussIdeas: 'Ready to start your project?',
+
+    // Skills page
+    technicalSkills: 'Technical Skills',
+    skillsPageDescription: 'Navigating through the event horizon of technology, where knowledge bends spacetime and innovation transcends boundaries.',
+    codeGraviton: 'Code Graviton',
+    eventHorizonExplorer: 'Event Horizon Explorer',
+    quantumDeveloper: 'Quantum Developer',
+    frontendDevelopmentTitle: 'Frontend Development',
+    frontendDevelopmentDescription: 'User interface and experience technologies',
+    backendDevelopmentTitle: 'Backend Development',
+    backendDevelopmentDescription: 'Server-side technologies and databases', 
+    fullStackToolsTitle: 'Full Stack Tools',
+    fullStackToolsDescription: 'Development and deployment technologies',
+    planetExperience: 'Experience',
+    completedProjects: 'Completed Projects',
+    
+    // Tools page
+    toolsTitle: 'Tools Universe',
+    digitalToolkit: 'Digital Toolkit',
+    toolsPageDescription: 'Professional tools and platforms that power modern development workflows and creative processes. Each tool has been carefully selected and mastered to deliver exceptional results.',
+    developmentSuite: 'Development Suite',
+    designStudio: 'Design Studio',
+    deploymentEngine: 'Deployment Engine',
+    productivityHub: 'Productivity Hub',
+    codingTools: 'Coding Tools',
+    designTools: 'Design Tools',
+    productivityTools: 'Productivity Tools',
+    
+    // Dreams page
+    dreamsTitle: 'Dreams Universe',
+    futureVisions: 'Future Visions',
+    dreamsPageDescription: 'Ambitious goals and aspirations that drive my journey forward. Each dream represents a commitment to growth, impact, and the pursuit of meaningful achievements that extend beyond personal success.',
+    careerExcellence: 'Career Excellence',
+    creativeExpression: 'Creative Expression',
+    personalGrowth: 'Personal Growth',
+    globalImpact: 'Global Impact',
+    myDreams: 'My Dreams',
+    motivation: 'Motivation',
   },
   pt: {
     // Navigation
     returnToBase: 'Voltar à Base',
+    backToHome: 'Voltar à Base',
     nextOrbit: 'Próxima Órbita',
     solarSystem: 'Sistema Solar',
 
@@ -962,6 +1041,44 @@ export const translations: Record<Language, Translations> = {
     projectInquiry:
       'Vamos discutir suas ideias e ver como podemos trazê-las à vida. Estou disponível para projetos freelance e oportunidades de tempo integral.',
     discussIdeas: 'Pronto para começar seu projeto?',
+
+    // Skills page
+    technicalSkills: 'Habilidades Técnicas',
+    skillsPageDescription: 'Navegando através do horizonte de eventos da tecnologia, onde o conhecimento dobra o espaço-tempo e a inovação transcende fronteiras.',
+    codeGraviton: 'Gravíton do Código',
+    eventHorizonExplorer: 'Explorador do Horizonte de Eventos',
+    quantumDeveloper: 'Desenvolvedor Quântico',
+    frontendDevelopmentTitle: 'Desenvolvimento Frontend',
+    frontendDevelopmentDescription: 'Tecnologias de interface e experiência do usuário',
+    backendDevelopmentTitle: 'Desenvolvimento Backend',
+    backendDevelopmentDescription: 'Tecnologias server-side e bancos de dados',
+    fullStackToolsTitle: 'Ferramentas Full Stack',
+    fullStackToolsDescription: 'Tecnologias de desenvolvimento e deploy',
+    planetExperience: 'Experiência',
+    completedProjects: 'Projetos Completados',
+    
+    // Tools page
+    toolsTitle: 'Universo de Ferramentas',
+    digitalToolkit: 'Kit de Ferramentas Digitais',
+    toolsPageDescription: 'Ferramentas e plataformas profissionais que potencializam workflows de desenvolvimento modernos e processos criativos. Cada ferramenta foi cuidadosamente selecionada e dominada para entregar resultados excepcionais.',
+    developmentSuite: 'Suíte de Desenvolvimento',
+    designStudio: 'Estúdio de Design',
+    deploymentEngine: 'Motor de Deploy',
+    productivityHub: 'Hub de Produtividade',
+    codingTools: 'Ferramentas de Código',
+    designTools: 'Ferramentas de Design',
+    productivityTools: 'Ferramentas de Produtividade',
+    
+    // Dreams page
+    dreamsTitle: 'Universo dos Sonhos',
+    futureVisions: 'Visões do Futuro',
+    dreamsPageDescription: 'Objetivos ambiciosos e aspirações que impulsionam minha jornada. Cada sonho representa um compromisso com o crescimento, impacto e a busca por conquistas significativas que vão além do sucesso pessoal.',
+    careerExcellence: 'Excelência na Carreira',
+    creativeExpression: 'Expressão Criativa',
+    personalGrowth: 'Crescimento Pessoal',
+    globalImpact: 'Impacto Global',
+    myDreams: 'Meus Sonhos',
+    motivation: 'Motivação',
   },
 };
 
