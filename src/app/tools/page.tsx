@@ -631,7 +631,7 @@ const CTASection = () => (
 // Main Tools Page Component
 export default function ToolsPage() {
   const { t } = useLanguage();
-  
+
   // Hero Section with translations
   const HeroSection = () => (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -713,7 +713,7 @@ export default function ToolsPage() {
       </motion.div>
     </section>
   );
-  
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white relative overflow-hidden">
       <PlanetBackground />
