@@ -195,8 +195,6 @@ const BackButton = () => (
 const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
-  const currentPlanetIndex = planets.findIndex(p => p.path === '/skills');
-
 
 
   const handlePlanetClick = (planet: (typeof planets)[0]) => {
