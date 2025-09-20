@@ -800,8 +800,6 @@ export default function SkillsPage() {
             <SkillCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-
-
       </div>
       <style jsx>{`
         @keyframes spin {

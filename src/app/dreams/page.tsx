@@ -581,8 +581,6 @@ const DreamCategorySection = ({ category, index }: { category: DreamCategory; in
   </motion.section>
 );
 
-
-
 // Dreams Overview Stats
 const DreamsStats = () => (
   <motion.section
