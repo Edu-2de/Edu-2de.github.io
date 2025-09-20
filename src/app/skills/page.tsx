@@ -791,7 +791,89 @@ const CTASection = () => (
 // Main Skills Page Component
 export default function SkillsPage() {
   const { t } = useLanguage();
+  
+  // Hero Section with translations
+  const HeroSection = () => (
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-center max-w-6xl mx-auto"
+        >
+          <motion.h1
+            className="text-8xl md:text-9xl font-extralight mb-16 text-neutral-100 tracking-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, delay: 0.3 }}
+            style={{
+              textShadow: `0 0 40px rgba(251, 191, 36, 0.2)`,
+            }}
+          >
+            {t.technicalSkills}
+          </motion.h1>
 
+          <motion.p
+            className="text-2xl text-neutral-400 font-light leading-relaxed mb-20 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9, duration: 1.2 }}
+          >
+            {t.skillsPageDescription}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="flex flex-wrap justify-center gap-8"
+          >
+            {[t.codeGraviton, t.eventHorizonExplorer, t.quantumDeveloper].map((tag, index) => (
+              <motion.span
+                key={tag}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.8 + index * 0.15, duration: 0.8 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="px-6 py-3 bg-neutral-800/30 text-neutral-300 rounded-full border border-neutral-700/40 font-light backdrop-blur-xl hover:bg-neutral-700/30 hover:border-amber-500/20 hover:text-amber-200 transition-all duration-300 cursor-pointer relative overflow-hidden"
+                style={{
+                  boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">{tag}</span>
+              </motion.span>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Enhanced Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 3 }}
+        className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 16, 0] }}
+          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+          className="w-8 h-16 border-2 border-neutral-600 rounded-full flex justify-center relative overflow-hidden backdrop-blur-sm"
+          style={{
+            boxShadow: `0 0 15px rgba(251, 191, 36, 0.1)`,
+          }}
+        >
+          <motion.div
+            animate={{ y: [0, 24, 0] }}
+            transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
+            className="w-1 h-6 bg-gradient-to-b from-amber-400 to-yellow-500 rounded-full mt-4"
+          />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+  
   return (
     <div className="min-h-screen bg-neutral-900 text-white relative overflow-hidden">
       <StarsBackground />
@@ -800,9 +882,7 @@ export default function SkillsPage() {
       <BackButton />
       <PlanetNavigation />
 
-      <HeroSection />
-
-      <div className="relative z-10">
+      <HeroSection />      <div className="relative z-10">
         <SkillsStats />
 
         <main className="container mx-auto px-6 py-20">
