@@ -201,7 +201,7 @@ const PlanetNavigation = () => {
     return planets[(currentPlanetIndex + 1) % planets.length];
   };
 
-  const nextPlanet = getNextPlanet();
+
 
   const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/skills') return;
@@ -565,8 +565,6 @@ const SkillCategorySection = ({ category, index }: { category: SkillCategory; in
     </div>
   </motion.section>
 );
-
-
 
 // Skills Overview Stats
 const SkillsStats = () => (
