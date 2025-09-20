@@ -429,78 +429,7 @@ const ToolCategorySection = ({ category, index }: { category: ToolCategory; inde
   </motion.section>
 );
 
-// Hero Section
-const HeroSection = () => (
-  <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-    <div className="container mx-auto px-6 relative z-10">
-      <motion.div
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.4 }}
-        className="text-center max-w-5xl mx-auto"
-      >
-        <motion.h1
-          className="text-7xl md:text-8xl font-bold mb-12 text-white tracking-tight"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, delay: 0.3 }}
-        >
-          Digital Toolkit
-        </motion.h1>
 
-        <motion.p
-          className="text-xl text-neutral-300 font-normal leading-relaxed mb-16 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1.2 }}
-        >
-          Professional tools and platforms that power modern development workflows and creative processes. Each tool has
-          been carefully selected and mastered to deliver exceptional results.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3, duration: 1 }}
-          className="flex flex-wrap justify-center gap-6"
-        >
-          {['Development Suite', 'Design Studio', 'Deployment Engine', 'Productivity Hub'].map((tag, index) => (
-            <motion.span
-              key={tag}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.6 + index * 0.1, duration: 0.6 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              className="px-6 py-3 bg-neutral-800 text-neutral-300 border border-neutral-600 font-semibold hover:bg-neutral-700 hover:border-pink-500 hover:text-pink-200 transition-all duration-300 cursor-pointer"
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </motion.div>
-      </motion.div>
-    </div>
-
-    {/* Scroll Indicator */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 2.5 }}
-      className="absolute bottom-16 left-1/2 transform -translate-x-1/2"
-    >
-      <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-        className="w-6 h-12 border-2 border-neutral-500 flex justify-center relative"
-      >
-        <motion.div
-          animate={{ y: [0, 16, 0], opacity: [0.5, 1, 0.5] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-          className="w-1 h-4 bg-gradient-to-b from-pink-400 to-fuchsia-500 mt-3"
-        />
-      </motion.div>
-    </motion.div>
-  </section>
-);
 
 // Tools Overview Stats
 const ToolsStats = () => (
@@ -651,7 +580,7 @@ export default function ToolsPage() {
               textShadow: `0 0 40px rgba(251, 191, 36, 0.2)`,
             }}
           >
-            {t.toolsAndTechnologies}
+            {t.toolsTitle}
           </motion.h1>
 
           <motion.p
@@ -669,7 +598,7 @@ export default function ToolsPage() {
             transition={{ delay: 1.5, duration: 1 }}
             className="flex flex-wrap justify-center gap-8"
           >
-            {[t.digitalArchitect, t.codeVoyager, t.techExplorer].map((tag, index) => (
+            {[t.developmentSuite, t.designStudio, t.productivityHub].map((tag, index) => (
               <motion.span
                 key={tag}
                 initial={{ opacity: 0, scale: 0.8 }}
