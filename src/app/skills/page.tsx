@@ -201,8 +201,6 @@ const PlanetNavigation = () => {
     return planets[(currentPlanetIndex + 1) % planets.length];
   };
 
-
-
   const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/skills') return;
     window.location.href = planet.path;
