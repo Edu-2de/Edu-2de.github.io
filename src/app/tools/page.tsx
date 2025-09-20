@@ -429,8 +429,6 @@ const ToolCategorySection = ({ category, index }: { category: ToolCategory; inde
   </motion.section>
 );
 
-
-
 // Tools Overview Stats
 const ToolsStats = () => (
   <motion.section
