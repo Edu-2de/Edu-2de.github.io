@@ -642,7 +642,6 @@ const DreamsStats = ({ t }: { t: Translations }) => (
               transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
               viewport={{ once: true }}
             />
-
           </motion.div>
         ))}
       </div>

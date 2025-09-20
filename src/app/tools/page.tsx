@@ -448,9 +448,7 @@ const ToolsStats = ({ t }: { t: Translations }) => (
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t.toolkitAnalytics}</h2>
-        <p className="text-neutral-300 text-lg font-normal max-w-3xl mx-auto">
-          {t.toolsComprehensiveMetrics}
-        </p>
+        <p className="text-neutral-300 text-lg font-normal max-w-3xl mx-auto">{t.toolsComprehensiveMetrics}</p>
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">

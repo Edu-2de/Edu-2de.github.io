@@ -24,8 +24,6 @@ interface SkillCategory {
   description: string;
 }
 
-
-
 // Planet Navigation Data
 const planets = [
   { name: 'Skills', path: '/skills', color: '#fbbf24' },

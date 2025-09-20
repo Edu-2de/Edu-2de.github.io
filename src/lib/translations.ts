@@ -332,7 +332,7 @@ export interface Translations {
   codingTools: string;
   designTools: string;
   productivityTools: string;
-  
+
   // Tools Stats
   toolkitAnalytics: string;
   toolsComprehensiveMetrics: string;
@@ -359,7 +359,7 @@ export interface Translations {
   globalImpact: string;
   myDreams: string;
   motivation: string;
-  
+
   // Dreams Stats
   visionAnalytics: string;
   strategicGoalsDescription: string;
@@ -754,10 +754,11 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Coding Tools',
     designTools: 'Design Tools',
     productivityTools: 'Productivity Tools',
-    
+
     // Tools Stats
     toolkitAnalytics: 'Toolkit Analytics',
-    toolsComprehensiveMetrics: 'Comprehensive metrics showcasing proficiency levels and practical experience across essential development and design tools.',
+    toolsComprehensiveMetrics:
+      'Comprehensive metrics showcasing proficiency levels and practical experience across essential development and design tools.',
     toolsCategories: 'Categories',
     professionalTools: 'Professional Tools',
     availability: 'Availability',
@@ -782,10 +783,11 @@ export const translations: Record<Language, Translations> = {
     globalImpact: 'Global Impact',
     myDreams: 'My Dreams',
     motivation: 'Motivation',
-    
+
     // Dreams Stats
     visionAnalytics: 'Vision Analytics',
-    strategicGoalsDescription: 'Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward realization.',
+    strategicGoalsDescription:
+      'Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward realization.',
     activeDreams: 'Active Dreams',
     lifeAreas: 'Life Areas',
     inProgress: 'In Progress',
@@ -1165,10 +1167,11 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Ferramentas de Código',
     designTools: 'Ferramentas de Design',
     productivityTools: 'Ferramentas de Produtividade',
-    
+
     // Tools Stats
     toolkitAnalytics: 'Análise do Kit de Ferramentas',
-    toolsComprehensiveMetrics: 'Métricas abrangentes mostrando níveis de proficiência e experiência prática em ferramentas essenciais de desenvolvimento e design.',
+    toolsComprehensiveMetrics:
+      'Métricas abrangentes mostrando níveis de proficiência e experiência prática em ferramentas essenciais de desenvolvimento e design.',
     toolsCategories: 'Categorias',
     professionalTools: 'Ferramentas Profissionais',
     availability: 'Disponibilidade',
@@ -1193,10 +1196,11 @@ export const translations: Record<Language, Translations> = {
     globalImpact: 'Impacto Global',
     myDreams: 'Meus Sonhos',
     motivation: 'Motivação',
-    
+
     // Dreams Stats
     visionAnalytics: 'Análise de Visão',
-    strategicGoalsDescription: 'Objetivos estratégicos mapeados em diferentes dimensões da vida, cada um com cronogramas claros e passos acionáveis para realização.',
+    strategicGoalsDescription:
+      'Objetivos estratégicos mapeados em diferentes dimensões da vida, cada um com cronogramas claros e passos acionáveis para realização.',
     activeDreams: 'Sonhos Ativos',
     lifeAreas: 'Áreas da Vida',
     inProgress: 'Em Progresso',
