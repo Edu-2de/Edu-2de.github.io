@@ -628,7 +628,6 @@ const SkillsStats = () => (
 
 // Call to Action Section
 
-
 // Main Skills Page Component
 export default function SkillsPage() {
   const { t } = useLanguage();

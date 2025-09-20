@@ -658,7 +658,7 @@ export default function ToolsPage() {
           ))}
         </main>
 
-        <CTASection />
+
       </div>
     </div>
   );
