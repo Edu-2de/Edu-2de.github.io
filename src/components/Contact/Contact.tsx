@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Mail, MessageCircle, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, MessageCircle, Github, Linkedin } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 
 export default function Contact() {
@@ -11,6 +11,21 @@ export default function Contact() {
     threshold: 0.1,
     triggerOnce: true,
   });
+
+  // Função para abrir email
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:edupaim1712@gmail.com?subject=Hello Eduardo - Let\'s Connect&body=Hi Eduardo,%0D%0A%0D%0AI came across your portfolio and I\'d like to discuss...%0D%0A%0D%0ABest regards,';
+  };
+
+  // Função para abrir WhatsApp
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/5551992009287?text=Hi Eduardo! I found your portfolio and would like to connect...', '_blank');
+  };
+
+  // Função para o botão principal do WhatsApp
+  const handleMainWhatsAppClick = () => {
+    window.open('https://wa.me/5551992009287?text=Hi Eduardo! I saw your portfolio and I\'m interested in working together. Let\'s chat!', '_blank');
+  };
 
   return (
     <section id="contact" className="py-24 bg-neutral-900">
@@ -41,10 +56,10 @@ export default function Contact() {
 
             {/* Contact Methods */}
             <div className="space-y-4">
-              <motion.a
-                href="mailto:contato@eduardosilva.dev"
+              <motion.button
+                onClick={handleEmailClick}
                 whileHover={{ scale: 1.02, y: -2 }}
-                className="flex items-center gap-4 p-4 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                className="flex items-center gap-4 p-4 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-all duration-300 border border-neutral-700 hover:border-neutral-600 w-full text-left cursor-pointer"
               >
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-neutral-700 rounded-lg flex items-center justify-center">
@@ -53,16 +68,14 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-neutral-500">Email</div>
-                  <div className="text-white font-medium">contato@eduardosilva.dev</div>
+                  <div className="text-white font-medium">edupaim1712@gmail.com</div>
                 </div>
-              </motion.a>
+              </motion.button>
 
-              <motion.a
-                href="https://wa.me/5511999999999"
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                onClick={handleWhatsAppClick}
                 whileHover={{ scale: 1.02, y: -2 }}
-                className="flex items-center gap-4 p-4 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-all duration-300 border border-neutral-700 hover:border-neutral-600"
+                className="flex items-center gap-4 p-4 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-all duration-300 border border-neutral-700 hover:border-neutral-600 w-full text-left cursor-pointer"
               >
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-neutral-700 rounded-lg flex items-center justify-center">
@@ -71,9 +84,9 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-neutral-500">WhatsApp</div>
-                  <div className="text-white font-medium">+55 11 99999-9999</div>
+                  <div className="text-white font-medium">+55 51 99200-9287</div>
                 </div>
-              </motion.a>
+              </motion.button>
             </div>
 
             {/* Social Links */}
@@ -81,9 +94,8 @@ export default function Contact() {
               <h4 className="text-lg font-medium text-white mb-4">{t.findMeOnline}</h4>
               <div className="flex gap-4">
                 {[
-                  { icon: Github, href: 'https://github.com', label: 'GitHub' },
-                  { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-                  { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
+                  { icon: Github, href: 'https://github.com/Edu-2de', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/eduardo-paim-a89685341/', label: 'LinkedIn' },
                 ].map(({ icon: Icon, href, label }) => (
                   <motion.a
                     key={label}
@@ -113,27 +125,14 @@ export default function Contact() {
               <h3 className="text-2xl font-light text-white mb-6">{t.readyToStartProject}</h3>
               <p className="text-neutral-400 mb-8 leading-relaxed">{t.contactDescription}</p>
 
-              <div className="space-y-4">
-                <motion.a
-                  href="mailto:contato@eduardosilva.dev?subject=New Project Inquiry"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="block w-full bg-white text-neutral-900 py-4 px-6 rounded-lg font-medium hover:bg-neutral-100 transition-all duration-300"
-                >
-                  {t.startConversation}
-                </motion.a>
-
-                <motion.a
-                  href="https://calendly.com/eduardosilva"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="block w-full border border-neutral-600 text-neutral-300 py-4 px-6 rounded-lg font-medium hover:bg-neutral-700 hover:border-neutral-500 hover:text-white transition-all duration-300"
-                >
-                  {t.scheduleCall}
-                </motion.a>
-              </div>
+              <motion.button
+                onClick={handleMainWhatsAppClick}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="block w-full bg-white text-neutral-900 py-4 px-6 rounded-lg font-medium hover:bg-neutral-100 transition-all duration-300 cursor-pointer"
+              >
+                {t.startConversation}
+              </motion.button>
             </div>
           </motion.div>
         </div>
