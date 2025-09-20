@@ -791,7 +791,7 @@ const CTASection = () => (
 // Main Skills Page Component
 export default function SkillsPage() {
   const { t } = useLanguage();
-  
+
   // Hero Section with translations
   const HeroSection = () => (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -873,7 +873,7 @@ export default function SkillsPage() {
       </motion.div>
     </section>
   );
-  
+
   return (
     <div className="min-h-screen bg-neutral-900 text-white relative overflow-hidden">
       <StarsBackground />
@@ -881,8 +881,8 @@ export default function SkillsPage() {
       <EventHorizon />
       <BackButton />
       <PlanetNavigation />
-
-      <HeroSection />      <div className="relative z-10">
+      <HeroSection />{' '}
+      <div className="relative z-10">
         <SkillsStats />
 
         <main className="container mx-auto px-6 py-20">
@@ -893,7 +893,6 @@ export default function SkillsPage() {
 
         <CTASection />
       </div>
-
       <style jsx>{`
         @keyframes spin {
           from {
