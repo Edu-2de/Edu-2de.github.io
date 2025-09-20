@@ -38,7 +38,7 @@ const toolsData: ToolCategory[] = [
         experience: '3+ years',
         description: 'Primary code editor with extensive customization and extensions',
         features: ['IntelliSense', 'Git Integration', 'Extensions', 'Debugging'],
-        useCases: ['Daily Development', 'Code Review', 'Project Management']
+        useCases: ['Daily Development', 'Code Review', 'Project Management'],
       },
       {
         id: 2,
@@ -48,7 +48,7 @@ const toolsData: ToolCategory[] = [
         experience: '2+ years',
         description: 'Version control and collaboration platform for code repositories',
         features: ['Git Repositories', 'Pull Requests', 'Actions', 'Project Boards'],
-        useCases: ['Source Control', 'Team Collaboration', 'CI/CD Pipeline']
+        useCases: ['Source Control', 'Team Collaboration', 'CI/CD Pipeline'],
       },
       {
         id: 3,
@@ -58,9 +58,9 @@ const toolsData: ToolCategory[] = [
         experience: '2+ years',
         description: 'Command-line interface for system operations and automation',
         features: ['Shell Scripting', 'Package Managers', 'Git Commands'],
-        useCases: ['Project Setup', 'Build Processes', 'Server Management']
-      }
-    ]
+        useCases: ['Project Setup', 'Build Processes', 'Server Management'],
+      },
+    ],
   },
   {
     name: 'Design',
@@ -75,7 +75,7 @@ const toolsData: ToolCategory[] = [
         experience: '1.5+ years',
         description: 'Collaborative design tool for UI/UX and prototyping',
         features: ['UI Design', 'Prototyping', 'Component Libraries', 'Collaboration'],
-        useCases: ['Interface Design', 'Wireframing', 'Design Systems']
+        useCases: ['Interface Design', 'Wireframing', 'Design Systems'],
       },
       {
         id: 5,
@@ -85,9 +85,9 @@ const toolsData: ToolCategory[] = [
         experience: '2+ years',
         description: 'Professional image editing and graphic design software',
         features: ['Photo Editing', 'Digital Art', 'Layer Management'],
-        useCases: ['Image Processing', 'Graphic Design', 'Asset Creation']
-      }
-    ]
+        useCases: ['Image Processing', 'Graphic Design', 'Asset Creation'],
+      },
+    ],
   },
   {
     name: 'Deployment',
@@ -102,7 +102,7 @@ const toolsData: ToolCategory[] = [
         experience: '1.5+ years',
         description: 'Frontend deployment platform with serverless functions',
         features: ['Auto Deployment', 'Custom Domains', 'Analytics'],
-        useCases: ['Frontend Hosting', 'Static Sites', 'Serverless APIs']
+        useCases: ['Frontend Hosting', 'Static Sites', 'Serverless APIs'],
       },
       {
         id: 7,
@@ -110,11 +110,11 @@ const toolsData: ToolCategory[] = [
         category: 'Backend',
         proficiency: 65,
         experience: '8 months',
-        description: 'Google\'s development platform with real-time database',
+        description: "Google's development platform with real-time database",
         features: ['Real-time Database', 'Authentication', 'Hosting'],
-        useCases: ['User Authentication', 'Real-time Apps', 'Backend Services']
-      }
-    ]
+        useCases: ['User Authentication', 'Real-time Apps', 'Backend Services'],
+      },
+    ],
   },
   {
     name: 'Productivity',
@@ -129,7 +129,7 @@ const toolsData: ToolCategory[] = [
         experience: '1+ years',
         description: 'All-in-one workspace for notes and project management',
         features: ['Database Management', 'Templates', 'Kanban Boards'],
-        useCases: ['Project Planning', 'Documentation', 'Task Management']
+        useCases: ['Project Planning', 'Documentation', 'Task Management'],
       },
       {
         id: 9,
@@ -139,10 +139,10 @@ const toolsData: ToolCategory[] = [
         experience: '3+ years',
         description: 'Communication platform for team collaboration',
         features: ['Voice Channels', 'Screen Sharing', 'Bot Integration'],
-        useCases: ['Team Communication', 'Community Building', 'Code Reviews']
-      }
-    ]
-  }
+        useCases: ['Team Communication', 'Community Building', 'Code Reviews'],
+      },
+    ],
+  },
 ];
 
 // Planet Navigation Data
@@ -150,7 +150,7 @@ const planets = [
   { name: 'Skills', path: '/skills', color: '#fbbf24' },
   { name: 'Hobbies', path: '/hobbies', color: '#38bdf8' },
   { name: 'Tools', path: '/tools', color: '#ec4899' },
-  { name: 'Dreams', path: '/dreams', color: '#22d3ee' }
+  { name: 'Dreams', path: '/dreams', color: '#22d3ee' },
 ];
 
 // Back Button Component
@@ -159,7 +159,7 @@ const BackButton = () => (
     initial={{ opacity: 0, x: -20 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ delay: 0.5, duration: 0.8 }}
-    onClick={() => window.location.href = '/'}
+    onClick={() => (window.location.href = '/')}
     className="fixed top-8 left-8 z-50 group cursor-pointer"
   >
     <div className="flex items-center gap-3 px-4 py-2 bg-neutral-800 hover:bg-neutral-700 border border-neutral-600 hover:border-pink-500 transition-all duration-300 shadow-lg">
@@ -184,7 +184,7 @@ const BackButton = () => (
 const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const handlePlanetClick = (planet: typeof planets[0]) => {
+  const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/tools') return;
     window.location.href = planet.path;
   };
@@ -237,7 +237,7 @@ const PlanetNavigation = () => {
             </div>
             {planets.map((planet, index) => {
               const isCurrent = planet.path === '/tools';
-              
+
               return (
                 <motion.button
                   key={planet.name}
@@ -247,23 +247,21 @@ const PlanetNavigation = () => {
                   onClick={() => handlePlanetClick(planet)}
                   disabled={isCurrent}
                   className={`flex items-center gap-3 px-4 py-3 transition-all duration-200 cursor-pointer ${
-                    isCurrent 
-                      ? 'bg-neutral-700 text-pink-300 cursor-default border border-pink-500' 
+                    isCurrent
+                      ? 'bg-neutral-700 text-pink-300 cursor-default border border-pink-500'
                       : 'hover:bg-neutral-700 text-neutral-400 border border-transparent hover:border-neutral-500'
                   }`}
                   whileHover={!isCurrent ? { scale: 1.02, x: 2 } : {}}
                   whileTap={!isCurrent ? { scale: 0.98 } : {}}
                 >
-                  <div 
+                  <div
                     className="w-4 h-4 rounded-full relative"
-                    style={{ 
+                    style={{
                       backgroundColor: planet.color,
                       boxShadow: `0 0 8px ${planet.color}60`,
                     }}
                   />
-                  <span className="text-sm font-medium whitespace-nowrap">
-                    {planet.name}
-                  </span>
+                  <span className="text-sm font-medium whitespace-nowrap">{planet.name}</span>
                   {isCurrent && (
                     <div className="flex items-center gap-1 ml-auto">
                       <div className="w-1 h-1 bg-pink-400 rounded-full animate-pulse" />
@@ -287,7 +285,7 @@ const PlanetBackground = () => (
     <motion.div
       initial={{ scale: 0.8, opacity: 0, y: 50 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ duration: 2.5, ease: "easeOut" }}
+      transition={{ duration: 2.5, ease: 'easeOut' }}
       className="absolute -bottom-1/2 left-1/2 transform -translate-x-1/2 w-[100vh] h-[100vh] rounded-full"
       style={{
         background: `radial-gradient(circle at 50% 20%, 
@@ -315,14 +313,14 @@ const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.8 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, margin: '-50px' }}
       className="group bg-neutral-800 border border-neutral-700 hover:border-pink-500 hover:bg-neutral-750 transition-all duration-300 relative overflow-hidden p-6"
       style={{
         boxShadow: `0 4px 16px rgba(0, 0, 0, 0.4)`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
+
       <div className="relative z-10">
         {/* Header */}
         <div className="flex justify-between items-start mb-4">
@@ -331,16 +329,12 @@ const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
               {tool.name}
             </h4>
             <div className="flex items-center gap-3 text-sm">
-              <span className="px-3 py-1 bg-pink-600 text-white font-medium text-xs">
-                {tool.category}
-              </span>
+              <span className="px-3 py-1 bg-pink-600 text-white font-medium text-xs">{tool.category}</span>
               <span className="text-neutral-400 font-medium">{tool.experience}</span>
             </div>
           </div>
           <div className="text-right ml-4">
-            <div className="text-2xl font-bold text-pink-400 mb-2">
-              {tool.proficiency}%
-            </div>
+            <div className="text-2xl font-bold text-pink-400 mb-2">{tool.proficiency}%</div>
             <div className="w-16 bg-neutral-700 h-2 overflow-hidden">
               <motion.div
                 className="bg-gradient-to-r from-pink-500 to-fuchsia-600 h-2"
@@ -354,9 +348,7 @@ const ToolCard = ({ tool, index }: { tool: Tool; index: number }) => {
         </div>
 
         {/* Description */}
-        <p className="text-neutral-300 text-sm leading-relaxed mb-5 font-normal">
-          {tool.description}
-        </p>
+        <p className="text-neutral-300 text-sm leading-relaxed mb-5 font-normal">{tool.description}</p>
 
         {/* Features & Use Cases */}
         <div className="space-y-4">
@@ -405,7 +397,7 @@ const ToolCategorySection = ({ category, index }: { category: ToolCategory; inde
     initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, delay: index * 0.2 }}
-    viewport={{ once: true, margin: "-100px" }}
+    viewport={{ once: true, margin: '-100px' }}
     className="mb-16"
   >
     <div className="text-center mb-12">
@@ -418,7 +410,7 @@ const ToolCategorySection = ({ category, index }: { category: ToolCategory; inde
       >
         {category.name}
       </motion.div>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
@@ -462,8 +454,8 @@ const HeroSection = () => (
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 1.2 }}
         >
-          Professional tools and platforms that power modern development workflows and creative processes. 
-          Each tool has been carefully selected and mastered to deliver exceptional results.
+          Professional tools and platforms that power modern development workflows and creative processes. Each tool has
+          been carefully selected and mastered to deliver exceptional results.
         </motion.p>
 
         <motion.div
@@ -497,12 +489,12 @@ const HeroSection = () => (
     >
       <motion.div
         animate={{ y: [0, 12, 0] }}
-        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+        transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
         className="w-6 h-12 border-2 border-neutral-500 flex justify-center relative"
       >
         <motion.div
           animate={{ y: [0, 16, 0], opacity: [0.5, 1, 0.5] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
           className="w-1 h-4 bg-gradient-to-b from-pink-400 to-fuchsia-500 mt-3"
         />
       </motion.div>
@@ -516,7 +508,7 @@ const ToolsStats = () => (
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     transition={{ duration: 1.2 }}
-    viewport={{ once: true, margin: "-100px" }}
+    viewport={{ once: true, margin: '-100px' }}
     className="py-20 bg-neutral-800/50"
   >
     <div className="container mx-auto px-6">
@@ -527,12 +519,10 @@ const ToolsStats = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Toolkit Analytics
-        </h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Toolkit Analytics</h2>
         <p className="text-neutral-300 text-lg font-normal max-w-3xl mx-auto">
-          Comprehensive metrics showcasing proficiency levels and practical experience across 
-          essential development and design tools.
+          Comprehensive metrics showcasing proficiency levels and practical experience across essential development and
+          design tools.
         </p>
       </motion.div>
 
@@ -541,7 +531,7 @@ const ToolsStats = () => (
           { number: '9', label: 'Active Tools', description: 'Professional Arsenal', color: '#ec4899' },
           { number: '4', label: 'Core Categories', description: 'Domain Coverage', color: '#db2777' },
           { number: '82%', label: 'Avg Proficiency', description: 'Skill Mastery', color: '#be185d' },
-          { number: '24/7', label: 'Availability', description: 'Development Ready', color: '#9d174d' }
+          { number: '24/7', label: 'Availability', description: 'Development Ready', color: '#9d174d' },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -551,19 +541,15 @@ const ToolsStats = () => (
             viewport={{ once: true }}
             className="group text-center p-6 bg-neutral-800 border border-neutral-700 hover:border-pink-500 transition-all duration-300"
           >
-            <motion.div 
+            <motion.div
               className="text-4xl md:text-5xl font-bold text-white mb-3 group-hover:text-pink-200 transition-colors duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               transition={{ duration: 0.2 }}
             >
               {stat.number}
             </motion.div>
-            <div className="text-lg font-semibold text-neutral-200 mb-2">
-              {stat.label}
-            </div>
-            <div className="text-sm text-neutral-400 font-normal">
-              {stat.description}
-            </div>
+            <div className="text-lg font-semibold text-neutral-200 mb-2">{stat.label}</div>
+            <div className="text-sm text-neutral-400 font-normal">{stat.description}</div>
             <motion.div
               className="w-12 h-1 mx-auto mt-4 bg-pink-500"
               initial={{ scaleX: 0 }}
@@ -584,12 +570,12 @@ const CTASection = () => (
     initial={{ opacity: 0, y: 60 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 1.2 }}
-    viewport={{ once: true, margin: "-100px" }}
+    viewport={{ once: true, margin: '-100px' }}
     className="py-24"
   >
     <div className="container mx-auto px-6 text-center">
       <div className="max-w-4xl mx-auto">
-        <motion.h3 
+        <motion.h3
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -598,18 +584,18 @@ const CTASection = () => (
         >
           Ready to Build Together?
         </motion.h3>
-        
-        <motion.p 
+
+        <motion.p
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
           viewport={{ once: true }}
           className="text-xl text-neutral-300 leading-relaxed mb-12 font-normal"
         >
-          Leverage these professional tools and my expertise to bring your next project to life. 
-          Let&apos;s create something exceptional with industry-standard development workflows.
+          Leverage these professional tools and my expertise to bring your next project to life. Let&apos;s create
+          something exceptional with industry-standard development workflows.
         </motion.p>
-        
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -621,7 +607,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-10 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-600 text-white font-bold hover:from-pink-400 hover:to-fuchsia-500 transition-all duration-300 cursor-pointer shadow-lg"
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => (window.location.href = '/contact')}
             style={{
               boxShadow: `0 8px 25px rgba(236, 72, 153, 0.3)`,
             }}
@@ -632,7 +618,7 @@ const CTASection = () => (
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-10 py-4 border-2 border-neutral-600 text-neutral-300 font-bold hover:bg-neutral-800 hover:border-pink-500 hover:text-pink-200 transition-all duration-300 cursor-pointer"
-            onClick={() => window.location.href = '/projects'}
+            onClick={() => (window.location.href = '/projects')}
           >
             View My Work
           </motion.button>
@@ -649,18 +635,18 @@ export default function ToolsPage() {
       <PlanetBackground />
       <BackButton />
       <PlanetNavigation />
-      
+
       <HeroSection />
-      
+
       <div className="relative z-10">
         <ToolsStats />
-        
+
         <main className="container mx-auto px-6 py-16">
           {toolsData.map((category, index) => (
             <ToolCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-        
+
         <CTASection />
       </div>
     </div>
