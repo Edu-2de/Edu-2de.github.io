@@ -656,7 +656,6 @@ const DreamsStats = () => (
 
 // Call to Action Section
 
-
 // Main Dreams Page Component
 export default function DreamsPage() {
   const { t } = useLanguage();
@@ -760,8 +759,6 @@ export default function DreamsPage() {
             <DreamCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-
-
       </div>
 
       <style jsx>{`

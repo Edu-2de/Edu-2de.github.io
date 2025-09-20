@@ -493,7 +493,6 @@ const ToolsStats = () => (
 
 // Call to Action Section
 
-
 // Main Tools Page Component
 export default function ToolsPage() {
   const { t } = useLanguage();
@@ -596,8 +595,6 @@ export default function ToolsPage() {
             <ToolCategorySection key={category.name} category={category} index={index} />
           ))}
         </main>
-
-
       </div>
     </div>
   );
