@@ -197,9 +197,7 @@ const PlanetNavigation = () => {
   const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
   const currentPlanetIndex = planets.findIndex(p => p.path === '/skills');
 
-  const getNextPlanet = () => {
-    return planets[(currentPlanetIndex + 1) % planets.length];
-  };
+
 
   const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/skills') return;
