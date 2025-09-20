@@ -627,76 +627,7 @@ const SkillsStats = () => (
 );
 
 // Call to Action Section
-const CTASection = () => (
-  <motion.section
-    initial={{ opacity: 0, y: 80 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.5 }}
-    viewport={{ once: true, margin: '-120px' }}
-    className="py-40"
-  >
-    <div className="container mx-auto px-6 text-center">
-      <div className="max-w-4xl mx-auto">
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          viewport={{ once: true }}
-          className="text-6xl md:text-7xl font-light text-neutral-100 mb-12 tracking-tight"
-          style={{
-            textShadow: `0 0 25px rgba(251, 191, 36, 0.15)`,
-          }}
-        >
-          Ready to Collaborate?
-        </motion.h3>
 
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-2xl text-neutral-400 leading-relaxed mb-16 font-light"
-        >
-          Let&apos;s create something that defies the laws of conventional development and transcends digital
-          boundaries.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-8 justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-12 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-neutral-900 font-semibold hover:from-amber-400 hover:to-yellow-400 transition-all duration-300 rounded-full text-lg cursor-pointer relative overflow-hidden"
-            onClick={() => (window.location.href = '/contact')}
-            style={{
-              boxShadow: `0 8px 25px rgba(251, 191, 36, 0.3)`,
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">Initiate Contact</span>
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-12 py-4 border-2 border-neutral-600 text-neutral-300 font-semibold hover:bg-neutral-800/20 hover:border-amber-500/30 hover:text-amber-200 transition-all duration-300 rounded-full text-lg backdrop-blur-xl cursor-pointer relative overflow-hidden"
-            onClick={() => (window.location.href = '/projects')}
-            style={{
-              boxShadow: `0 4px 20px rgba(0, 0, 0, 0.3)`,
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">Explore Universe</span>
-          </motion.button>
-        </motion.div>
-      </div>
-    </div>
-  </motion.section>
-);
 
 // Main Skills Page Component
 export default function SkillsPage() {
