@@ -655,76 +655,7 @@ const DreamsStats = () => (
 );
 
 // Call to Action Section
-const CTASection = () => (
-  <motion.section
-    initial={{ opacity: 0, y: 80 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.4 }}
-    viewport={{ once: true, margin: '-120px' }}
-    className="py-32"
-  >
-    <div className="container mx-auto px-6 text-center">
-      <div className="max-w-5xl mx-auto">
-        <motion.h3
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          viewport={{ once: true }}
-          className="text-6xl md:text-7xl font-bold text-white mb-12 tracking-tight"
-          style={{
-            textShadow: `0 0 30px rgba(34, 211, 238, 0.2)`,
-          }}
-        >
-          Dream With Me
-        </motion.h3>
 
-        <motion.p
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3 }}
-          viewport={{ once: true }}
-          className="text-2xl text-neutral-300 leading-relaxed mb-16 font-normal"
-        >
-          Whether you share similar aspirations or have complementary goals, let&apos;s connect and explore how we can
-          support each other&apos;s journey toward meaningful achievements and lasting impact.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-8 justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05, y: -4, rotateZ: 1 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-12 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 cursor-pointer relative overflow-hidden"
-            onClick={() => (window.location.href = '/contact')}
-            style={{
-              boxShadow: `0 10px 30px rgba(34, 211, 238, 0.4)`,
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/15 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">Join the Journey</span>
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -4, rotateZ: -1 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-12 py-5 border-2 border-neutral-600 text-neutral-300 font-bold hover:bg-neutral-800 hover:border-cyan-500 hover:text-cyan-200 transition-all duration-300 cursor-pointer relative overflow-hidden"
-            onClick={() => (window.location.href = '/projects')}
-            style={{
-              boxShadow: `0 6px 25px rgba(0, 0, 0, 0.3)`,
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/8 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="relative z-10">See Current Progress</span>
-          </motion.button>
-        </motion.div>
-      </div>
-    </div>
-  </motion.section>
-);
 
 // Main Dreams Page Component
 export default function DreamsPage() {
@@ -830,7 +761,7 @@ export default function DreamsPage() {
           ))}
         </main>
 
-        <CTASection />
+
       </div>
 
       <style jsx>{`

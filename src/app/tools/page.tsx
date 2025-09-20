@@ -492,68 +492,7 @@ const ToolsStats = () => (
 );
 
 // Call to Action Section
-const CTASection = () => (
-  <motion.section
-    initial={{ opacity: 0, y: 60 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1.2 }}
-    viewport={{ once: true, margin: '-100px' }}
-    className="py-24"
-  >
-    <div className="container mx-auto px-6 text-center">
-      <div className="max-w-4xl mx-auto">
-        <motion.h3
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="text-5xl md:text-6xl font-bold text-white mb-8 tracking-tight"
-        >
-          Ready to Build Together?
-        </motion.h3>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-xl text-neutral-300 leading-relaxed mb-12 font-normal"
-        >
-          Leverage these professional tools and my expertise to bring your next project to life. Let&apos;s create
-          something exceptional with industry-standard development workflows.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="flex flex-col sm:flex-row gap-6 justify-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-600 text-white font-bold hover:from-pink-400 hover:to-fuchsia-500 transition-all duration-300 cursor-pointer shadow-lg"
-            onClick={() => (window.location.href = '/contact')}
-            style={{
-              boxShadow: `0 8px 25px rgba(236, 72, 153, 0.3)`,
-            }}
-          >
-            Start Your Project
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-10 py-4 border-2 border-neutral-600 text-neutral-300 font-bold hover:bg-neutral-800 hover:border-pink-500 hover:text-pink-200 transition-all duration-300 cursor-pointer"
-            onClick={() => (window.location.href = '/projects')}
-          >
-            View My Work
-          </motion.button>
-        </motion.div>
-      </div>
-    </div>
-  </motion.section>
-);
 
 // Main Tools Page Component
 export default function ToolsPage() {
