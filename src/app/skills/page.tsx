@@ -196,7 +196,6 @@ const PlanetNavigation = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [selectedPlanet, setSelectedPlanet] = useState<string | null>(null);
 
-
   const handlePlanetClick = (planet: (typeof planets)[0]) => {
     if (planet.path === '/skills') return;
     window.location.href = planet.path;
