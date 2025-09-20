@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/language-context';
+import type { Translations } from '@/lib/translations';
 
 // Types
 interface Tool {
@@ -430,7 +431,7 @@ const ToolCategorySection = ({ category, index }: { category: ToolCategory; inde
 );
 
 // Tools Overview Stats
-const ToolsStats = () => (
+const ToolsStats = ({ t }: { t: Translations }) => (
   <motion.section
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
@@ -446,19 +447,18 @@ const ToolsStats = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Toolkit Analytics</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t.toolkitAnalytics}</h2>
         <p className="text-neutral-300 text-lg font-normal max-w-3xl mx-auto">
-          Comprehensive metrics showcasing proficiency levels and practical experience across essential development and
-          design tools.
+          {t.toolsComprehensiveMetrics}
         </p>
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {[
-          { number: '9', label: 'Active Tools', description: 'Professional Arsenal', color: '#ec4899' },
-          { number: '4', label: 'Core Categories', description: 'Domain Coverage', color: '#db2777' },
-          { number: '82%', label: 'Avg Proficiency', description: 'Skill Mastery', color: '#be185d' },
-          { number: '24/7', label: 'Availability', description: 'Development Ready', color: '#9d174d' },
+          { number: '9', label: t.activeTools, description: t.professionalArsenal, color: '#ec4899' },
+          { number: '4', label: t.coreCategories, description: t.domainCoverage, color: '#db2777' },
+          { number: '82%', label: t.avgProficiency, description: t.skillMastery, color: '#be185d' },
+          { number: '24/7', label: t.availability, description: t.developmentReady, color: '#9d174d' },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -588,7 +588,7 @@ export default function ToolsPage() {
       <HeroSection />
 
       <div className="relative z-10">
-        <ToolsStats />
+        <ToolsStats t={t} />
 
         <main className="container mx-auto px-6 py-16">
           {toolsData.map((category, index) => (

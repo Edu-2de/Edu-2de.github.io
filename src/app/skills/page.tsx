@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/language-context';
+import type { Translations } from '@/lib/translations';
 
 // Types
 interface Skill {
@@ -23,138 +24,7 @@ interface SkillCategory {
   description: string;
 }
 
-// Skills Data
-const skillsData: SkillCategory[] = [
-  {
-    name: 'Frontend Development',
-    description: 'User interface and experience technologies',
-    color: 'from-amber-300 to-yellow-400',
-    skills: [
-      {
-        id: 1,
-        name: 'React',
-        category: 'Frontend',
-        level: 85,
-        experience: '2+ years',
-        description: 'Component-based UI development with hooks and state management',
-        projects: ['Portfolio Website', 'E-commerce Dashboard', 'Task Management App'],
-      },
-      {
-        id: 2,
-        name: 'Next.js',
-        category: 'Frontend',
-        level: 80,
-        experience: '1+ years',
-        description: 'Full-stack React framework with SSR and API routes',
-        projects: ['Personal Portfolio', 'Blog Platform', 'Business Website'],
-      },
-      {
-        id: 3,
-        name: 'TypeScript',
-        category: 'Frontend',
-        level: 75,
-        experience: '1+ years',
-        description: 'Type-safe JavaScript for scalable applications',
-        projects: ['React Applications', 'Node.js APIs', 'Configuration Tools'],
-      },
-      {
-        id: 4,
-        name: 'Tailwind CSS',
-        category: 'Frontend',
-        level: 90,
-        experience: '2+ years',
-        description: 'Utility-first CSS framework for rapid UI development',
-        projects: ['All Recent Projects', 'Component Libraries', 'Landing Pages'],
-      },
-    ],
-  },
-  {
-    name: 'Backend Development',
-    description: 'Server-side technologies and databases',
-    color: 'from-amber-400 to-orange-400',
-    skills: [
-      {
-        id: 5,
-        name: 'Node.js',
-        category: 'Backend',
-        level: 70,
-        experience: '1+ years',
-        description: 'JavaScript runtime for building scalable server applications',
-        projects: ['REST APIs', 'Real-time Chat App', 'Authentication Systems'],
-      },
-      {
-        id: 6,
-        name: 'Python',
-        category: 'Backend',
-        level: 65,
-        experience: '1+ years',
-        description: 'Versatile programming language for web development and automation',
-        projects: ['Data Processing Scripts', 'Web Scrapers', 'API Integrations'],
-      },
-      {
-        id: 7,
-        name: 'PostgreSQL',
-        category: 'Backend',
-        level: 60,
-        experience: '6 months',
-        description: 'Advanced open-source relational database system',
-        projects: ['User Management System', 'E-commerce Database', 'Analytics Platform'],
-      },
-      {
-        id: 8,
-        name: 'MongoDB',
-        category: 'Backend',
-        level: 55,
-        experience: '6 months',
-        description: 'NoSQL document database for flexible data storage',
-        projects: ['Content Management', 'User Profiles', 'Logging Systems'],
-      },
-    ],
-  },
-  {
-    name: 'Tools & Technologies',
-    description: 'Development tools and deployment platforms',
-    color: 'from-yellow-400 to-amber-500',
-    skills: [
-      {
-        id: 9,
-        name: 'Git',
-        category: 'Tools',
-        level: 85,
-        experience: '2+ years',
-        description: 'Version control system for tracking code changes',
-        projects: ['All Projects', 'Open Source Contributions', 'Team Collaboration'],
-      },
-      {
-        id: 10,
-        name: 'Docker',
-        category: 'Tools',
-        level: 50,
-        experience: '3 months',
-        description: 'Containerization platform for consistent deployments',
-        projects: ['Development Environment', 'Microservices', 'CI/CD Pipeline'],
-      },
-      {
-        id: 11,
-        name: 'VS Code',
-        category: 'Tools',
-        level: 95,
-        experience: '3+ years',
-        description: 'Primary code editor with extensive customization',
-        projects: ['Daily Development', 'Extension Configuration', 'Team Settings'],
-      },
-      {
-        id: 12,
-        name: 'Vercel',
-        category: 'Tools',
-        level: 80,
-        experience: '1+ years',
-        description: 'Platform for frontend deployment with serverless functions',
-        projects: ['Portfolio Hosting', 'Static Sites', 'API Deployment'],
-      },
-    ],
-  },
-];
+
 
 // Planet Navigation Data
 const planets = [
@@ -560,7 +430,7 @@ const SkillCategorySection = ({ category, index }: { category: SkillCategory; in
 );
 
 // Skills Overview Stats
-const SkillsStats = () => (
+const SkillsStats = ({ t }: { t: Translations }) => (
   <motion.section
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
@@ -576,18 +446,18 @@ const SkillsStats = () => (
         viewport={{ once: true }}
         className="text-center mb-24"
       >
-        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">Gravitational Statistics</h2>
+        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">{t.gravitationalStatistics}</h2>
         <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
-          Data collected from beyond the event horizon of my technological journey
+          {t.dataCollectedDescription}
         </p>
       </motion.div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-16">
         {[
-          { number: '12+', label: 'Technologies', description: 'Quantum Tools', color: '#fbbf24' },
-          { number: '20+', label: 'Projects', description: 'Stellar Objects', color: '#f59e0b' },
-          { number: '2+', label: 'Years', description: 'Light Years', color: '#d97706' },
-          { number: '∞', label: 'Learning', description: 'Infinite Mass', color: '#b45309' },
+          { number: '12+', label: t.skillsTechnologies, description: t.quantumTools, color: '#fbbf24' },
+          { number: '20+', label: t.skillsProjects, description: t.stellarObjects, color: '#f59e0b' },
+          { number: '2+', label: t.skillsYears, description: t.lightYears, color: '#d97706' },
+          { number: '∞', label: t.skillsLearning, description: t.infiniteMass, color: '#b45309' },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -631,6 +501,139 @@ const SkillsStats = () => (
 // Main Skills Page Component
 export default function SkillsPage() {
   const { t } = useLanguage();
+
+  // Skills Data with translations
+  const skillsData: SkillCategory[] = [
+    {
+      name: t.frontendDevelopmentTitle,
+      description: t.frontendDevelopmentDescription,
+      color: 'from-amber-300 to-yellow-400',
+      skills: [
+        {
+          id: 1,
+          name: 'React',
+          category: 'Frontend',
+          level: 85,
+          experience: '2+ years',
+          description: 'Component-based UI development with hooks and state management',
+          projects: ['Portfolio Website', 'E-commerce Dashboard', 'Task Management App'],
+        },
+        {
+          id: 2,
+          name: 'Next.js',
+          category: 'Frontend',
+          level: 80,
+          experience: '1+ years',
+          description: 'Full-stack React framework with SSR and API routes',
+          projects: ['Personal Portfolio', 'Blog Platform', 'Business Website'],
+        },
+        {
+          id: 3,
+          name: 'TypeScript',
+          category: 'Frontend',
+          level: 75,
+          experience: '1+ years',
+          description: 'Type-safe JavaScript for scalable applications',
+          projects: ['React Applications', 'Node.js APIs', 'Configuration Tools'],
+        },
+        {
+          id: 4,
+          name: 'Tailwind CSS',
+          category: 'Frontend',
+          level: 90,
+          experience: '2+ years',
+          description: 'Utility-first CSS framework for rapid UI development',
+          projects: ['Modern Web Apps', 'Landing Pages', 'Component Libraries'],
+        },
+        {
+          id: 5,
+          name: 'JavaScript',
+          category: 'Frontend',
+          level: 85,
+          experience: '3+ years',
+          description: 'Core programming language for web development',
+          projects: ['Interactive Websites', 'Web Applications', 'Browser Extensions'],
+        },
+      ],
+    },
+    {
+      name: t.backendDevelopmentTitle,
+      description: t.backendDevelopmentDescription,
+      color: 'from-blue-400 to-cyan-500',
+      skills: [
+        {
+          id: 6,
+          name: 'Node.js',
+          category: 'Backend',
+          level: 75,
+          experience: '1+ years',
+          description: 'JavaScript runtime for server-side development',
+          projects: ['REST APIs', 'Real-time Applications', 'Microservices'],
+        },
+        {
+          id: 7,
+          name: 'MongoDB',
+          category: 'Backend',
+          level: 70,
+          experience: '1+ years',
+          description: 'NoSQL database for flexible data storage',
+          projects: ['User Management System', 'E-commerce Database', 'Analytics Platform'],
+        },
+        {
+          id: 8,
+          name: 'Express.js',
+          category: 'Backend',
+          level: 75,
+          experience: '1+ years',
+          description: 'Web application framework for Node.js',
+          projects: ['API Development', 'Web Services', 'Backend Architecture'],
+        },
+      ],
+    },
+    {
+      name: t.fullStackToolsTitle,
+      description: t.fullStackToolsDescription,
+      color: 'from-yellow-400 to-amber-500',
+      skills: [
+        {
+          id: 9,
+          name: 'Git',
+          category: 'Tools',
+          level: 85,
+          experience: '2+ years',
+          description: 'Version control system for tracking code changes',
+          projects: ['All Projects', 'Team Collaboration', 'Open Source Contributions'],
+        },
+        {
+          id: 10,
+          name: 'VS Code',
+          category: 'Tools',
+          level: 90,
+          experience: '3+ years',
+          description: 'Code editor with extensive plugin ecosystem',
+          projects: ['Daily Development', 'Code Reviews', 'Debugging Sessions'],
+        },
+        {
+          id: 11,
+          name: 'Figma',
+          category: 'Tools',
+          level: 80,
+          experience: '2+ years',
+          description: 'Design tool for UI/UX prototyping and collaboration',
+          projects: ['Design Systems', 'Wireframes', 'User Interface Mockups'],
+        },
+        {
+          id: 12,
+          name: 'Vercel',
+          category: 'Tools',
+          level: 85,
+          experience: '1+ years',
+          description: 'Platform for frontend deployment and hosting',
+          projects: ['Portfolio Deployment', 'Static Sites', 'Full-stack Applications'],
+        },
+      ],
+    },
+  ];
 
   // Hero Section with translations
   const HeroSection = () => (
@@ -723,7 +726,7 @@ export default function SkillsPage() {
       <PlanetNavigation />
       <HeroSection />{' '}
       <div className="relative z-10">
-        <SkillsStats />
+        <SkillsStats t={t} />
 
         <main className="container mx-auto px-6 py-20">
           {skillsData.map((category, index) => (

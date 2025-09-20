@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/language-context';
+import type { Translations } from '@/lib/translations';
 
 // Types
 interface Dream {
@@ -582,13 +583,13 @@ const DreamCategorySection = ({ category, index }: { category: DreamCategory; in
 );
 
 // Dreams Overview Stats
-const DreamsStats = () => (
+const DreamsStats = ({ t }: { t: Translations }) => (
   <motion.section
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
-    transition={{ duration: 1.4 }}
+    transition={{ duration: 1.5 }}
     viewport={{ once: true, margin: '-120px' }}
-    className="py-24 bg-neutral-800/30"
+    className="py-40"
   >
     <div className="container mx-auto px-6">
       <motion.div
@@ -596,57 +597,52 @@ const DreamsStats = () => (
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        className="text-center mb-20"
+        className="text-center mb-24"
       >
-        <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 tracking-tight">Vision Analytics</h2>
-        <p className="text-neutral-300 text-xl font-normal max-w-3xl mx-auto leading-relaxed">
-          Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward
-          realization.
+        <h2 className="text-5xl md:text-6xl font-light text-neutral-100 mb-8">{t.visionAnalytics}</h2>
+        <p className="text-neutral-400 text-xl font-light max-w-3xl mx-auto leading-relaxed">
+          {t.strategicGoalsDescription}
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-16">
         {[
-          { number: '8', label: 'Active Dreams', description: 'Vision Pipeline', color: '#22d3ee' },
-          { number: '4', label: 'Life Areas', description: 'Holistic Growth', color: '#06b6d4' },
-          { number: '3', label: 'In Progress', description: 'Active Pursuit', color: '#0891b2' },
-          { number: '5-10', label: 'Year Horizon', description: 'Strategic Timeline', color: '#0e7490' },
+          { number: '8', label: t.activeDreams, description: t.visionPipeline, color: '#22d3ee' },
+          { number: '4', label: t.lifeAreas, description: t.holisticGrowth, color: '#06b6d4' },
+          { number: '3', label: t.inProgress, description: t.activePursuit, color: '#0891b2' },
+          { number: '5-10', label: t.yearHorizon, description: t.strategicTimeline, color: '#0e7490' },
         ].map((stat, index) => (
           <motion.div
             key={index}
-            initial={{ scale: 0.8, opacity: 0, y: 40, rotateY: -20 }}
-            whileInView={{ scale: 1, opacity: 1, y: 0, rotateY: 0 }}
+            initial={{ scale: 0.8, opacity: 0, y: 40 }}
+            whileInView={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2, duration: 1 }}
             viewport={{ once: true }}
-            className="group text-center p-8 bg-neutral-800 border border-neutral-700 hover:border-cyan-500 transition-all duration-500 relative overflow-hidden"
-            style={{
-              boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3)`,
-            }}
+            className="group text-center relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
             <motion.div
-              className="text-5xl md:text-6xl font-bold text-white mb-4 group-hover:text-cyan-200 transition-colors duration-500 relative z-10"
-              whileHover={{ scale: 1.1, y: -5, rotateZ: 3 }}
+              className="text-6xl md:text-7xl font-extralight text-neutral-100 mb-6 group-hover:text-purple-200 transition-colors duration-500 relative"
+              whileHover={{ scale: 1.1, y: -5 }}
               transition={{ duration: 0.3 }}
               style={{
-                textShadow: `0 0 20px ${stat.color}40`,
+                textShadow: `0 0 20px ${stat.color}30`,
               }}
             >
               {stat.number}
             </motion.div>
-            <div className="text-lg font-bold text-neutral-200 mb-3 relative z-10">{stat.label}</div>
-            <div className="text-sm text-neutral-400 font-normal relative z-10">{stat.description}</div>
+            <div className="text-xl font-light text-neutral-300 mb-3">{stat.label}</div>
+            <div className="text-sm text-neutral-500 font-light">{stat.description}</div>
             <motion.div
-              className="w-16 h-1 mx-auto mt-6 bg-cyan-500 relative z-10"
+              className="w-16 h-0.5 mx-auto mt-4 rounded-full bg-purple-400"
               style={{
-                boxShadow: `0 0 10px rgba(34, 211, 238, 0.5)`,
+                boxShadow: `0 0 10px ${stat.color}30`,
               }}
-              initial={{ scaleX: 0, rotateZ: -5 }}
-              whileInView={{ scaleX: 1, rotateZ: 0 }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
               transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
               viewport={{ once: true }}
             />
+
           </motion.div>
         ))}
       </div>
@@ -752,7 +748,7 @@ export default function DreamsPage() {
       <HeroSection />
 
       <div className="relative z-10">
-        <DreamsStats />
+        <DreamsStats t={t} />
 
         <main className="container mx-auto px-6 py-20">
           {dreamsData.map((category, index) => (

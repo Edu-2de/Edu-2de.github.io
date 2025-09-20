@@ -309,6 +309,18 @@ export interface Translations {
   planetExperience: string;
   completedProjects: string;
 
+  // Skills Stats
+  gravitationalStatistics: string;
+  dataCollectedDescription: string;
+  skillsTechnologies: string;
+  skillsProjects: string;
+  skillsYears: string;
+  skillsLearning: string;
+  quantumTools: string;
+  stellarObjects: string;
+  lightYears: string;
+  infiniteMass: string;
+
   // Tools page
   toolsTitle: string;
   digitalToolkit: string;
@@ -320,6 +332,22 @@ export interface Translations {
   codingTools: string;
   designTools: string;
   productivityTools: string;
+  
+  // Tools Stats
+  toolkitAnalytics: string;
+  toolsComprehensiveMetrics: string;
+  toolsCategories: string;
+  professionalTools: string;
+  availability: string;
+  activeDevelopment: string;
+  developmentReady: string;
+  toolsMastery: string;
+  activeTools: string;
+  coreCategories: string;
+  avgProficiency: string;
+  professionalArsenal: string;
+  domainCoverage: string;
+  skillMastery: string;
 
   // Dreams page
   dreamsTitle: string;
@@ -331,6 +359,18 @@ export interface Translations {
   globalImpact: string;
   myDreams: string;
   motivation: string;
+  
+  // Dreams Stats
+  visionAnalytics: string;
+  strategicGoalsDescription: string;
+  activeDreams: string;
+  lifeAreas: string;
+  inProgress: string;
+  yearHorizon: string;
+  visionPipeline: string;
+  holisticGrowth: string;
+  activePursuit: string;
+  strategicTimeline: string;
 
   // Hero typing phrases
   typingPhrases: string[];
@@ -690,6 +730,18 @@ export const translations: Record<Language, Translations> = {
     planetExperience: 'Experience',
     completedProjects: 'Completed Projects',
 
+    // Skills Stats
+    gravitationalStatistics: 'Gravitational Statistics',
+    dataCollectedDescription: 'Data collected from beyond the event horizon of my technological journey',
+    skillsTechnologies: 'Technologies',
+    skillsProjects: 'Projects',
+    skillsYears: 'Years',
+    skillsLearning: 'Learning',
+    quantumTools: 'Quantum Tools',
+    stellarObjects: 'Stellar Objects',
+    lightYears: 'Light Years',
+    infiniteMass: 'Infinite Mass',
+
     // Tools page
     toolsTitle: 'Tools Universe',
     digitalToolkit: 'Digital Toolkit',
@@ -702,6 +754,22 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Coding Tools',
     designTools: 'Design Tools',
     productivityTools: 'Productivity Tools',
+    
+    // Tools Stats
+    toolkitAnalytics: 'Toolkit Analytics',
+    toolsComprehensiveMetrics: 'Comprehensive metrics showcasing proficiency levels and practical experience across essential development and design tools.',
+    toolsCategories: 'Categories',
+    professionalTools: 'Professional Tools',
+    availability: 'Availability',
+    activeDevelopment: 'Active Development',
+    developmentReady: 'Development Ready',
+    toolsMastery: 'Tools Mastery',
+    activeTools: 'Active Tools',
+    coreCategories: 'Core Categories',
+    avgProficiency: 'Avg Proficiency',
+    professionalArsenal: 'Professional Arsenal',
+    domainCoverage: 'Domain Coverage',
+    skillMastery: 'Skill Mastery',
 
     // Dreams page
     dreamsTitle: 'Dreams Universe',
@@ -714,6 +782,18 @@ export const translations: Record<Language, Translations> = {
     globalImpact: 'Global Impact',
     myDreams: 'My Dreams',
     motivation: 'Motivation',
+    
+    // Dreams Stats
+    visionAnalytics: 'Vision Analytics',
+    strategicGoalsDescription: 'Strategic goals mapped across different life dimensions, each with clear timelines and actionable steps toward realization.',
+    activeDreams: 'Active Dreams',
+    lifeAreas: 'Life Areas',
+    inProgress: 'In Progress',
+    yearHorizon: 'Year Horizon',
+    visionPipeline: 'Vision Pipeline',
+    holisticGrowth: 'Holistic Growth',
+    activePursuit: 'Active Pursuit',
+    strategicTimeline: 'Strategic Timeline',
   },
   pt: {
     // Navigation
@@ -1061,6 +1141,18 @@ export const translations: Record<Language, Translations> = {
     planetExperience: 'Experiência',
     completedProjects: 'Projetos Completados',
 
+    // Skills Stats
+    gravitationalStatistics: 'Estatísticas Gravitacionais',
+    dataCollectedDescription: 'Dados coletados além do horizonte de eventos da minha jornada tecnológica',
+    skillsTechnologies: 'Tecnologias',
+    skillsProjects: 'Projetos',
+    skillsYears: 'Anos',
+    skillsLearning: 'Aprendizado',
+    quantumTools: 'Ferramentas Quânticas',
+    stellarObjects: 'Objetos Estelares',
+    lightYears: 'Anos-luz',
+    infiniteMass: 'Massa Infinita',
+
     // Tools page
     toolsTitle: 'Universo de Ferramentas',
     digitalToolkit: 'Kit de Ferramentas Digitais',
@@ -1073,6 +1165,22 @@ export const translations: Record<Language, Translations> = {
     codingTools: 'Ferramentas de Código',
     designTools: 'Ferramentas de Design',
     productivityTools: 'Ferramentas de Produtividade',
+    
+    // Tools Stats
+    toolkitAnalytics: 'Análise do Kit de Ferramentas',
+    toolsComprehensiveMetrics: 'Métricas abrangentes mostrando níveis de proficiência e experiência prática em ferramentas essenciais de desenvolvimento e design.',
+    toolsCategories: 'Categorias',
+    professionalTools: 'Ferramentas Profissionais',
+    availability: 'Disponibilidade',
+    activeDevelopment: 'Desenvolvimento Ativo',
+    developmentReady: 'Pronto para Desenvolvimento',
+    toolsMastery: 'Domínio de Ferramentas',
+    activeTools: 'Ferramentas Ativas',
+    coreCategories: 'Categorias Principais',
+    avgProficiency: 'Proficiência Média',
+    professionalArsenal: 'Arsenal Profissional',
+    domainCoverage: 'Cobertura de Domínio',
+    skillMastery: 'Domínio de Habilidades',
 
     // Dreams page
     dreamsTitle: 'Universo dos Sonhos',
@@ -1085,6 +1193,18 @@ export const translations: Record<Language, Translations> = {
     globalImpact: 'Impacto Global',
     myDreams: 'Meus Sonhos',
     motivation: 'Motivação',
+    
+    // Dreams Stats
+    visionAnalytics: 'Análise de Visão',
+    strategicGoalsDescription: 'Objetivos estratégicos mapeados em diferentes dimensões da vida, cada um com cronogramas claros e passos acionáveis para realização.',
+    activeDreams: 'Sonhos Ativos',
+    lifeAreas: 'Áreas da Vida',
+    inProgress: 'Em Progresso',
+    yearHorizon: 'Horizonte de Anos',
+    visionPipeline: 'Pipeline de Visão',
+    holisticGrowth: 'Crescimento Holístico',
+    activePursuit: 'Busca Ativa',
+    strategicTimeline: 'Cronograma Estratégico',
   },
 };
 
