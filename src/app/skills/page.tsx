@@ -801,7 +801,7 @@ export default function SkillsPage() {
           ))}
         </main>
 
-        <CTASection />
+
       </div>
       <style jsx>{`
         @keyframes spin {
