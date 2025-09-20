@@ -790,6 +790,8 @@ const CTASection = () => (
 
 // Main Skills Page Component
 export default function SkillsPage() {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-neutral-900 text-white relative overflow-hidden">
       <StarsBackground />
